@@ -70,7 +70,7 @@ else
         <!-- Default Card Example -->
         <div class="card mb-12">
             <div class="card-header">
-                SKPD
+                Penyimpanan
             </div>
             <div class="card-body">
                 <div class="row">

@@ -26,14 +26,14 @@ if(!empty($skpd))
                         <div class="form-group row" style="display:none">
                             <label for="id" class="col-sm-3 col-form-label">ID</label>
                             <div class="col-sm-6">
-                                <input disabled type="text" class="form-control" id="id" name="id" value="<?php if (isset($skpd['id'])) { echo $skpd['id'];}else echo "" ?>">
+                                <input type="text" class="form-control" id="id" name="id" value="<?php if (isset($skpd['id'])) { echo $skpd['id'];} else echo "" ?>">
                             </div>
                             <?= form_error('id', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group row">
                             <label for="tahun" class="col-sm-3 col-form-label">Tahun</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="tahun" name="tahun" value="<?= $tahun ?>">
+                                <input type="text" class="form-control" disabled   id="tahun" name="tahun" value="<?= $tahun ?>">
                             </div>
                             <?= form_error('tahun', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>

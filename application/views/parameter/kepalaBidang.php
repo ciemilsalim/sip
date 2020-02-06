@@ -31,7 +31,7 @@
                         foreach ($kbidang as $b) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
-                            <td><?= $b['id_bidang']; ?></td>
+                            <td><?= $b['kd_kep_bid_skpd']; ?></td>
                             <td><?= $b['nama_bidang']; ?></td>
                             <td><?= $b['nip']; ?></td>
                             <td><?= $b['nama']; ?></td>

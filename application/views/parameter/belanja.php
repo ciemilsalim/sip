@@ -11,27 +11,27 @@
             <?= $this->session->flashdata('message');?>
 
 
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#bidangModal">Tambah Belanja</a>
+            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#belanjaModal">Tambah Belanja</a>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Kode Bidang</th>
-                        <th scope="col">Bidang</th>
+                        <th scope="col">Kode Belanja</th>
+                        <th scope="col">Belanja</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
                     <?php 
-                    if (isset($bidang)) 
+                    if (isset($belanja)) 
                     {
-                        foreach ($bidang as $b) : ?>
+                        foreach ($belanja as $b) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
-                            <td><?= $b['id_bidang']; ?></td>
-                            <td><?= $b['nama_bidang']; ?></td>
-                            <td><a href="#ubahbidangModal<?=$b['id_bidang']?>" data-toggle="modal" class="badge badge-success">Edit</a> </td>
+                            <td><?= $b['kd_belanja']; ?></td>
+                            <td><?= $b['nama_belanja']; ?></td>
+                            <td><a href="#ubahbidangModal<?=$b['id_belanja']?>" data-toggle="modal" class="badge badge-success">Edit</a> </td>
                         </tr>
                         <?php endforeach; }?>
                 </tbody>
@@ -47,21 +47,21 @@
 <!-- End of Main Content -->
 
 <!-- Tambah -->
-<div class="modal fade" id="bidangModal" tabindex="-1" role="dialog" aria-labelledby="bidangModalLabel" aria-hidden="true">
+<div class="modal fade" id="belanjaModal" tabindex="-1" role="dialog" aria-labelledby="belanjaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bidangModalLabel">Tambah Bidang</h5>
+                <h5 class="modal-title" id="belanjaModalLabel">Tambah Belanja</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('parameter/bidang'); ?>" method="POST">
+            <form action="<?= base_url('parameter/belanja'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama_bidang" name="nama_bidang" placeholder="Nama Bidang">
+                        <input type="text" class="form-control" id="nama_bidang" name="nama_belanja" placeholder="Nama Belanja">
                     </div>
-                    <?= form_error('nama_bidang', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <?= form_error('belanja', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -75,25 +75,25 @@
 
 <!-- ubah -->
 <?php 
-    if (isset($bidang)) 
+    if (isset($belanja)) 
     {
-        foreach ($bidang as $b) 
+        foreach ($belanja as $b) 
         {
 ?>
 
-<div class="modal fade" id="ubahbidangModal<?=$b['id_bidang']?>" tabindex="-1" role="dialog" aria-labelledby="bidangModalLabel" aria-hidden="true">
+<div class="modal fade" id="ubahbidangModal<?=$b['id_belanja']?>" tabindex="-1" role="dialog" aria-labelledby="bidangModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bidangModalLabel">Tambah Bidang</h5>
+                <h5 class="modal-title" id="bidangModalLabel">Tambah Belanja</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url("parameter/editbidang/".$b['id_bidang']); ?>" method="POST">
+            <form action="<?= base_url("parameter/editbelanja/".$b['id_belanja']); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama_bidang" name="nama_bidang" placeholder="Nama Bidang" value="<?php echo $b['nama_bidang']; ?>">
+                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Bidang" value="<?php echo $b['nama_belanja']; ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
