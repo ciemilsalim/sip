@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+
 -- Generation Time: Feb 07, 2020 at 01:05 AM
+
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -6752,7 +6754,9 @@ CREATE TABLE `tb_pemda` (
 --
 
 INSERT INTO `tb_pemda` (`id_pemda`, `tahun`, `nama_pemda`, `ibu_kota`, `alamat`, `logo`) VALUES
+
 (13, '2020', 'Kabupaten Buol', 'Buol', 'Jl. Syarief Mansyur', 'k1.jpg'),
+
 (14, '2019', 'dfhdhfdh', 'fhh', 'gh gfj', '859915_3d07585b-26d5-467b-b42e-284349096add_2048_2048.jpg');
 
 -- --------------------------------------------------------
