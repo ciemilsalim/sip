@@ -6,8 +6,8 @@
 
 
     <div class="row">
-        <div class="col-lg-12">
-            <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
+        <div class="col-lg-6">
+            <?= form_error('role', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
 
@@ -22,17 +22,20 @@
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($role as $r) : ?>
+                    <?php
+                    if (isset($role)) 
+                    {
+                         foreach ($role as $r) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id'] ?>" class="badge badge-warning">Access</a> |
-                                <a href="" class="badge badge-success">Edit</a> |
-                                <a href="" class="badge badge-danger">Hapus</a>
+                                <a href="#ubahroleModal<?=$r['id']?>" data-toggle="modal" class="badge badge-success">Edit</a> |
+                                <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?=base_url('admin/deleterole/'.$r['id']); ?>" class="badge badge-danger">Hapus</a>
                             </td>
                         </tr>
-                    <?php endforeach ?>
+                         <?php endforeach; }?>
                 </tbody>
 
             </table>
@@ -69,3 +72,42 @@
         </div>
     </div>
 </div>
+
+
+<!-- ubah -->
+<?php 
+    if (isset($role)) 
+    {
+        foreach ($role as $b) 
+        {
+?>
+
+<!-- Modal -->
+<div class="modal fade" id="ubahroleModal<?=$b['id']?>" tabindex="-1" role="dialog" aria-labelledby="ubahroleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ubahroleModalLabel">Tambah Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url("admin/editrole/".$b['id']); ?>" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="role" name="role" placeholder="nama role" value="<?php echo $b['role']; ?>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php 
+        } 
+    }
+?>
