@@ -12,7 +12,7 @@ class Parameter extends CI_Controller
     {
         $data['title'] = 'Identitas';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        
+
 
         // $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|numeric');
         $this->form_validation->set_rules('nama_pemda', 'Nama Pemda', 'required|trim');
@@ -20,10 +20,10 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->db->where('tahun',$this->session->userdata('tahun'));
+            $this->db->where('tahun', $this->session->userdata('tahun'));
             $data['identitas'] = $this->db->get('tb_pemda')->row_array();
 
-            $data['identitas']['tahun'] =$this->session->userdata('tahun');
+            $data['identitas']['tahun'] = $this->session->userdata('tahun');
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -32,59 +32,56 @@ class Parameter extends CI_Controller
             $this->load->view('templates/footer');
         } else {
 
-            $query="SELECT *FROM tb_pemda where tahun=".$this->session->userdata('tahun');
+            $query = "SELECT *FROM tb_pemda where tahun=" . $this->session->userdata('tahun');
             $result = $this->db->query($query)->result_array();
-            $count = count( $result);
+            $count = count($result);
 
-       
-            if (!empty($count))
-            {
+
+            if (!empty($count)) {
                 $this->edit();
-            }
-            else
-            {
+            } else {
 
-                    $tahun = $this->input->post('tahun');
-                    $nama_pemda = $this->input->post('nama_pemda');
-                    $ibu_kota = $this->input->post('ibu_kota');
-                    $alamat = $this->input->post('alamat');
+                $tahun = $this->input->post('tahun');
+                $nama_pemda = $this->input->post('nama_pemda');
+                $ibu_kota = $this->input->post('ibu_kota');
+                $alamat = $this->input->post('alamat');
 
-                    //cek gambar
-                    $upload_image = $_FILES['logo']['name'];
-                    if ($upload_image) {
-                        $config['allowed_types'] = 'gif|png|jpg';
-                        $config['max_size'] = '2040';
-                        $config['upload_path'] = './assets/img/logo/';
+                //cek gambar
+                $upload_image = $_FILES['logo']['name'];
+                if ($upload_image) {
+                    $config['allowed_types'] = 'gif|png|jpg';
+                    $config['max_size'] = '2040';
+                    $config['upload_path'] = './assets/img/logo/';
 
-                        $this->load->library('upload', $config);
+                    $this->load->library('upload', $config);
 
-                        if ($this->upload->do_upload('logo')) {
+                    if ($this->upload->do_upload('logo')) {
 
-                            $old_image = $data['user']['logo'];
-                            if ($old_image != 'default.jpg') {
-                                unlink(FCPATH . 'assets/img/logo/' . $old_image);
-                            }
-
-                            $new_image = $this->upload->data('file_name');
-                            $this->db->set('logo', $new_image);
-                        } else {
-                            echo $this->upload->display_errors();
+                        $old_image = $data['user']['logo'];
+                        if ($old_image != 'default.jpg') {
+                            unlink(FCPATH . 'assets/img/logo/' . $old_image);
                         }
+
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('logo', $new_image);
+                    } else {
+                        echo $this->upload->display_errors();
                     }
-
-                    $data = array(
-                        'tahun' => $this->session->userdata('tahun'),
-                        'nama_pemda' => $nama_pemda,
-                        'ibu_kota' => $ibu_kota,
-                        'alamat' => $alamat
-                    );
-
-                    
-                    $this->db->insert('tb_pemda', $data);
-
-                    $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil disimpan</div>');
-                    redirect('parameter');
                 }
+
+                $data = array(
+                    'tahun' => $this->session->userdata('tahun'),
+                    'nama_pemda' => $nama_pemda,
+                    'ibu_kota' => $ibu_kota,
+                    'alamat' => $alamat
+                );
+
+
+                $this->db->insert('tb_pemda', $data);
+
+                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil disimpan</div>');
+                redirect('parameter');
+            }
         }
     }
 
@@ -92,7 +89,7 @@ class Parameter extends CI_Controller
     {
         $data['title'] = 'Edit Identitas';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-       
+
         $tahun = $this->session->userdata('tahun');
         $nama_pemda = $this->input->post('nama_pemda');
         $ibu_kota = $this->input->post('ibu_kota');
@@ -133,7 +130,6 @@ class Parameter extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil diupdate</div>');
         redirect('parameter');
-        
     }
 
 
@@ -150,34 +146,28 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
         $this->form_validation->set_rules('alamat_pimpinan', 'Alamat Pimpinan', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
+        if ($this->form_validation->run() == false) {
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
-            $this->db->where($array); 
-            
+
+            $this->db->where($array);
+
             $data['skpd'] = $this->db->get('tb_skpd')->row_array();
-            $data['skpd']['tahun'] =$this->session->userdata('tahun');
+            $data['skpd']['tahun'] = $this->session->userdata('tahun');
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/skpd', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
-            $query="SELECT *FROM tb_skpd where tahun=".$this->session->userdata('tahun');
+        } else {
+            $query = "SELECT *FROM tb_skpd where tahun=" . $this->session->userdata('tahun');
             $result = $this->db->query($query)->result_array();
-            $count = count( $result);
+            $count = count($result);
 
-       
-            if (!empty($count))
-            {
+
+            if (!empty($count)) {
                 $this->editskpd();
-            }
-            else
-            {
+            } else {
 
                 $tahun = $this->session->userdata('tahun');
                 $kd_urusan = $this->session->userdata('kd_urusan');
@@ -190,7 +180,7 @@ class Parameter extends CI_Controller
                 $nama_pimpinan = $this->input->post('nama_pimpinan');
                 $jabatan = $this->input->post('jabatan');
                 $alamat_pimpinan = $this->input->post('alamat_pimpinan');
-            
+
                 //cek gambar
                 $upload_image = $_FILES['foto']['name'];
                 if ($upload_image) {
@@ -213,10 +203,10 @@ class Parameter extends CI_Controller
                         echo $this->upload->display_errors();
                     }
                 }
-                
+
 
                 $data = array(
-                    'id'=>'',
+                    'id' => '',
                     'tahun' => $tahun,
                     'kd_urusan' => $kd_urusan,
                     'kd_bidang' => $kd_bidang,
@@ -230,7 +220,7 @@ class Parameter extends CI_Controller
                     'alamat_pimpinan' => $alamat_pimpinan
                 );
 
-        
+
                 $this->db->insert('tb_skpd', $data);
                 $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
                 redirect('parameter/skpd');
@@ -255,7 +245,7 @@ class Parameter extends CI_Controller
         $nama_pimpinan = $this->input->post('nama_pimpinan');
         $jabatan = $this->input->post('jabatan');
         $alamat_pimpinan = $this->input->post('alamat_pimpinan');
-           
+
         //cek gambar
         $upload_image = $_FILES['foto']['name'];
         if ($upload_image) {
@@ -274,7 +264,7 @@ class Parameter extends CI_Controller
 
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('foto', $new_image);
-             } else {
+            } else {
                 echo $this->upload->display_errors();
             }
         }
@@ -292,14 +282,13 @@ class Parameter extends CI_Controller
             'alamat_pimpinan' => $alamat_pimpinan
         );
 
-    
+
 
         $this->db->where('id', $id);
         $this->db->update('tb_skpd', $data);
 
         $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diupdate</div>');
         redirect('parameter/skpd');
-        
     }
 
 
@@ -311,19 +300,18 @@ class Parameter extends CI_Controller
 
         $this->load->model('Program_model', 'objprogram');
 
-        $data['program'] = $this->objprogram->getProgram($this->session->userdata('kd_urusan'),$this->session->userdata('kd_bidang'));
-        
-       
+        $data['program'] = $this->objprogram->getProgram($this->session->userdata('kd_urusan'), $this->session->userdata('kd_bidang'));
+
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('parameter/program', $data);
         $this->load->view('templates/footer');
-      
     }
 
 
-    
+
     public function kegiatan()
     {
         $data['title'] = 'Kegiatan';
@@ -331,15 +319,14 @@ class Parameter extends CI_Controller
 
         $this->load->model('Kegiatan_model', 'objkegiatan');
 
-        $data['kegiatan'] = $this->objkegiatan->getKegiatan($this->session->userdata('kd_urusan'),$this->session->userdata('kd_bidang'));
-        
-       
+        $data['kegiatan'] = $this->objkegiatan->getKegiatan($this->session->userdata('kd_urusan'), $this->session->userdata('kd_bidang'));
+
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('parameter/kegiatan', $data);
         $this->load->view('templates/footer');
-      
     }
 
 
@@ -358,20 +345,19 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('nama3', 'Nama', 'required');
         $this->form_validation->set_rules('jabatan3', 'Jabatan', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
+        if ($this->form_validation->run() == false) {
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','1'); 
+
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '1');
             $data['kode1'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','2'); 
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '2');
             $data['kode2'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','3'); 
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '3');
             $data['kode3'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
             $this->load->view('templates/header', $data);
@@ -379,9 +365,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/penanggungJawab', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $tahun = $this->session->userdata('tahun');
             $kd_urusan = $this->session->userdata('kd_urusan');
             $kd_bidang = $this->session->userdata('kd_bidang');
@@ -399,7 +383,7 @@ class Parameter extends CI_Controller
 
 
             $data1 = array(
-                'id'=>'',
+                'id' => '',
                 'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
@@ -412,7 +396,7 @@ class Parameter extends CI_Controller
             );
 
             $data2 = array(
-                'id'=>'',
+                'id' => '',
                 'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
@@ -425,7 +409,7 @@ class Parameter extends CI_Controller
             );
 
             $data3 = array(
-                'id'=>'',
+                'id' => '',
                 'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
@@ -463,20 +447,19 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('jabatan3', 'Jabatan', 'required');
 
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
-        if ($this->form_validation->run() == false) 
-        {
-        
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','1'); 
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '1');
             $data['kode1'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','2'); 
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '2');
             $data['kode2'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
-            $this->db->where($array); 
-            $this->db->where('kd_jabatan','3'); 
+            $this->db->where($array);
+            $this->db->where('kd_jabatan', '3');
             $data['kode3'] = $this->db->get('tb_penanggung_jawab')->row_array();
 
             $this->load->view('templates/header', $data);
@@ -484,9 +467,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/penanggungJawab', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $tahun = $this->session->userdata('tahun');
             $kd_urusan = $this->session->userdata('kd_urusan');
             $kd_bidang = $this->session->userdata('kd_bidang');
@@ -540,16 +521,16 @@ class Parameter extends CI_Controller
             );
 
 
-          
-            $this->db->where($array); 
 
-            $this->db->where('kd_jabatan','1'); 
+            $this->db->where($array);
+
+            $this->db->where('kd_jabatan', '1');
             $this->db->update('tb_penanggung_jawab', $data1);
 
-            $this->db->where('kd_jabatan','2'); 
+            $this->db->where('kd_jabatan', '2');
             $this->db->update('tb_penanggung_jawab', $data2);
 
-            $this->db->where('kd_jabatan','3'); 
+            $this->db->where('kd_jabatan', '3');
             $this->db->update('tb_penanggung_jawab', $data3);
 
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diupdate</div>');
@@ -567,13 +548,12 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('penyimpanan', 'Penyimpanan', 'required');
 
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
-    
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
-            
+
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
+
             $data['penyimpanan'] = $this->db->get('tb_penyimpanan')->row_array();
 
             $this->load->view('templates/header', $data);
@@ -581,18 +561,16 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/penyimpanan', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $tahun = $this->session->userdata('tahun');
             $penyimpanan = $this->input->post('penyimpanan');
             $kd_urusan = $this->session->userdata('kd_urusan');
             $kd_bidang = $this->session->userdata('kd_bidang');
             $kd_unit = $this->session->userdata('kd_unit');
             $kd_sub = $this->session->userdata('kd_sub');
-          
+
             $data = array(
-                'id'=>'',
+                'id' => '',
                 'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
@@ -617,13 +595,12 @@ class Parameter extends CI_Controller
         $this->form_validation->set_rules('penyimpanan', 'Penyimpanan', 'required');
 
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
-    
-        if ($this->form_validation->run() == false) 
-        {
-           
-            $this->db->where($array); 
-            
+
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
+
             $data['penyimpanan'] = $this->db->get('tb_penyimpanan')->row_array();
 
             $this->load->view('templates/header', $data);
@@ -631,9 +608,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/penyimpanan', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
 
             $id = $this->input->post('id');
             $tahun = $this->session->userdata('tahun');
@@ -642,7 +617,7 @@ class Parameter extends CI_Controller
             $kd_bidang = $this->session->userdata('kd_bidang');
             $kd_unit = $this->session->userdata('kd_unit');
             $kd_sub = $this->session->userdata('kd_sub');
-          
+
             $data = array(
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
@@ -663,14 +638,20 @@ class Parameter extends CI_Controller
     {
         $data['title'] = 'Bidang';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
+        $array = array(
+            'kd_urusan' => $this->session->userdata('kd_urusan'),
+            'kd_bidang' => $this->session->userdata('kd_bidang'),
+            'kd_unit' => $this->session->userdata('kd_unit'),
+            'kd_sub' => $this->session->userdata('kd_sub'),
+            'tahun' => $this->session->userdata('tahun')
+        );
+
         $this->form_validation->set_rules('nama_bidang', 'Nama Bidang', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['bidang'] = $this->db->get('tb_bidang')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -678,9 +659,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/bidang', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $nama_bidang = $this->input->post('nama_bidang');
             $tahun = $this->session->userdata('tahun');
             $kd_urusan = $this->session->userdata('kd_urusan');
@@ -691,28 +670,25 @@ class Parameter extends CI_Controller
 
             $koneksi = mysqli_connect('localhost', 'root', '', 'db_sip');
 
-            $cek="SELECT * from tb_bidang";
-            $cek2=mysqli_query($koneksi,$cek);
-            $cek3=mysqli_num_rows($cek2);
-                                      
-            if ($cek3>0)
-            {                        
-                $sqll="SELECT MAX(kd_bid_skpd) from tb_bidang where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
-                $hasill = mysqli_query($koneksi,$sqll);
+            $cek = "SELECT * from tb_bidang";
+            $cek2 = mysqli_query($koneksi, $cek);
+            $cek3 = mysqli_num_rows($cek2);
+
+            if ($cek3 > 0) {
+                $sqll = "SELECT MAX(kd_bid_skpd) from tb_bidang where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
+                $hasill = mysqli_query($koneksi, $sqll);
                 $dataa = mysqli_fetch_array($hasill);
-                $maxid=$dataa[0];
+                $maxid = $dataa[0];
                 $maxid++;
-                $no=$maxid++; 
-            }
-            else
-            {
-                $no='1';
+                $no = $maxid++;
+            } else {
+                $no = '1';
             }
 
-          
+
             $data = array(
-                'id_bidang'=>'',
-                'tahun'=>$tahun,
+                'id_bidang' => '',
+                'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
                 'kd_unit' => $kd_unit,
@@ -734,13 +710,12 @@ class Parameter extends CI_Controller
         $data['title'] = 'Bidang';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_bidang', 'Nama Bidang', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['bidang'] = $this->db->get('tb_bidang')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -748,17 +723,15 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/bidang', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $id_bidang['kd_bid_skpd'] = $this->uri->segment(3);
             $nama_bidang = $this->input->post('nama_bidang');
-          
+
             $data = array(
                 'nama_bidang' => $nama_bidang
             );
 
-            $this->db->where($array); 
+            $this->db->where($array);
             $this->db->where($id_bidang);
             $this->db->update('tb_bidang', $data);
 
@@ -773,10 +746,10 @@ class Parameter extends CI_Controller
     {
         $id['kd_bid_skpd'] = $this->uri->segment(3);
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
-        $this->db->where($array); 
-		$this->db->delete('tb_bidang', $id);
-		$this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
-		redirect('parameter/bidang');
+        $this->db->where($array);
+        $this->db->delete('tb_bidang', $id);
+        $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
+        redirect('parameter/bidang');
     }
 
 
@@ -785,15 +758,14 @@ class Parameter extends CI_Controller
         $data['title'] = 'Kepala Bidang';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_bidang', 'Nama Bidang', 'required');
         $this->form_validation->set_rules('nip', 'Nama Bidang', 'required');
         $this->form_validation->set_rules('nama', 'Nama Bidang', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $bidang = $this->db->get('tb_bidang')->result_array();
 
             $array1 = array('tb_kepala_bidang.kd_urusan' => $this->session->userdata('kd_urusan'), 'tb_kepala_bidang.kd_bidang' => $this->session->userdata('kd_bidang'), 'tb_kepala_bidang.kd_unit' => $this->session->userdata('kd_unit'), 'tb_kepala_bidang.kd_sub' => $this->session->userdata('kd_sub'), 'tb_kepala_bidang.tahun' => $this->session->userdata('tahun'));
@@ -801,25 +773,23 @@ class Parameter extends CI_Controller
             $this->db->select('*');
             $this->db->from('tb_kepala_bidang');
             $this->db->join('tb_bidang', 'tb_kepala_bidang.kd_bid_skpd = tb_bidang.kd_bid_skpd');
-            $this->db->where($array1); 
+            $this->db->where($array1);
             $data['kbidang'] = $this->db->get()->result_array();
 
-            $data['bidang']=array();
+            $data['bidang'] = array();
 
 
-            foreach ($bidang as $key1 =>$arr)
-            {
-                    $this->db->select('*'); 
-                    $this->db->from('tb_kepala_bidang');
-                    $this->db->where($array); 
-                    $this->db->where('kd_bid_skpd', $arr['kd_bid_skpd']);
-                    $query = $this->db->get();
-                    $result = $query->result_array();
-                    $count = count( $result);
-                    if (empty($count))
-                    {
-                        $data['bidang'][$arr['kd_bid_skpd']]=$arr['nama_bidang'];
-                    }
+            foreach ($bidang as $key1 => $arr) {
+                $this->db->select('*');
+                $this->db->from('tb_kepala_bidang');
+                $this->db->where($array);
+                $this->db->where('kd_bid_skpd', $arr['kd_bid_skpd']);
+                $query = $this->db->get();
+                $result = $query->result_array();
+                $count = count($result);
+                if (empty($count)) {
+                    $data['bidang'][$arr['kd_bid_skpd']] = $arr['nama_bidang'];
+                }
             }
 
 
@@ -828,9 +798,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/kepalaBidang', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $kd_bid_skpd = $this->input->post('nama_bidang');
             $nip = $this->input->post('nip');
             $nama = $this->input->post('nama');
@@ -838,9 +806,9 @@ class Parameter extends CI_Controller
             $kd_bidang = $this->session->userdata('kd_bidang');
             $kd_unit = $this->session->userdata('kd_unit');
             $kd_sub = $this->session->userdata('kd_sub');
-          
+
             $data = array(
-                'tahun'=> $this->session->userdata('tahun'),
+                'tahun' => $this->session->userdata('tahun'),
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
                 'kd_unit' => $kd_unit,
@@ -864,15 +832,14 @@ class Parameter extends CI_Controller
         $data['title'] = 'Kepala Bidang';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_bidang', 'Nama Bidang', 'required');
         $this->form_validation->set_rules('nip', 'Nama Bidang', 'required');
         $this->form_validation->set_rules('nama', 'Nama Bidang', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $bidang = $this->db->get('tb_bidang')->result_array();
 
             $array1 = array('tb_kepala_bidang.kd_urusan' => $this->session->userdata('kd_urusan'), 'tb_kepala_bidang.kd_bidang' => $this->session->userdata('kd_bidang'), 'tb_kepala_bidang.kd_unit' => $this->session->userdata('kd_unit'), 'tb_kepala_bidang.kd_sub' => $this->session->userdata('kd_sub'), 'tb_kepala_bidang.tahun' => $this->session->userdata('tahun'));
@@ -880,25 +847,23 @@ class Parameter extends CI_Controller
             $this->db->select('*');
             $this->db->from('tb_kepala_bidang');
             $this->db->join('tb_bidang', 'tb_kepala_bidang.kd_bid_skpd = tb_bidang.kd_bid_skpd');
-            $this->db->where($array1); 
+            $this->db->where($array1);
             $data['kbidang'] = $this->db->get()->result_array();
 
-            $data['bidang']=array();
+            $data['bidang'] = array();
 
 
-            foreach ($bidang as $key1 =>$arr)
-            {
-                    $this->db->select('*'); 
-                    $this->db->from('tb_kepala_bidang');
-                    $this->db->where($array); 
-                    $this->db->where('kd_bid_skpd', $arr['kd_bid_skpd']);
-                    $query = $this->db->get();
-                    $result = $query->result_array();
-                    $count = count( $result);
-                    if (empty($count))
-                    {
-                        $data['bidang'][$arr['kd_bid_skpd']]=$arr['nama_bidang'];
-                    }
+            foreach ($bidang as $key1 => $arr) {
+                $this->db->select('*');
+                $this->db->from('tb_kepala_bidang');
+                $this->db->where($array);
+                $this->db->where('kd_bid_skpd', $arr['kd_bid_skpd']);
+                $query = $this->db->get();
+                $result = $query->result_array();
+                $count = count($result);
+                if (empty($count)) {
+                    $data['bidang'][$arr['kd_bid_skpd']] = $arr['nama_bidang'];
+                }
             }
 
 
@@ -907,10 +872,8 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/kepalaBidang', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
-            $id_kbidang= $this->uri->segment(3);
+        } else {
+            $id_kbidang = $this->uri->segment(3);
             $id_bidang = $this->input->post('nama_bidang');
             $kd_kep_bidang = $this->input->post('nama_bidang');
             $nip = $this->input->post('nip');
@@ -920,7 +883,7 @@ class Parameter extends CI_Controller
             $kd_bidang = $this->session->userdata('kd_bidang');
             $kd_unit = $this->session->userdata('kd_unit');
             $kd_sub = $this->session->userdata('kd_sub');
-          
+
             $data = array(
                 'tahun' => $kd_urusan,
                 'kd_urusan' => $kd_urusan,
@@ -933,7 +896,7 @@ class Parameter extends CI_Controller
                 'nama' => $nama
             );
 
-            $this->db->where('id_kepala_bidang',$id_kbidang);
+            $this->db->where('id_kepala_bidang', $id_kbidang);
             $this->db->update('tb_kepala_bidang', $data);
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diubah</div>');
             redirect('parameter/kepalaBidang');
@@ -944,8 +907,8 @@ class Parameter extends CI_Controller
     public function deletekbidang()
     {
         $id['id_kepala_bidang'] = $this->uri->segment(3);
-		$this->db->delete('tb_kepala_bidang', $id);
-		$this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
+        $this->db->delete('tb_kepala_bidang', $id);
+        $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
         redirect('parameter/kepalaBidang');
     }
 
@@ -955,13 +918,12 @@ class Parameter extends CI_Controller
         $data['title'] = 'Belanja';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['belanja'] = $this->db->get('tb_belanja')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -969,9 +931,7 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/belanja', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $nama_belanja = $this->input->post('nama_belanja');
             $tahun = $this->session->userdata('tahun');
             $kd_urusan = $this->session->userdata('kd_urusan');
@@ -982,28 +942,25 @@ class Parameter extends CI_Controller
 
             $koneksi = mysqli_connect('localhost', 'root', '', 'db_sip');
 
-            $cek="SELECT * from tb_belanja";
-            $cek2=mysqli_query($koneksi,$cek);
-            $cek3=mysqli_num_rows($cek2);
-                                      
-            if ($cek3>0)
-            {                        
-                $sqll="SELECT MAX(kd_belanja) from tb_belanja where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
-                $hasill = mysqli_query($koneksi,$sqll);
+            $cek = "SELECT * from tb_belanja";
+            $cek2 = mysqli_query($koneksi, $cek);
+            $cek3 = mysqli_num_rows($cek2);
+
+            if ($cek3 > 0) {
+                $sqll = "SELECT MAX(kd_belanja) from tb_belanja where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
+                $hasill = mysqli_query($koneksi, $sqll);
                 $dataa = mysqli_fetch_array($hasill);
-                $maxid=$dataa[0];
+                $maxid = $dataa[0];
                 $maxid++;
-                $no=$maxid++; 
-            }
-            else
-            {
-                $no='1';
+                $no = $maxid++;
+            } else {
+                $no = '1';
             }
 
-          
+
             $data = array(
-                'id_belanja'=>'',
-                'tahun'=>$tahun,
+                'id_belanja' => '',
+                'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
                 'kd_unit' => $kd_unit,
@@ -1025,13 +982,12 @@ class Parameter extends CI_Controller
         $data['title'] = 'Belanja';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['belanja'] = $this->db->get('tb_belanja')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -1039,18 +995,16 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/belanja', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
-         
+        } else {
+
             $id_belanja['id_belanja'] = $this->uri->segment(3);
             $nama_belanja = $this->input->post('nama_belanja');
-          
+
             $data = array(
                 'nama_belanja' => $nama_belanja
             );
 
-            $this->db->where($array); 
+            $this->db->where($array);
             $this->db->where($id_belanja);
             $this->db->update('tb_belanja', $data);
 
@@ -1066,16 +1020,15 @@ class Parameter extends CI_Controller
         $data['title'] = 'Supplier';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
         $this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');
         $this->form_validation->set_rules('npwp', 'NPWP', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['supplier'] = $this->db->get('tb_supplier')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -1083,13 +1036,11 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/supplier', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
-            $nama_supplier= $this->input->post('nama_supplier');
-            $nama_pimpinan= $this->input->post('nama_pimpinan');
-            $npwp= $this->input->post('npwp');
-            $alamat= $this->input->post('alamat');
+        } else {
+            $nama_supplier = $this->input->post('nama_supplier');
+            $nama_pimpinan = $this->input->post('nama_pimpinan');
+            $npwp = $this->input->post('npwp');
+            $alamat = $this->input->post('alamat');
             $tahun = $this->session->userdata('tahun');
             $kd_urusan = $this->session->userdata('kd_urusan');
             $kd_bidang = $this->session->userdata('kd_bidang');
@@ -1099,27 +1050,24 @@ class Parameter extends CI_Controller
 
             $koneksi = mysqli_connect('localhost', 'root', '', 'db_sip');
 
-            $cek="SELECT * from tb_supplier";
-            $cek2=mysqli_query($koneksi,$cek);
-            $cek3=mysqli_num_rows($cek2);
-                                      
-            if ($cek3>0)
-            {                        
-                $sqll="SELECT MAX(kd_supplier) from tb_supplier where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
-                $hasill = mysqli_query($koneksi,$sqll);
+            $cek = "SELECT * from tb_supplier";
+            $cek2 = mysqli_query($koneksi, $cek);
+            $cek3 = mysqli_num_rows($cek2);
+
+            if ($cek3 > 0) {
+                $sqll = "SELECT MAX(kd_supplier) from tb_supplier where tahun='$tahun' and kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub'";
+                $hasill = mysqli_query($koneksi, $sqll);
                 $dataa = mysqli_fetch_array($hasill);
-                $maxid=$dataa[0];
+                $maxid = $dataa[0];
                 $maxid++;
-                $no=$maxid++; 
-            }
-            else
-            {
-                $no='1';
+                $no = $maxid++;
+            } else {
+                $no = '1';
             }
 
-          
+
             $data = array(
-                'tahun'=>$tahun,
+                'tahun' => $tahun,
                 'kd_urusan' => $kd_urusan,
                 'kd_bidang' => $kd_bidang,
                 'kd_unit' => $kd_unit,
@@ -1143,16 +1091,15 @@ class Parameter extends CI_Controller
         $data['title'] = 'Supplier';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-        
+
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required');
         $this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');
         $this->form_validation->set_rules('npwp', 'NPWP', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
-            
-            $this->db->where($array); 
+        if ($this->form_validation->run() == false) {
+
+            $this->db->where($array);
             $data['supplier'] = $this->db->get('tb_supplier')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -1160,15 +1107,13 @@ class Parameter extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('parameter/supplier', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $id['id'] = $this->uri->segment(3);
-            $nama_supplier= $this->input->post('nama_supplier');
-            $nama_pimpinan= $this->input->post('nama_pimpinan');
-            $npwp= $this->input->post('npwp');
-            $alamat= $this->input->post('alamat');
-          
+            $nama_supplier = $this->input->post('nama_supplier');
+            $nama_pimpinan = $this->input->post('nama_pimpinan');
+            $npwp = $this->input->post('npwp');
+            $alamat = $this->input->post('alamat');
+
             $data = array(
                 'nama_supplier' =>  $nama_supplier,
                 'nama_pimpinan' =>  $nama_pimpinan,
@@ -1177,7 +1122,7 @@ class Parameter extends CI_Controller
             );
 
 
-            $this->db->where($array); 
+            $this->db->where($array);
             $this->db->where($id);
             $this->db->update('tb_supplier', $data);
 
@@ -1185,9 +1130,4 @@ class Parameter extends CI_Controller
             redirect('parameter/supplier');
         }
     }
-
-
-
-
-    
 }
