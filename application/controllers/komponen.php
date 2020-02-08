@@ -176,4 +176,104 @@ class Komponen extends CI_Controller
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen/komponen');
     }
+
+
+    public function uraian_komponen()
+    {
+        $data['title'] = 'Uraian Komponen';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->db->select('*');
+        $this->db->from('tb_uraian_komponen');
+        $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.kd_jenis = tb_uraian_komponen.kd_jenis', 'left');
+        $this->db->join('tb_komponen', 'tb_komponen.kd_komponen = tb_uraian_komponen.kd_komponen', 'left');
+        $data['uraian_komponen'] = $this->db->get()->result_array();
+
+        $data['komponen'] = $this->db->get('tb_komponen')->result_array();
+
+        $this->form_validation->set_rules('kd_komponen', 'Komponen', 'required');
+        $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/uraian_komponen', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+
+
+            $cek = $this->db->get('tb_uraian_komponen')->result_array();
+            if ($cek > 0) {
+                $this->db->select_max('kd_uraian');
+                $result = $this->db->get('tb_uraian_komponen')->row_array();
+                $maxid = $result['kd_uraian'];
+                $maxid++;
+                $kd_uraian = $maxid++;
+            } else {
+                $kd_uraian = '1';
+            }
+
+
+            $kdkomponen = $this->db->get_where('tb_komponen', ['kd_komponen' => $this->input->post('kd_komponen')])->row_array();
+            $kdjenis = $kdkomponen['kd_jenis'];
+
+
+            $array = array(
+                'id' => '',
+                'kd_jenis' => $kdjenis,
+                'kd_komponen' => $this->input->post('kd_komponen'),
+                'kd_uraian' => $kd_uraian,
+                'uraian_komponen' => $this->input->post('uraian_komponen')
+            );
+
+            $this->db->insert('tb_uraian_komponen', $array);
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">uraian Komponen Baru ditambahkan</div>');
+            redirect('komponen/uraian_komponen');
+        }
+    }
+
+    public function edit_uraian_komponen()
+    {
+        $data['title'] = 'Uraian Komponen';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
+        $data['komponen'] = $this->db->get('tb_komponen')->result_array();
+
+        $this->db->select('*');
+        $this->db->from('tb_uraian_komponen');
+        $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.kd_jenis = tb_uraian_komponen.kd_jenis', 'left');
+        $this->db->join('tb_komponen', 'tb_komponen.kd_komponen = tb_uraian_komponen.kd_komponen', 'left');
+        $data['uraian_komponen'] = $this->db->get()->result_array();
+
+
+        $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/uraian_komponen', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id['id'] = $this->uri->segment(3);
+
+            $data = [
+                'uraian_komponen' => $this->input->post('uraian_komponen'),
+            ];
+
+            $this->db->where($id);
+            $this->db->update('tb_uraian_komponen', $data);
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Uraian Komponen diubah</div>');
+            redirect('komponen/uraian_komponen');
+        }
+    }
+
+    public function delete_uraian_komponen()
+    {
+        $id['id'] = $this->uri->segment(3);
+        $this->db->delete('tb_uraian_komponen', $id);
+        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
+        redirect('komponen/uraian_komponen');
+    }
 }
