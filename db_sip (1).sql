@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2020 at 03:26 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Feb 10, 2020 at 03:40 PM
+-- Server version: 10.1.39-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -6711,7 +6711,7 @@ INSERT INTO `tb_bidang` (`id_bidang`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_uni
 --
 
 CREATE TABLE `tb_jenis_komponen` (
-  `id` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
   `kd_jenis` int(11) NOT NULL,
   `jenis_komponen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -6751,7 +6751,8 @@ INSERT INTO `tb_kepala_bidang` (`id_kepala_bidang`, `tahun`, `kd_urusan`, `kd_bi
 --
 
 CREATE TABLE `tb_komponen` (
-  `id` int(11) NOT NULL,
+  `id_komponen` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
   `kd_jenis` int(11) NOT NULL,
   `kd_komponen` int(11) NOT NULL,
   `komponen` varchar(255) NOT NULL
@@ -6769,7 +6770,7 @@ CREATE TABLE `tb_pemda` (
   `nama_pemda` text NOT NULL,
   `ibu_kota` text NOT NULL,
   `alamat` text NOT NULL,
-  `logo` text DEFAULT NULL
+  `logo` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -6926,7 +6927,9 @@ INSERT INTO `tb_tahun` (`id_tahun`, `tahun`) VALUES
 --
 
 CREATE TABLE `tb_uraian_komponen` (
-  `id` int(11) NOT NULL,
+  `id_uraian` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
+  `id_komponen` int(11) NOT NULL,
   `kd_jenis` int(11) NOT NULL,
   `kd_komponen` int(11) NOT NULL,
   `kd_uraian` int(11) NOT NULL,
@@ -7088,9 +7091,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (14, 5, 'Kepala Bidang', 'parameter/kepalaBidang', 'fas fa-sw fa-store-alt', 1),
 (15, 5, 'Penanggung Jawab', 'parameter/penanggungJawab', 'fas fa-sw fa-shopping-cart', 1),
 (16, 1, 'Pengguna', 'admin/pengguna', 'fas fa-sw fa-user', 1),
-(17, 6, 'Jenis Komponen', 'komponens/jenis', 'fas fa-sw fa-clone', 1),
+(17, 6, 'Jenis Komponen', 'komponen', 'fas fa-sw fa-clone', 1),
 (18, 6, 'Komponen', 'komponen/komponen', ' 	fas fa-sw fa-clone', 1),
-(19, 6, 'Uraian Komponen', 'komponen/uraian', 'fas fa-sw fa-clone', 1),
+(19, 6, 'Uraian Komponen', 'komponen/uraian_komponen', 'fas fa-sw fa-clone', 1),
 (20, 7, 'Pengadaan/Pembelian', 'pengadaan/pembelian', 'fas fa-sw fa-cubes', 1),
 (21, 7, 'Penerimaan', 'pengadaan/penerimaan', 'fas fa-sw fa-anchor', 1),
 (22, 7, 'Saldo', 'pengadaan/saldo', 'fas fa-sw fa-archive', 1),
@@ -7166,7 +7169,7 @@ ALTER TABLE `tb_bidang`
 -- Indexes for table `tb_jenis_komponen`
 --
 ALTER TABLE `tb_jenis_komponen`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_jenis`);
 
 --
 -- Indexes for table `tb_kepala_bidang`
@@ -7178,7 +7181,7 @@ ALTER TABLE `tb_kepala_bidang`
 -- Indexes for table `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_komponen`);
 
 --
 -- Indexes for table `tb_pemda`
@@ -7220,7 +7223,7 @@ ALTER TABLE `tb_tahun`
 -- Indexes for table `tb_uraian_komponen`
 --
 ALTER TABLE `tb_uraian_komponen`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_uraian`);
 
 --
 -- Indexes for table `user`
@@ -7278,7 +7281,7 @@ ALTER TABLE `tb_bidang`
 -- AUTO_INCREMENT for table `tb_jenis_komponen`
 --
 ALTER TABLE `tb_jenis_komponen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tb_kepala_bidang`
@@ -7290,7 +7293,7 @@ ALTER TABLE `tb_kepala_bidang`
 -- AUTO_INCREMENT for table `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_pemda`
@@ -7332,7 +7335,7 @@ ALTER TABLE `tb_tahun`
 -- AUTO_INCREMENT for table `tb_uraian_komponen`
 --
 ALTER TABLE `tb_uraian_komponen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -7350,7 +7353,7 @@ ALTER TABLE `user_access_menu`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_role`

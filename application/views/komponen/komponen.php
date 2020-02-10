@@ -18,6 +18,7 @@
                         <th scope="col">#</th>
                         <th scope="col">ID</th>
                         <th scope="col">Jenis Komponen</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Komponen</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -29,10 +30,11 @@
                         foreach ($komponen as $k) : ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td><?= $k['kd_komponen']; ?></td>
+                                <td><?= $k['kd_jenis']; ?></td>
                                 <td><?= $k['jenis_komponen']; ?></td>
+                                <td><?= $k['kd_komponen']; ?></td>
                                 <td><?= $k['komponen']; ?></td>
-                                <td><a href="#ubahkomponenModal<?= $k['kd_komponen']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_komponen/' . $k['kd_komponen']); ?>" class="badge badge-danger">Hapus</a></td>
+                                <td><a href="#ubahkomponenModal<?= $k['id_komponen']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_komponen/' . $k['id_komponen']); ?>" class="badge badge-danger">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
@@ -61,10 +63,10 @@
             <form action="<?= base_url('komponen/komponen'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <select name="kd_jenis" id="kd_jenis" class="form-control">
+                        <select name="id_jenis" id="id_jenis" class="form-control">
                             <option value="">Pilih Jenis Komponen</option>
                             <?php foreach ($jenis_komponen as $jk) : ?>
-                                <option value="<?= $jk['kd_jenis']; ?>"><?= $jk['jenis_komponen']; ?></option>
+                                <option value="<?= $jk['id_jenis']; ?>"><?= $jk['jenis_komponen']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -89,7 +91,7 @@ if (isset($komponen)) {
         ?>
 
         <!-- Modal -->
-        <div class="modal fade" id="ubahkomponenModal<?= $k['kd_komponen'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubahkomponenModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ubahkomponenModal<?= $k['id_komponen'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubahkomponenModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -98,7 +100,7 @@ if (isset($komponen)) {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="<?= base_url('komponen/edit_komponen/' . $k['kd_komponen']); ?>" method="POST">
+                    <form action="<?= base_url('komponen/edit_komponen/' . $k['id_komponen']); ?>" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="kd_jenis" name="kd_jenis" placeholder="Jenis Komponen" value="<?php echo $k['jenis_komponen']; ?>" readonly>

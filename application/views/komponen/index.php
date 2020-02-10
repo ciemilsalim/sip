@@ -30,7 +30,7 @@
                                 <td><?= $i++; ?></td>
                                 <td><?= $jk['kd_jenis']; ?></td>
                                 <td><?= $jk['jenis_komponen']; ?></td>
-                                <td><a href="#ubahjeniskomponenModal<?= $jk['id']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_jenis_komponen/' . $jk['id']); ?>" class="badge badge-danger">Hapus</a></td>
+                                <td><a href="#ubahjeniskomponenModal<?= $jk['id_jenis']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_jenis_komponen/' . $jk['id_jenis']); ?>" class="badge badge-danger">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
@@ -79,7 +79,7 @@ if (isset($jenis_komponen)) {
         ?>
 
         <!-- Modal -->
-        <div class="modal fade" id="ubahjeniskomponenModal<?= $jk['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubahjeniskomponenModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ubahjeniskomponenModal<?= $jk['id_jenis'] ?>" tabindex="-1" role="dialog" aria-labelledby="ubahjeniskomponenModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -88,7 +88,7 @@ if (isset($jenis_komponen)) {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="<?= base_url('komponen/edit_jenis_komponen/' . $jk['id']); ?>" method="POST">
+                    <form action="<?= base_url('komponen/edit_jenis_komponen/' . $jk['id_jenis']); ?>" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="jenis_komponen" name="jenis_komponen" placeholder="Jenis Komponen" value="<?php echo $jk['jenis_komponen']; ?>">
