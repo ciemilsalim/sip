@@ -26,20 +26,19 @@ class Komponen extends CI_Controller
 
             $cek = $this->db->get('tb_jenis_komponen')->result_array();
 
-
             if ($cek > 0) {
                 $this->db->select_max('kd_jenis');
-                $dataa = $this->db->get('tb_jenis_komponen')->result_array();
-                $maxid = $dataa[1];
-                $maxid++;
-                $no = $maxid++;
+                $result = $this->db->get('tb_jenis_komponen')->row_array();
+                $maxkdjenis = $result['kd_jenis'];
+                $maxkdjenis++;
+                $kd_jenis = $maxkdjenis++;
             } else {
-                $no = '1';
+                $kd_jenis = '1';
             }
 
             $array = array(
                 'id' => '',
-                'kd_jenis' => $no,
+                'kd_jenis' => $kd_jenis,
                 'jenis_komponen' => $this->input->post('jenis_komponen')
             );
 
@@ -79,7 +78,20 @@ class Komponen extends CI_Controller
     public function delete_jenis_komponen()
     {
         $id['id'] = $this->uri->segment(3);
-        $this->db->delete('tb_jenis_komponen', $id);
+        $kdhapus = $this->db->get_where('tb_jenis_komponen', ['id' => $this->uri->segment(3)])->row_array();
+        $kd_jenis = $kdhapus['kd_jenis'];
+
+        $hapus = $this->db->delete('tb_jenis_komponen', $id);
+
+        if ($hapus) {
+            $this->db->where('kd_jenis', $kd_jenis);
+            $hapus2 = $this->db->delete('tb_komponen');
+            if ($hapus2) {
+                $this->db->where('kd_jenis', $kd_jenis);
+                $this->db->delete('tb_uraian_komponen');
+            }
+        }
+
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen');
     }
@@ -95,7 +107,6 @@ class Komponen extends CI_Controller
         $data['komponen'] = $this->db->get()->result_array();
 
         $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
-        //$data['komponen'] = $this->db->get('tb_komponen')->result_array();
 
         $this->form_validation->set_rules('kd_jenis', 'Jenis Komponen', 'required');
         $this->form_validation->set_rules('komponen', 'Komponen', 'required');
@@ -113,8 +124,8 @@ class Komponen extends CI_Controller
 
             if ($cek > 0) {
                 $this->db->select_max('kd_komponen');
-                $result = $this->db->get('tb_komponen')->result_array();
-                $maxid = $result[1];
+                $result = $this->db->get('tb_komponen')->row_array();
+                $maxid = $result['kd_komponen'];
                 $maxid++;
                 $kd_komponen = $maxid++;
             } else {
@@ -156,7 +167,7 @@ class Komponen extends CI_Controller
             $this->load->view('komponen/komponen', $data);
             $this->load->view('templates/footer');
         } else {
-            $id['id'] = $this->uri->segment(3);
+            $id['kd_komponen'] = $this->uri->segment(3);
 
             $data = [
                 'komponen' => $this->input->post('komponen'),
@@ -171,8 +182,19 @@ class Komponen extends CI_Controller
 
     public function delete_komponen()
     {
-        $id['id'] = $this->uri->segment(3);
-        $this->db->delete('tb_komponen', $id);
+        $id['kd_komponen'] = $this->uri->segment(3);
+        $kdhapus = $this->db->get_where('tb_komponen', ['kd_komponen' => $this->uri->segment(3)])->row_array();
+        $kd_komponen = $kdhapus['kd_komponen'];
+
+        $hapus = $this->db->delete('tb_komponen', $id);
+
+        if ($hapus) {
+            $this->db->where('kd_komponen', $kd_komponen);
+            $this->db->delete('tb_uraian_komponen');
+        }
+
+
+
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen/komponen');
     }
@@ -256,13 +278,13 @@ class Komponen extends CI_Controller
             $this->load->view('komponen/uraian_komponen', $data);
             $this->load->view('templates/footer');
         } else {
-            $id['id'] = $this->uri->segment(3);
+            $kduraian = $id['kd_uraian'] = $this->uri->segment(3);
 
             $data = [
                 'uraian_komponen' => $this->input->post('uraian_komponen'),
             ];
 
-            $this->db->where($id);
+            $this->db->where('kd_uraian', $kduraian);
             $this->db->update('tb_uraian_komponen', $data);
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Uraian Komponen diubah</div>');
             redirect('komponen/uraian_komponen');
@@ -271,8 +293,9 @@ class Komponen extends CI_Controller
 
     public function delete_uraian_komponen()
     {
-        $id['id'] = $this->uri->segment(3);
-        $this->db->delete('tb_uraian_komponen', $id);
+        $kduraian = $id['kd_uraian'] = $this->uri->segment(3);
+        $this->db->where('kd_uraian', $kduraian);
+        $this->db->delete('tb_uraian_komponen');
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen/uraian_komponen');
     }
