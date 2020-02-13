@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2020 at 03:40 PM
--- Server version: 10.1.39-MariaDB
--- PHP Version: 7.3.5
+-- Generation Time: Feb 13, 2020 at 02:40 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -6716,6 +6716,13 @@ CREATE TABLE `tb_jenis_komponen` (
   `jenis_komponen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_jenis_komponen`
+--
+
+INSERT INTO `tb_jenis_komponen` (`id_jenis`, `kd_jenis`, `jenis_komponen`) VALUES
+(27, 1, 'ATK');
+
 -- --------------------------------------------------------
 
 --
@@ -6758,6 +6765,29 @@ CREATE TABLE `tb_komponen` (
   `komponen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_komponen`
+--
+
+INSERT INTO `tb_komponen` (`id_komponen`, `id_jenis`, `kd_jenis`, `kd_komponen`, `komponen`) VALUES
+(36, 27, 1, 1, 'Pulpen'),
+(37, 27, 1, 2, 'Kertas');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_managementa`
+--
+
+CREATE TABLE `tb_managementa` (
+  `id` int(11) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `tw` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `tgl_aktif` date NOT NULL,
+  `tgl_nonaktif` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
 
 --
@@ -6770,7 +6800,7 @@ CREATE TABLE `tb_pemda` (
   `nama_pemda` text NOT NULL,
   `ibu_kota` text NOT NULL,
   `alamat` text NOT NULL,
-  `logo` text
+  `logo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -6918,7 +6948,8 @@ CREATE TABLE `tb_tahun` (
 INSERT INTO `tb_tahun` (`id_tahun`, `tahun`) VALUES
 (6, 2020),
 (8, 2021),
-(9, 2019);
+(9, 2019),
+(10, 2022);
 
 -- --------------------------------------------------------
 
@@ -6933,8 +6964,21 @@ CREATE TABLE `tb_uraian_komponen` (
   `kd_jenis` int(11) NOT NULL,
   `kd_komponen` int(11) NOT NULL,
   `kd_uraian` int(11) NOT NULL,
-  `uraian_komponen` varchar(255) NOT NULL
+  `uraian_komponen` varchar(255) NOT NULL,
+  `satuan` varchar(150) NOT NULL,
+  `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_uraian_komponen`
+--
+
+INSERT INTO `tb_uraian_komponen` (`id_uraian`, `id_jenis`, `id_komponen`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga`) VALUES
+(37, 27, 36, 1, 1, 1, 'Pulpen Snowman', 'Unit', 30000000000),
+(38, 27, 36, 1, 1, 2, 'Pulpen aa', 'Buah', 10000),
+(41, 27, 36, 1, 1, 3, 'Pulpen mata 1', 'Buah', 2.05),
+(42, 27, 36, 1, 1, 4, 'Pulpen mata 2', 'Buah', 10),
+(43, 27, 36, 1, 1, 5, 'Pulpen mata 2', 'Lembar', 20000050);
 
 -- --------------------------------------------------------
 
@@ -7184,6 +7228,12 @@ ALTER TABLE `tb_komponen`
   ADD PRIMARY KEY (`id_komponen`);
 
 --
+-- Indexes for table `tb_managementa`
+--
+ALTER TABLE `tb_managementa`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_pemda`
 --
 ALTER TABLE `tb_pemda`
@@ -7281,7 +7331,7 @@ ALTER TABLE `tb_bidang`
 -- AUTO_INCREMENT for table `tb_jenis_komponen`
 --
 ALTER TABLE `tb_jenis_komponen`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tb_kepala_bidang`
@@ -7293,7 +7343,13 @@ ALTER TABLE `tb_kepala_bidang`
 -- AUTO_INCREMENT for table `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
-  MODIFY `id_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `tb_managementa`
+--
+ALTER TABLE `tb_managementa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tb_pemda`
@@ -7329,13 +7385,13 @@ ALTER TABLE `tb_supplier`
 -- AUTO_INCREMENT for table `tb_tahun`
 --
 ALTER TABLE `tb_tahun`
-  MODIFY `id_tahun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_tahun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tb_uraian_komponen`
 --
 ALTER TABLE `tb_uraian_komponen`
-  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `user`

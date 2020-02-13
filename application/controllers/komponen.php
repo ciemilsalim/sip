@@ -219,6 +219,8 @@ class Komponen extends CI_Controller
 
         $this->form_validation->set_rules('id_komponen', 'Komponen', 'required');
         $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
+        $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+        $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -254,6 +256,8 @@ class Komponen extends CI_Controller
                 $kd_uraian = '1';
             }
 
+            $harga=$this->input->post('harga');
+            echo $hargafinal = str_replace(array('.',' '), '',$harga);
 
             $array = array(
                 'id_uraian' => '',
@@ -262,7 +266,9 @@ class Komponen extends CI_Controller
                 'kd_jenis' => $kdjenis,
                 'kd_komponen' => $kd_komponen,
                 'kd_uraian' => $kd_uraian,
-                'uraian_komponen' => $this->input->post('uraian_komponen')
+                'uraian_komponen' => $this->input->post('uraian_komponen'),
+                'satuan' => $this->input->post('satuan'),
+                'harga' => $hargafinal
             );
 
             $this->db->insert('tb_uraian_komponen', $array);
@@ -286,6 +292,9 @@ class Komponen extends CI_Controller
 
 
         $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
+        $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+        $this->form_validation->set_rules('harga', 'Harga', 'required');
+
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -294,9 +303,13 @@ class Komponen extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $iduraian = $id['id_uraian'] = $this->uri->segment(3);
+            $harga=$this->input->post('harga');
+            echo $hargafinal = str_replace(array('.',' '), '',$harga);
 
             $data = [
                 'uraian_komponen' => $this->input->post('uraian_komponen'),
+                'satuan' => $this->input->post('satuan'),
+                'harga'=> $hargafinal
             ];
 
             $this->db->where('id_uraian', $iduraian);

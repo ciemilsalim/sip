@@ -22,6 +22,8 @@
                         <th scope="col">Komponen</th>
                         <th scope="col">ID</th>
                         <th scope="col">Uraian</th>
+                        <th scope="col">Satuan</th>
+                        <th scope="col">Harga (Rp)</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -38,6 +40,8 @@
                                 <td><?= $uk['komponen']; ?></td>
                                 <td><?= $uk['kd_uraian']; ?></td>
                                 <td><?= $uk['uraian_komponen']; ?></td>
+                                <td><?= $uk['satuan']; ?></td>
+                                <td><?= number_format($uk['harga']); ?></td>
                                 <td><a href="#ubahuraiankomponenModal<?= $uk['id_uraian']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_uraian_komponen/' . $uk['id_uraian']); ?>" class="badge badge-danger">Hapus</a></td>
                             </tr>
                         <?php endforeach;
@@ -76,6 +80,18 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen">
+                    </div>
+                    <div class="form-group">
+                        <select name="satuan" id="satuan" class="form-control">
+                            <option value="">Pilih Satuan</option>
+                            <option value="Buah">Buah</option>
+                            <option value="Lembar">Lembar</option>
+                            <option value="Unit">Unit</option>
+                            <option value="Lusin">Lusin</option>    
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -116,6 +132,19 @@ if (isset($uraian_komponen)) {
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen" value="<?php echo $uk['uraian_komponen']; ?>">
                             </div>
+                            <div class="form-group">
+                                <select name="satuan" id="satuan" class="form-control">
+                                    <option value="<?= $uk['satuan']; ?>"><?= $uk['satuan']; ?></option>
+
+                                    <option value="Buah">Buah</option>
+                                    <option value="Lembar">Lembar</option>
+                                    <option value="Unit">Unit</option>
+                                    <option value="Lusin">Lusin</option>    
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="harga<?= $uk['id_uraian'] ?>" name="harga" placeholder="Harga" value="<?php echo number_format($uk['harga']); ?>">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -126,6 +155,16 @@ if (isset($uraian_komponen)) {
             </div>
         </div>
 
+        <script>
+            $('#harga<?= $uk['id_uraian'] ?>').mask("#,###.###.###.###", {reverse: true});
+        </script>
+
     <?php
 }
 } ?>
+
+
+
+<script>
+    $('#harga').mask("#,###.###.###.###", {reverse: true});
+</script>
