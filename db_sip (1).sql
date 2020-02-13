@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2020 at 02:40 AM
+-- Generation Time: Feb 13, 2020 at 06:41 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -6788,6 +6788,13 @@ CREATE TABLE `tb_managementa` (
   `tgl_nonaktif` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_managementa`
+--
+
+INSERT INTO `tb_managementa` (`id`, `tahun`, `tw`, `status`, `tgl_aktif`, `tgl_nonaktif`) VALUES
+(17, 2020, 1, 'Aktif', '2020-02-13', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -7349,7 +7356,7 @@ ALTER TABLE `tb_komponen`
 -- AUTO_INCREMENT for table `tb_managementa`
 --
 ALTER TABLE `tb_managementa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_pemda`
