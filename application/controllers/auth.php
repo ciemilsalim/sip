@@ -47,41 +47,36 @@ class Auth extends CI_Controller
                         'kd_sub' => $user['kd_sub'],
                         'tahun' => $tahun
                     ];
-                   
 
-                    $this->db->select('*'); 
+
+                    $this->db->select('*');
                     $this->db->from('tb_tahun');
                     $this->db->where('tahun', $tahun);
                     $query = $this->db->get();
                     $result = $query->result_array();
-                    $count = count( $result);
-                    if (!empty($count))
-                    {
+                    $count = count($result);
+                    if (!empty($count)) {
                         $this->session->set_userdata($data);
 
                         //direct
-                        if ($user['role_id'] == 1) 
-                        {
+                        if ($user['role_id'] == 1) {
                             redirect('admin');
-                        }
-                        else 
-                        {
-                             //cek apakah data skpd sudah ada atau belum
+                        } else {
+                            //cek apakah data skpd sudah ada atau belum
                             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
                             $this->db->select('*');
                             $this->db->from('tb_skpd');
-                            $this->db->where($array);  
+                            $this->db->where($array);
                             $queryx = $this->db->get();
                             $resultx = $queryx->result_array();
-                            $countx = count( $resultx);
+                            $countx = count($resultx);
                             //jika belum ada, maka simpan.
-                            if (empty($countx))
-                            {
+                            if (empty($countx)) {
                                 $array = array('Kd_Urusan' => $this->session->userdata('kd_urusan'), 'Kd_Bidang' => $this->session->userdata('kd_bidang'), 'Kd_Unit' => $this->session->userdata('kd_unit'), 'Kd_Sub' => $this->session->userdata('kd_sub'));
                                 $this->db->select('*');
                                 $this->db->from('ref_sub_unit');
-                                $this->db->where($array);  
-                                $dataskpd=$this->db->get()->row_array();
+                                $this->db->where($array);
+                                $dataskpd = $this->db->get()->row_array();
 
                                 $data = array(
                                     'kd_urusan' => $dataskpd['Kd_Urusan'],
@@ -90,20 +85,16 @@ class Auth extends CI_Controller
                                     'kd_sub' =>  $dataskpd['Kd_Sub'],
                                     'nama_skpd' => $dataskpd['Nm_Sub_Unit']
                                 );
-                    
+
                                 $this->db->insert('tb_skpd', $data);
                             }
-                        
+
                             redirect('user');
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Tahun Anggaran tidak terdaftar</div>');
                         redirect('auth');
                     }
-
-                   
                 } else {
                     $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Password salah</div>');
                     redirect('auth');
@@ -154,7 +145,7 @@ class Auth extends CI_Controller
             $role_id = $this->input->post('role_id', true);
             $skpd = $this->input->post('skpd', true);
 
-            $dataskpd=explode("#",$skpd);
+            $dataskpd = explode("#", $skpd);
 
             $data = [
                 'nama' => htmlspecialchars($nama),
@@ -164,11 +155,11 @@ class Auth extends CI_Controller
                 'role_id' => htmlspecialchars($role_id),
                 'is_active' => 0,
                 'date_created' => time(),
-                'kd_urusan' =>$dataskpd[0],
-                'kd_bidang' =>$dataskpd[1],
-                'kd_unit' =>$dataskpd[2],
-                'kd_sub' =>$dataskpd[3],
-                'nama_skpd' =>$dataskpd[4]
+                'kd_urusan' => $dataskpd[0],
+                'kd_bidang' => $dataskpd[1],
+                'kd_unit' => $dataskpd[2],
+                'kd_sub' => $dataskpd[3],
+                'nama_skpd' => $dataskpd[4]
             ];
 
             //token
@@ -294,7 +285,7 @@ class Auth extends CI_Controller
             $this->load->view('templates/auth_footer');
         } else {
             $email = $this->input->post('email');
-            $user =  $this->db->get_where('user', ['email' => $email], ['is_active' => 1]->row_array);
+            $user =  $this->db->get_where('user', ['email' => $email], ['is_active' => 1])->row_array();
             if ($user) {
 
                 $token = base64_encode(random_bytes(32));
