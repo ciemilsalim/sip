@@ -92,7 +92,7 @@ class Managemen extends CI_Controller
         $this->db->where('status', "Aktif");
         $data['managementa'] = $this->db->get('tb_managementa')->row_array();
 
-        //memilih tahun anggarang yang sudah memiliki TW 4
+        //memilih tahun anggaran yang sudah memiliki TW 4
         $query ="SELECT tahun from tb_managementa where tw=4";
         $result=$this->db->query($query)->result_array();
         //masukan tahun tersebut dalam array
@@ -133,18 +133,10 @@ class Managemen extends CI_Controller
             $tahun = $this->input->post('tahun');
             $tw =$this->input->post('tw');
             $status = "Aktif";
-            // $kd_urusan = $this->session->userdata('kd_urusan');
-            // $kd_bidang = $this->session->userdata('kd_bidang');
-            // $kd_unit = $this->session->userdata('kd_unit');
-            // $kd_sub = $this->session->userdata('kd_sub');
             $currentDate = date('Y-m-d');
 
 
             $data = array(
-                // 'kd_urusan' => $kd_urusan,
-                // 'kd_bidang' => $kd_bidang,
-                // 'kd_unit' => $kd_unit,
-                // 'kd_sub' => $kd_sub,
                 'tahun' => $tahun,
                 'tw' => $tw,
                 'status' => $status,

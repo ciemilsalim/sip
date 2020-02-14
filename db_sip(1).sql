@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2020 at 06:41 AM
+-- Generation Time: Feb 14, 2020 at 03:09 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -6852,6 +6852,33 @@ INSERT INTO `tb_penanggung_jawab` (`id`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_pengadaan`
+--
+
+CREATE TABLE `tb_pengadaan` (
+  `id` int(11) NOT NULL,
+  `kd_urusan` int(11) NOT NULL,
+  `kd_bidang` int(11) NOT NULL,
+  `kd_unit` int(11) NOT NULL,
+  `kd_sub` int(11) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `tw` int(11) NOT NULL,
+  `kd_pengadaan` int(11) DEFAULT NULL,
+  `nomor_faktur` varchar(200) DEFAULT NULL,
+  `tgl_faktur` date DEFAULT NULL,
+  `nomor_bap` varchar(150) DEFAULT NULL,
+  `tgl_bap` date NOT NULL,
+  `kd_belanja` int(11) NOT NULL,
+  `kd_supplier` int(11) NOT NULL,
+  `nip_penerima` varchar(100) NOT NULL,
+  `nama_penerima` varchar(150) NOT NULL,
+  `jabatan` varchar(150) NOT NULL,
+  `ket` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_penyimpanan`
 --
 
@@ -7145,7 +7172,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (17, 6, 'Jenis Komponen', 'komponen', 'fas fa-sw fa-clone', 1),
 (18, 6, 'Komponen', 'komponen/komponen', ' 	fas fa-sw fa-clone', 1),
 (19, 6, 'Uraian Komponen', 'komponen/uraian_komponen', 'fas fa-sw fa-clone', 1),
-(20, 7, 'Pengadaan/Pembelian', 'pengadaan/pembelian', 'fas fa-sw fa-cubes', 1),
+(20, 7, 'Pembelian', 'pengadaan/index', 'fas fa-sw fa-cubes', 1),
 (21, 7, 'Penerimaan', 'pengadaan/penerimaan', 'fas fa-sw fa-anchor', 1),
 (22, 7, 'Saldo', 'pengadaan/saldo', 'fas fa-sw fa-archive', 1),
 (23, 7, 'Saldo Awal', 'pengadaan/saldoAwal', 'fas fa-sw fa-book', 1),
@@ -7410,7 +7437,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
