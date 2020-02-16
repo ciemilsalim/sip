@@ -22,80 +22,23 @@ class Pengadaan extends CI_Controller
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
 
         $this->db->where('status', "Aktif");
-        $data['managementa'] = $this->db->get('tb_managementa')->row_array();
+        $cektatw = $this->db->get('tb_managementa')->row_array();
 
-        print_r($data['managementa']);
-
-        die;
-
-        // $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|numeric');
-        $this->form_validation->set_rules('nama_pemda', 'Nama Pemda', 'required|trim');
-        $this->form_validation->set_rules('ibu_kota', 'Ibu Kota', 'required|trim');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->db->where('tahun', $this->session->userdata('tahun'));
-            $data['identitas'] = $this->db->get('tb_pemda')->row_array();
-
-            $data['identitas']['tahun'] = $this->session->userdata('tahun');
-
+        if(!empty($cektatw)>0)
+        {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('pengadaan/index', $data);
             $this->load->view('templates/footer');
-        } else {
-
-            $query = "SELECT *FROM tb_pemda where tahun=" . $this->session->userdata('tahun');
-            $result = $this->db->query($query)->result_array();
-            $count = count($result);
-
-
-            if (!empty($count)) {
-                $this->edit();
-            } else {
-
-                $tahun = $this->input->post('tahun');
-                $nama_pemda = $this->input->post('nama_pemda');
-                $ibu_kota = $this->input->post('ibu_kota');
-                $alamat = $this->input->post('alamat');
-
-                //cek gambar
-                $upload_image = $_FILES['logo']['name'];
-                if ($upload_image) {
-                    $config['allowed_types'] = 'gif|png|jpg';
-                    $config['max_size'] = '2040';
-                    $config['upload_path'] = './assets/img/logo/';
-
-                    $this->load->library('upload', $config);
-
-                    if ($this->upload->do_upload('logo')) {
-
-                        $old_image = $data['user']['logo'];
-                        if ($old_image != 'default.jpg') {
-                            unlink(FCPATH . 'assets/img/logo/' . $old_image);
-                        }
-
-                        $new_image = $this->upload->data('file_name');
-                        $this->db->set('logo', $new_image);
-                    } else {
-                        echo $this->upload->display_errors();
-                    }
-                }
-
-                $data = array(
-                    'tahun' => $this->session->userdata('tahun'),
-                    'nama_pemda' => $nama_pemda,
-                    'ibu_kota' => $ibu_kota,
-                    'alamat' => $alamat
-                );
-
-
-                $this->db->insert('tb_pemda', $data);
-
-                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil disimpan</div>');
-                redirect('parameter');
-            }
+        }
+        else
+        {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('templates/footer');
         }
     }
 
