@@ -15,8 +15,8 @@
             <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>');?>
             <?= $this->session->flashdata('message');?>
 
-            <div class="table-responsive" >
-            <table class="table table-hover" id="dataTable" >
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Kode Program</th>
@@ -34,8 +34,8 @@
                     <?php endforeach ?>
                 </tbody>
 
-            </table>
-            </div>
+                </table>
+            </div> <!--table -->
         </div>
     </div>
 

@@ -95,7 +95,7 @@
     {
         tahun=$('#tahun').val();
 
-        console.log(tahun);
+        // console.log(tahun);
       
         jQuery.ajax({
         type: "POST",

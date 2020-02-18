@@ -58,7 +58,7 @@ if(!empty($kode1)  and !empty($kode2)  and !empty($kode3) )
             <!-- Default Card Example -->
             <div class="card mb-12">
                 <div class="card-header">
-                    PENGURUS GUDANG
+                    KUASA BUD
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -95,7 +95,7 @@ if(!empty($kode1)  and !empty($kode2)  and !empty($kode3) )
             <!-- Default Card Example -->
             <div class="card mb-12">
                 <div class="card-header">
-                    KUASA BUD
+                    PENGURUS GUDANG
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -204,7 +204,7 @@ else
             <!-- Default Card Example -->
             <div class="card mb-12">
                 <div class="card-header">
-                    PENGURUS GUDANG
+                    KUASA BUD
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -241,7 +241,7 @@ else
             <!-- Default Card Example -->
             <div class="card mb-12">
                 <div class="card-header">
-                    KUASA BUD
+                   PENGURUS GUDANG
                 </div>
                 <div class="card-body">
                     <div class="row">

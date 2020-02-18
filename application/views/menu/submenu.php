@@ -17,7 +17,8 @@
 
 
             <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#submenuModal">Tambah Sub Menu</a>
-            <table class="table table-hover">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -46,7 +47,8 @@
                         <?php endforeach; } ?>
                 </tbody>
 
-            </table>
+                </table>
+            </div> <!--table -->
         </div>
     </div>
 
