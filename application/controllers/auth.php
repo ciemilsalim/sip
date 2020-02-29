@@ -192,37 +192,37 @@ class Auth extends CI_Controller
 
     private function _sendEmail($token, $type)
     {
-        $config = [
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.gmail.com',
-            'smtp_user' => 'emilbiosci2018@gmail.com',
-            'smtp_pass' => 'aspireone2018',
-            'smtp_port' => 465,
-            'mailtype' => 'html',
-            'chartset' => 'utf-8',
-            'newline' => "\r\n"
-        ];
+        // $config = [
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.gmail.com',
+        //     'smtp_user' => 'emilbiosci2018@gmail.com',
+        //     'smtp_pass' => 'aspireone2018',
+        //     'smtp_port' => 465,
+        //     'mailtype' => 'html',
+        //     'chartset' => 'utf-8',
+        //     'newline' => "\r\n"
+        // ];
 
-        $this->load->library('email', $config);
-        $this->email->initialize($config);
+        // $this->load->library('email', $config);
+        // $this->email->initialize($config);
 
-        $this->email->from('emilbiosci2018@gmail.com', 'Zahra dev');
-        $this->email->to($this->input->post('email'));
+        // $this->email->from('emilbiosci2018@gmail.com', 'Zahra dev');
+        // $this->email->to($this->input->post('email'));
 
-        if ($type == 'verify') {
-            $this->email->subject('Verifikasi Akun');
-            $this->email->message('Klik Link ini untuk verifikasi akun anda <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Aktifkan</a>');
-        } else if ($type == 'forgot') {
-            $this->email->subject('Reset Password');
-            $this->email->message('Klik Link ini untuk reset password anda <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
-        }
+        // if ($type == 'verify') {
+        //     $this->email->subject('Verifikasi Akun');
+        //     $this->email->message('Klik Link ini untuk verifikasi akun anda <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Aktifkan</a>');
+        // } else if ($type == 'forgot') {
+        //     $this->email->subject('Reset Password');
+        //     $this->email->message('Klik Link ini untuk reset password anda <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
+        // }
 
-        if ($this->email->send()) {
+        // if ($this->email->send()) {
             return true;
-        } else {
-            echo $this->email->print_debugger();
-            die;
-        };
+        // } else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // };
     }
 
 
