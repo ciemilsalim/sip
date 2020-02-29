@@ -294,13 +294,12 @@ class Pengadaan extends CI_Controller
         $data['aktif']=$cektatw;
         
         $kd_pengadaan = $this->uri->segment(3);
-        $tw = $cektatw['tw'];
-        $tahun = $cektatw['tahun'];
+        $tw = $this->uri->segment(5);
+        $tahun = $this->uri->segment(4);
         $kd_urusan = $this->session->userdata('kd_urusan');
         $kd_bidang = $this->session->userdata('kd_bidang');
         $kd_unit = $this->session->userdata('kd_unit');
         $kd_sub = $this->session->userdata('kd_sub');
-
 
         $data['detil'] = $this->pengadaan->getPembelian($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw,$kd_pengadaan);
         $data['penerimaan'] = $this->pengadaan->getPenerimaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw,$kd_pengadaan);

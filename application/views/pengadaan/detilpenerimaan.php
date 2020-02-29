@@ -177,19 +177,17 @@
                     {
                         $total=0;
                         foreach ($penerimaan as $sm) : ?>
-                        <tr>
-                            <td><?= $i++; ?></td>
-                            <td><?= $sm['uraian_komponen']; ?></td>
-                            <td><?= $sm['satuan']; ?></td>
-                            <td><?= $sm['harga']; ?></td>
-                            <td><?= $sm['jumlah']; ?></td>
-                            <td class="total"><?= $sm['harga_total']; ?></td>
-                            <td><?= $sm['tgl_penerimaan']; ?></td>
-                        </tr>
-                    <?php $total+=$sm['harga_total']; endforeach; } ?>
-                          
-                    </tbody>
-
+                            <tr>
+                                <td><?= $i++; ?></td>
+                                <td><?= $sm['uraian_komponen']; ?></td>
+                                <td><?= $sm['satuan']; ?></td>
+                                <td><?= $sm['harga']; ?></td>
+                                <td><?= $sm['jumlah']; ?></td>
+                                <td class="total"><?= $sm['harga_total']; ?></td>
+                                <td><?= $sm['tgl_penerimaan']; ?></td>
+                            </tr>
+                        <?php $total+=$sm['harga_total']; endforeach; } ?>
+                        </tbody>
                     </table>
                 </div> <!--table -->
 

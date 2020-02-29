@@ -340,7 +340,7 @@ foreach ($pengadaan as $sm) : ?>
                     </tr>
                     <tr>
                         <td colspan=2>
-                            <a href="<?=base_url('Pengadaan/detilpenerimaan/'.$sm['id']); ?>" class="badge badge-success" width="100%">Detail Penerimaan</a>
+                            <a href="<?=base_url('Pengadaan/detilpenerimaan/'.$sm['kd_pengadaan'].'/'.$sm['tahun'].'/'.$sm['tw']); ?>" class="badge badge-success" width="100%">Detail Penerimaan</a>
                         </td>
                     </tr>
                 </table>
