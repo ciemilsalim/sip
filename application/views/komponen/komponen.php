@@ -6,7 +6,7 @@
 
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <?= form_error('komponen', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 

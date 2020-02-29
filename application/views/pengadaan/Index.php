@@ -102,7 +102,7 @@
                             <td><?= $sm['tw']; ?></td>
                             <td><?= $sm['kd_pengadaan']; ?></td>
                             <td><?= $sm['nama_supplier']; ?></td>
-                            <td><a href="#detilpembelianModal<?=$sm['id'];?>" data-toggle="modal" class="badge badge-success">Detil</a> </td>
+                            <td><a href="#detilpembelianModal<?=$sm['id'];?>" data-toggle="modal" class="badge badge-success">Detail</a> </td>
                         </tr>
                         <?php endforeach; } ?>
                 </tbody>
@@ -249,8 +249,9 @@
 foreach ($pengadaan as $sm) : ?>
 <!-- Modal -->
 <div class="modal fade" id="detilpembelianModal<?=$sm['id']?>" tabindex="-1" role="dialog" aria-labelledby="detilpembelianModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" >
+    <div class="modal-dialog" role="document" >
+
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="detilpembelianModalLabel">Detail Pembelian</h5>
             </div>
@@ -337,13 +338,22 @@ foreach ($pengadaan as $sm) : ?>
                             <label class="form-control"><?php echo $sm['ket']; ?></label>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan=2>
+                            <a href="<?=base_url('Pengadaan/detilpenerimaan/'.$sm['id']); ?>" class="badge badge-success" width="100%">Detail Penerimaan</a>
+                        </td>
+                    </tr>
                 </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >close</button>
                 </div>
-
         </div>
+
     </div>
 </div>
+
+
+
+
 <?php endforeach; } ?>

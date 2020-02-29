@@ -6,7 +6,7 @@
 
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <?= form_error('komponen', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
@@ -125,14 +125,14 @@ if (isset($uraian_komponen)) {
                     <form action="<?= base_url('komponen/edit_uraian_komponen/' . $uk['id_uraian']); ?>" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="id_jenis" name="id_jenis" placeholder="Jenis Komponen" value="<?php echo $uk['jenis_komponen']; ?>" readonly>
+                                <input readonly type="text" class="form-control" id="id_jenis" name="id_jenis" placeholder="Jenis Komponen" value="<?php echo $uk['jenis_komponen']; ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="id_komponen" name="id_komponen" placeholder="Komponen" value="<?php echo $uk['komponen']; ?>" readonly>
+                                <input readonly type="text" class="form-control" id="id_komponen" name="id_komponen" placeholder="Komponen" value="<?php echo $uk['komponen']; ?>" readonly>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen" value="<?php echo $uk['uraian_komponen']; ?>">
+                                <input readonly type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen" value="<?php echo $uk['uraian_komponen']; ?>">
                             </div>
                             <div class="form-group">
                                 <select name="satuan" id="satuan" class="form-control">
@@ -168,5 +168,5 @@ if (isset($uraian_komponen)) {
 
 
 <script>
-    $('#harga').mask("#,###.###.###.###", {reverse: true});
+    $('#harga').mask("#,###,###,###,###", {reverse: true});
 </script>
