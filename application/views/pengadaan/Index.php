@@ -21,20 +21,20 @@
                 if ($aktif['tahun']==$this->session->userdata('tahun'))
                 {
             ?>
-                <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#pengadaanModal">Tambah Pembelian</a>
+                <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#pengadaanModal">Tambah Pengadaan</a>
             <?php
                 }
                 else
                 {
             ?>
-                <a href="#" class="btn btn-primary mb-3 disabled" data-toggle="modal" data-target="#pengadaanModal" >Tambah Pembelian</a>
+                <a href="#" class="btn btn-primary mb-3 disabled" data-toggle="modal" data-target="#pengadaanModal" >Tambah Pengadaan</a>
             <?php
                 }
             }
             else
             {
                 ?>
-                    <a href="#" class="btn btn-primary mb-3 disabled" data-toggle="modal" data-target="#pengadaanModal" >Tambah Pembelian</a>
+                    <a href="#" class="btn btn-primary mb-3 disabled" data-toggle="modal" data-target="#pengadaanModal" >Tambah Pengadaan</a>
                 <?php
                     
             }

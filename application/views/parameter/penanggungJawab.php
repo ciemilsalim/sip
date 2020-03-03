@@ -1,4 +1,20 @@
 
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==3)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 <?php 
 
 if(!empty($kode1)  and !empty($kode2)  and !empty($kode3) )
@@ -133,7 +149,7 @@ if(!empty($kode1)  and !empty($kode2)  and !empty($kode3) )
                             
                             <div class="form-group row justify-content-end" style="margin-top:20px;">
                                 <div class="col-sm-9">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary  <?= $disabled ?>" >Simpan</button>
                                 </div>
                             </div>
                         </form>

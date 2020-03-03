@@ -62,41 +62,48 @@ else
                     }
                     ?>
                     <div class="form-group">
-                        <select name="pembelian" id="pembelian" class="form-control">
+                        <table width="80%">
+                        <tr>
+                        <td width="20%"><label >Kode Pengadaan</label></td>
+                        <td> <select name="pembelian" id="pembelian" class="form-control">
 
-                        <?PHP
-                            if($kd_pengadaan!='')
-                            {
-                                ?>
-                                <option value="<?= $kd_pengadaan; ?>" selected><?= $kd_pengadaan; ?></option>
-                                <?php
-                                 if(isset($pembelian))
-                                 {
-                                        foreach ($pembelian as $r) : 
-                                        if($r['kd_pengadaan']==$kd_pengadaan)
-                                            continue;
-                                        else
-                                        {
-                                         ?>
-                                        <option value="<?= $r['kd_pengadaan']; ?>"><?= $r['kd_pengadaan']; ?></option>
-                                 <?php  } endforeach; 
-                                 } 
-                            }
-                            else
-                            {
-                           ?>
-
-                            <option value="">-- Pilih Pembelian --</option> 
-                            <?php 
-                                if(isset($pembelian))
+                            <?PHP
+                                if($kd_pengadaan!='')
                                 {
-                                        foreach ($pembelian as $r) : ?>
-                                        <option value="<?= $r['kd_pengadaan']; ?>"><?= $r['kd_pengadaan']; ?></option>
-                                <?php endforeach; 
-                                } 
-                            }
+                                    ?>
+                                    
+                                            <option value="<?= $kd_pengadaan; ?>" selected><?= $kd_pengadaan; ?></option>
+                                            <?php
+                                            if(isset($pembelian))
+                                            {
+                                                    foreach ($pembelian as $r) : 
+                                                    if($r['kd_pengadaan']==$kd_pengadaan)
+                                                        continue;
+                                                    else
+                                                    {
+                                                    ?>
+                                                    <option value="<?= $r['kd_pengadaan']; ?>"><?= $r['kd_pengadaan']; ?></option>
+                                            <?php  } endforeach; 
+                                            } 
+                                }
+                                else
+                                {
                             ?>
-                        </select>
+
+                                <option value="">-- Pilih Pengadaan --</option> 
+                                <?php 
+                                    if(isset($pembelian))
+                                    {
+                                            foreach ($pembelian as $r) : ?>
+                                            <option value="<?= $r['kd_pengadaan']; ?>"><?= $r['kd_pengadaan']; ?></option>
+                                    <?php endforeach; 
+                                    } 
+                                }
+                                ?>
+                            </select>
+                            </td>
+                        </tr>
+                        </table>
                         
                         <br>
 
@@ -372,8 +379,8 @@ else
     //js untuk ambil nilai TW yang belum diaktifkan pada database
     $('#pembelian').on('change', function() 
     {
-        tw=$('#pembelian').val();
-        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihpembelian/"+tw;
+        beli=$('#pembelian').val();
+        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihpembelian/"+beli;
     });
 
 
@@ -412,6 +419,15 @@ else
         $('#totalharga').mask("#,###,###,###,###", {reverse: false});
         $('#totalharga').val(totaltes);
         $('#totalharga').mask("#,###,###,###,###", {reverse: true});
+
+        if($('#totalharga').val()==0)
+        {
+            $('#buttonjson').prop("disabled",true);
+        }
+        else
+        {
+            $('#buttonjson').prop("disabled",false);
+        }
     }
 
     $("#buttonjson").click(function() 

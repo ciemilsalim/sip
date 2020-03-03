@@ -1,4 +1,17 @@
 <?php
+$disabled='';
+if($this->session->userdata('role_id')==3)
+{
+    $disabled='';
+}
+else
+{
+    $disabled="disabled";
+}
+
+?>
+
+<?php
 if(!empty($identitas))
 {
 ?>
@@ -68,7 +81,7 @@ if(!empty($identitas))
                             </div>
                             <div class="form-group row justify-content-end">
                                 <div class="col-sm-9">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary <?= $disabled ?>"">Simpan</button>
                                 </div>
                             </div>
                             </form>

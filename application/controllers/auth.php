@@ -45,6 +45,7 @@ class Auth extends CI_Controller
                         'kd_bidang' => $user['kd_bidang'],
                         'kd_unit' => $user['kd_unit'],
                         'kd_sub' => $user['kd_sub'],
+                        'kd_bid_skpd' => $user['kd_bid_skpd'],
                         'tahun' => $tahun
                     ];
                    
@@ -133,10 +134,20 @@ class Auth extends CI_Controller
             'min_length' => 'Password too short'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        $role_id = $this->input->post('role_id', true);
+        $kd_bid = $this->input->post('bidang', true);
+        if(($role_id==4 and $kd_bid=='') or ($role_id==5 and $kd_bid==''))
+        {
+            $this->form_validation->set_rules('bidang', 'Bidang', 'required');
+        }
+        
+
         if ($this->form_validation->run() == false) {
 
-
-            $data = $this->db->get_where('user_role', ['id !=' => 1])->result_array();
+            $this->db->where('id !=', 1); 
+            $this->db->where('id !=', 7); 
+            $data = $this->db->get('user_role')->result_array();
             $data['role'] = $data;
 
             // $this->db->select('*');
@@ -153,8 +164,10 @@ class Auth extends CI_Controller
             $email = $this->input->post('email', true);
             $role_id = $this->input->post('role_id', true);
             $skpd = $this->input->post('skpd', true);
-
+            $kd_bid = $this->input->post('bidang', true);
+            $nama_bid = $this->input->post('nama_bid', true);
             $dataskpd=explode("#",$skpd);
+
 
             $data = [
                 'nama' => htmlspecialchars($nama),
@@ -168,7 +181,9 @@ class Auth extends CI_Controller
                 'kd_bidang' =>$dataskpd[1],
                 'kd_unit' =>$dataskpd[2],
                 'kd_sub' =>$dataskpd[3],
-                'nama_skpd' =>$dataskpd[4]
+                'nama_skpd' =>$dataskpd[4],
+                'kd_bid_skpd' =>$kd_bid,
+                'nama_bid_skpd' =>$nama_bid
             ];
 
             //token
@@ -187,6 +202,22 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Selamat.. Akun Anda terdaftar! Silahkan Aktivasi Akun anda di alamat ' . $email . '</div>');
             redirect('auth');
         }
+    }
+
+
+    public function pilihbidang()
+    {
+        $kd_urusan = $this->uri->segment(3);
+        $kd_bidang = $this->uri->segment(4);
+        $kd_unit = $this->uri->segment(5);
+        $kd_sub = $this->uri->segment(6);
+       
+        $array = array('kd_urusan' => $kd_urusan, 'kd_bidang' =>  $kd_bidang, 'kd_unit' => $kd_unit, 'kd_sub' => $kd_sub);
+   
+        $this->db->where($array);
+        $data['bidang']= $this->db->get('tb_bidang')->result_array();
+
+        echo json_encode($data['bidang']);
     }
 
 

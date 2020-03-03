@@ -626,7 +626,7 @@ class Parameter extends CI_Controller
                 'nama_gudang' => $penyimpanan,
             );
 
-            $this->db->where('id', $array);
+            $this->db->where('id', $id);
             $this->db->update('tb_penyimpanan', $data);
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diupdate</div>');
             redirect('parameter/penyimpanan');

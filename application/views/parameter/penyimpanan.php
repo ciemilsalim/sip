@@ -1,3 +1,19 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==3)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 
 <?php 
 
@@ -39,7 +55,7 @@ if(!empty($penyimpanan))
                         
                         <div class="form-group row justify-content-end">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Ubah</button>
+                                <button type="submit" class="btn btn-primary <?= $disabled ?>">Ubah</button>
                             </div>
                         </div>
                         </form>

@@ -64,6 +64,7 @@
      
                 <div style="10px solid grey; background-color:#e9d8d8; padding:10px;">
                     <label style="text-decoration:underline">Detail Pengadaan</label>
+                   
                     <table width="100%">
                         <tr>
                             <td>
@@ -157,7 +158,8 @@
                 </div>
 
                     <br>
-                    <label style="text-decoration:underline">Detail Penerimaan</label>
+                    <label style="text-decoration:underline">Detail Penerimaan</label><br>
+                    <a href="<?=base_url('pengadaan/pilihpembelian/'.$detil['kd_pengadaan']) ?>" class="badge badge-success" width="100%">Tambah penerimaan</a>
                     <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

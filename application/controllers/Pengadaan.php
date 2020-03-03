@@ -13,7 +13,7 @@ class Pengadaan extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Pembelian';
+        $data['title'] = 'Pengadaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
 
@@ -119,7 +119,7 @@ class Pengadaan extends CI_Controller
 
     public function pilihantw()
     {
-        $data['title'] = 'Pembelian';
+        $data['title'] = 'Pengadaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
        
@@ -160,7 +160,7 @@ class Pengadaan extends CI_Controller
 
     public function penerimaan()
     {
-        $data['title'] = 'Pembelian';
+        $data['title'] = 'Pengadaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
 
@@ -198,7 +198,7 @@ class Pengadaan extends CI_Controller
 
     public function pilihpembelian()
     {
-        $data['title'] = 'Pembelian';
+        $data['title'] = 'Pengadaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
         

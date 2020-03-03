@@ -32,8 +32,8 @@
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id'] ?>" class="badge badge-warning">Access</a> |
-                                <a href="#ubahroleModal<?=$r['id']?>" data-toggle="modal" class="badge badge-success">Edit</a> |
-                                <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?=base_url('admin/deleterole/'.$r['id']); ?>" class="badge badge-danger">Hapus</a>
+                                <a href="#ubahroleModal<?=$r['id']?>" data-toggle="modal" class="badge badge-success">Edit</a> 
+                                <!--| <a onclick="return confirm('Yakin akan menghapus data?');" href=" //=base_url('admin/deleterole/'.$r['id']); ?>" class="badge badge-danger">Hapus</a> -->
                             </td>
                         </tr>
                          <?php endforeach; }?>

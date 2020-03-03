@@ -1,3 +1,19 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==7)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -11,7 +27,7 @@
             <?= $this->session->flashdata('message'); ?>
 
 
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#jeniskomponenModal">Tambah Jenis Komponen</a>
+            <a href="#" class="btn btn-primary mb-3 <?= $disabled ?>" data-toggle="modal" data-target="#jeniskomponenModal">Tambah Jenis Komponen</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -31,7 +47,7 @@
                                 <td><?= $i++; ?></td>
                                 <td><?= $jk['kd_jenis']; ?></td>
                                 <td><?= $jk['jenis_komponen']; ?></td>
-                                <td><a href="#ubahjeniskomponenModal<?= $jk['id_jenis']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_jenis_komponen/' . $jk['id_jenis']); ?>" class="badge badge-danger">Hapus</a></td>
+                                <td><a href="#ubahjeniskomponenModal<?= $jk['id_jenis']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_jenis_komponen/' . $jk['id_jenis']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
