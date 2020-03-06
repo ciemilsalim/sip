@@ -1,26 +1,10 @@
-<?php
-if($this->uri->segment(3)!='')
-{
-    $kd_pengadaan=$this->uri->segment(3);
-}
-else
-{
-    $kd_pengadaan='';
-}
-?>
-
-<script>
-    var i=0;
-    var data=[];
-    var dataobj=[];
-</script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <a href="<?=base_url('Permintaanab/proses') ?>" class="badge badge-success" width="100%">Kembali</a>
+    <a  href="javascript:window.history.go(-1);" class="badge badge-success" width="100%">Kembali</a>
     <br>
 
     
@@ -159,7 +143,7 @@ else
                             <!-- <th scope="col">Harga Permintaan</th> -->
                             <th scope="col">Jumlah Persetujuan Kepala Bidang</th>
                             <!-- <th scope="col">Harga Persetujuan Kepala Bidang</th> -->
-                            <th scope="col">Jumlah Persetujuan Pengurus Barang</th>
+                            <th scope="col">Jumlah Persetujuan Pengurus Gudang</th>
                             <!-- <th scope="col">Harga Persetujuan Pengurus Gudang</th> -->
                         </tr>
                     </thead>

@@ -56,6 +56,7 @@
                         <th scope="col">Kode Permintaan</th>
                         <th scope="col">Tanggal Permintaan</th>
                         <th scope="col">Tujuan Penggunaan</th>
+                        <th scope="col">Tanggal Persetujuan Kepala Bidang</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -71,7 +72,8 @@
                             <td><?= $sm['kd_permintaan']; ?></td>
                             <td><?= $sm['tgl_permintaan']; ?></td>
                             <td><?= $sm['tujuan_penggunaan']; ?></td>
-                            <td><a href="<?=base_url('Permintaankb/detailpermintaan/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> </td>
+                            <td><?= $sm['tgl_kepala_bidang']; ?></td>
+                            <td><a href="<?=base_url('Permintaanag/detailpermintaan/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> </td>
                         </tr>
                         <?php endforeach; } ?>
                 </tbody>
@@ -89,14 +91,4 @@
 
 
 
-<script>
-
-    //js untuk ambil nilai TW yang belum diaktifkan pada database
-    $('#tw').on('change', function() 
-    {
-        tw=$('#tw').val();
-        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihantw/"+tw;
-    });
-
-</script>
 

@@ -287,6 +287,8 @@ else
                                         totalsemua();
 
                                     }); 
+
+
                                 
                                     $("#jumlah"+<?= $sm['id_uraian']; ?>).change(function()
                                     {
@@ -325,6 +327,72 @@ else
                                         totalsemua();
 
                                     });
+
+
+                                    //change input 
+                                    $("#jumlah"+<?= $sm['id_uraian']; ?>).bind('keyup mouseup', function () 
+                                    {
+                                        if( $('#jumlah'+<?= $sm['id_uraian']; ?>).val()==-1 || $('#jumlah'+<?= $sm['id_uraian']; ?>).val()==0)
+                                        {
+                                            alert("Jumlah tidak valid");
+                                            $('#jumlah'+<?= $sm['id_uraian']; ?>).val('1');
+
+                                            $('#total'+<?= $sm['id_uraian']; ?>).mask("#,###,###,###,###", {reverse: false});
+                                            harga=<?= $sm['harga']; ?>;
+                                            jumlah=$('#jumlah'+<?= $sm['id_uraian']; ?>).val();
+                                            total=jumlah*harga;
+                                            $('#total'+<?= $sm['id_uraian']; ?>).val(total);
+                                            $('#total'+<?= $sm['id_uraian']; ?>).mask("#,###,###,###,###", {reverse: true});
+
+                                            
+                                            //kurang tambah total
+                                            nilait=Number(nilai.replace(/[^0-9.-]+/g,""));
+                                            if(nilait>total)
+                                            {
+                                                totaltes-=harga;
+                                            }
+                                            else
+                                            {
+                                                totaltes+=harga;
+                                            }
+
+                                            
+                                            ubahobjek(<?= $sm['id_uraian']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga']; ?>,jumlah,total);
+                                            
+                                          
+                                        }
+                                        else
+                                        {
+                                            nilai=$('#total'+<?= $sm['id_uraian']; ?>).val();
+
+                                            $('#total'+<?= $sm['id_uraian']; ?>).mask("#,###,###,###,###", {reverse: false});
+                                            harga=<?= $sm['harga']; ?>;
+                                            jumlah=$('#jumlah'+<?= $sm['id_uraian']; ?>).val();
+                                            total=jumlah*harga;
+                                            $('#total'+<?= $sm['id_uraian']; ?>).val(total);
+                                            $('#total'+<?= $sm['id_uraian']; ?>).mask("#,###,###,###,###", {reverse: true});
+
+                                            
+                                            //kurang tambah total
+                                            nilait=Number(nilai.replace(/[^0-9.-]+/g,""));
+                                            if(nilait>total)
+                                            {
+                                                totaltes-=harga;
+                                            }
+                                            else
+                                            {
+                                                totaltes+=harga;
+                                            }
+
+                                            
+                                            ubahobjek(<?= $sm['id_uraian']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga']; ?>,jumlah,total);
+                                        }
+
+                                        totalsemua();         
+                                    });
+
+
+
 
                                 }); 
 
@@ -400,7 +468,7 @@ else
             if(val.id==id)
             {
                 data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
-                console.log(data);
+                // console.log(data);
             }
             
         });

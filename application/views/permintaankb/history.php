@@ -7,14 +7,7 @@
     
     <div class="row">
         <div class="col-lg-12">
-            <?php if (validation_errors()): ?>
-                <div class = "alert alert-danger" role="alert">
-                    <?= validation_errors();?>
-                </div>
-            <?php endif; ?>
-            <?= $this->session->flashdata('message');?>
-           
-            
+               
                 <div class="modal-body">
                 <?php
                     if(isset($aktif))
@@ -45,9 +38,18 @@
                     <?php
                     }
                     ?>
-                   
+                    <div class="form-group">
+                        <select name="tw" id="tw" class="form-control">
+                           <option value="">-- Pilih TW --</option> 
+                           <option value="1">I</option> 
+                           <option value="2">II</option> 
+                           <option value="3">III</option> 
+                           <option value="4">IV</option> 
+                        </select>
+                    </div>
+            
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -56,6 +58,7 @@
                         <th scope="col">Kode Permintaan</th>
                         <th scope="col">Tanggal Permintaan</th>
                         <th scope="col">Tujuan Penggunaan</th>
+                        <th scope="col">Tanggal Persetujuan Kepala Bidang</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -71,7 +74,8 @@
                             <td><?= $sm['kd_permintaan']; ?></td>
                             <td><?= $sm['tgl_permintaan']; ?></td>
                             <td><?= $sm['tujuan_penggunaan']; ?></td>
-                            <td><a href="<?=base_url('Permintaankb/detailpermintaan/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> </td>
+                            <td><?= $sm['tgl_kepala_bidang']; ?></td>
+                            <td><a href="<?=base_url('Permintaanab/detailhistory/'.$sm['kd_permintaan']."/".$sm['tahun']."/".$sm['tw']); ?>" class="badge badge-success">Detail</a> </td>
                         </tr>
                         <?php endforeach; } ?>
                 </tbody>
@@ -95,7 +99,7 @@
     $('#tw').on('change', function() 
     {
         tw=$('#tw').val();
-        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihantw/"+tw;
+        window.location.href = "<?php echo base_url(); ?>Permintaankb/pilihantw/"+tw;
     });
 
 </script>

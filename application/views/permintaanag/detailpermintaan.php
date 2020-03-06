@@ -14,7 +14,6 @@ else
 <script>
     var i=0;
     var data=[];
-    //parameter untuk menolak permintaan
     var datano=[];
 </script>
 
@@ -121,7 +120,7 @@ else
                     ?>
                     
 
-            <form action="<?= base_url('Permintaankb/detailpermintaan'); ?>" method="POST">
+            <form action="<?= base_url('Permintaanag/detailpermintaan'); ?>" method="POST">
 
                 <div style="10px solid grey; background-color:#e9d8d8; padding:10px;">
                     <label style="text-decoration:underline">Detail Permintaan</label>
@@ -140,6 +139,7 @@ else
                             </td>
                             <td width="60%">
                                 <input type="text" class="form-control" id="nama_bidang" name="nama_bidang" value="<?php if(isset($permintaan)) { echo $permintaan['nama_bidang']; } ?>" readonly>
+                                <input style="display:none" type="text" class="form-control" id="kd_bid_skpd" name="kd_bid_skpd" value="<?php if(isset($permintaan)) { echo $permintaan['kd_bid_skpd']; } ?>" readonly>
                             </td>
                         </tr>
                         <tr>
@@ -148,6 +148,7 @@ else
                             </td>
                             <td width="60%">
                                 <input type="text" class="form-control" id="nama_k_bidang" name="nama_k_bidang" value="<?php if(isset($permintaan)) { echo $permintaan['nama_kep_bid_skpd']; } ?>"  readonly>
+                                <input style="display:none" type="text" class="form-control" id="kd_k_bidang" name="kd_k_bidang" value="<?php if(isset($permintaan)) { echo $permintaan['kd_bid_skpd']; } ?>" readonly>
                             </td>
                             
                         </tr>
@@ -184,6 +185,14 @@ else
                                 <textarea class="form-control" id="tujuan" name="tujuan" readonly><?php if(isset($permintaan)) { echo $permintaan['tujuan_penggunaan']; } ?></textarea>
                             </td>
                         </tr>
+                        <tr>
+                            <td style="padding:10px;">
+                                <label >Tanggal Persetujuan Kepala Bidang</label>
+                            </td>
+                            <td width="60%">
+                            <input readonly type="text" class="form-control" value="<?php if(isset($permintaan)) { echo $permintaan['tgl_kepala_bidang']; } ?>" />
+                            </td>
+                        </tr>
 
                     </table>
                 </div>
@@ -204,10 +213,10 @@ else
                             <th scope="col">Uraian Komponen</th>
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
-                            <th scope="col">Jumlah Permintaan</th>
-                            <!-- <th scope="col">Harga Permintaan</th> -->
-                            <th scope="col">Saldo</th>
+                            <th scope="col">Jumlah Permintaan Bidang</th>
                             <th scope="col">Persetujuan Kepala Bidang</th>
+                            <th scope="col">Saldo</th>
+                            <th scope="col">Persetujuan Pengurus Gudang</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -221,9 +230,9 @@ else
                                 <td><?= $sm['satuan']; ?></td>
                                 <td><?= number_format($sm['harga_satuan']);; ?></td>
                                 <td><?= $sm['jumlah_permintaan']; ?></td>
-                                <!-- <td>//= number_format($sm['harga_permintaan']); ?></td> -->
+                                <td><?= $sm['jumlah_persetujuan_kb']; ?></td>
                                 <td><?= $sm['jumlah']; ?></td>
-                                <td>
+                                <td width="25%">
                                     <input type="checkbox" id="id<?= $sm['id']; ?>"  value="<?= $sm['id']; ?>" >
                                     <input type="number" style="width:100px; padding:10px;" id="jumlah<?= $sm['id']; ?>"  value="0" disabled>
                                     <input type="text" style="width:150px; padding:10px;" id="total<?= $sm['id']; ?>" readonly  value="0" disabled>
@@ -239,7 +248,7 @@ else
                                     $("#id"+<?= $sm['id']; ?>).prop("disabled",false);
                                     $('#jumlah'+<?= $sm['id']; ?>).prop("disabled", false);
                                     $('#total'+<?= $sm['id']; ?>).prop("disabled", false);                
-                                    if((<?= $sm['jumlah_permintaan']; ?>)>(<?= $sm['jumlah']; ?>))
+                                    if((<?= $sm['jumlah_persetujuan_kb']; ?>)>(<?= $sm['jumlah']; ?>))
                                     {
                                         $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah']; ?>);
                                         $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_total']; ?>);
@@ -247,9 +256,9 @@ else
                                     }
                                     else
                                     {
-                                        $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_permintaan']; ?>);
+                                        $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_persetujuan_kb']; ?>);
                                         $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_permintaan']; ?>);
-                                        simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_permintaan']; ?>,<?= $sm['harga_permintaan']; ?>);
+                                        simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_persetujuan_kb']; ?>,<?= $sm['harga_permintaan']; ?>);
                                     }
 
                                     $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: true});
@@ -383,7 +392,7 @@ else
                                             alert("Jumlah tidak valid");
                                             $('#jumlah'+<?= $sm['id']; ?>).val('1');
                                             
-                                            nilai=$('#total'+<?= $sm['id']; ?>).val('1');
+                                            nilai=$('#total'+<?= $sm['id']; ?>).val();
 
                                             $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: false});
                                             harga=<?= $sm['harga_satuan']; ?>;
@@ -442,7 +451,7 @@ else
                                         }
                                         else
                                         {
-                                              
+                                               
                                                     nilai=$('#total'+<?= $sm['id']; ?>).val();
 
                                                     $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: false});
@@ -471,7 +480,6 @@ else
                                                 totalsemua();
                                         }           
                                     });
-
 
 
                                 }); 
@@ -567,7 +575,7 @@ else
                             $('#jumlah'+<?= $sm['id']; ?>).prop("disabled", true);
                             $('#total'+<?= $sm['id']; ?>).prop("disabled",true);                
                             
-                            if((<?= $sm['jumlah_permintaan']; ?>)>(<?= $sm['jumlah']; ?>))
+                            if((<?= $sm['jumlah_persetujuan_kb']; ?>)>(<?= $sm['jumlah']; ?>))
                             {
                                 $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah']; ?>);
                                 $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_total']; ?>);
@@ -575,9 +583,9 @@ else
                             }
                             else
                             {
-                                $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_permintaan']; ?>);
+                                $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_persetujuan_kb']; ?>);
                                 $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_permintaan']; ?>);
-                                simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_permintaan']; ?>,<?= $sm['harga_permintaan']; ?>);
+                                simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_persetujuan_kb']; ?>,<?= $sm['harga_permintaan']; ?>);
                             }
 
                             $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: true});
@@ -625,7 +633,7 @@ else
                             $('#jumlah'+<?= $sm['id']; ?>).prop("disabled", false);
                             $('#total'+<?= $sm['id']; ?>).prop("disabled", false);                
                             
-                            if((<?= $sm['jumlah_permintaan']; ?>)>(<?= $sm['jumlah']; ?>))
+                            if((<?= $sm['jumlah_persetujuan_kb']; ?>)>(<?= $sm['jumlah']; ?>))
                             {
                                 $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah']; ?>);
                                 $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_total']; ?>);
@@ -633,9 +641,9 @@ else
                             }
                             else
                             {
-                                $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_permintaan']; ?>);
+                                $('#jumlah'+<?= $sm['id']; ?>).val(<?= $sm['jumlah_persetujuan_kb']; ?>);
                                 $('#total'+<?= $sm['id']; ?>).val(<?= $sm['harga_permintaan']; ?>);
-                                simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_permintaan']; ?>,<?= $sm['harga_permintaan']; ?>);
+                                simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_persetujuan_kb']; ?>,<?= $sm['harga_permintaan']; ?>);
                             }
 
                             $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: true});
@@ -660,13 +668,14 @@ else
                 $('#totalharga').val(totaltotal);
                 $('#buttonjson').prop("disabled",false);
                 $('#totalharga').mask("#,###,###,###,###", {reverse: true});
+
                 totaltes=totaltotal;
                 datano='NO';
 
             }
             else if ($('input[name=pilih]:checked').val() == "n")  
             {
-                
+
                 totaltes=totaltotal;
 
                 <?php
@@ -684,7 +693,7 @@ else
                             $('#jumlah'+<?= $sm['id']; ?>).val(0);
                             $('#total'+<?= $sm['id']; ?>).val(0);
                             $('#total'+<?= $sm['id']; ?>).mask("#,###,###,###,###", {reverse: true});
-                            simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_permintaan']; ?>,<?= $sm['harga_permintaan']; ?>);
+                            simpanobjek(<?= $sm['id']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,<?= $sm['jumlah_persetujuan_kb']; ?>,<?= $sm['harga_permintaan']; ?>);
                         }
                         else
                         {
@@ -720,7 +729,7 @@ else
 
         datanofix=JSON.stringify(datano);
         $('#jsondatano').val(datanofix);
-        
+
         $('#buttonjson').prop("disabled",true);
         $('#buttonsimpan').prop("disabled",false);
     });

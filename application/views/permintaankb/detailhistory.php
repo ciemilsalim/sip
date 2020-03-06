@@ -1,39 +1,14 @@
-<?php
-if($this->uri->segment(3)!='')
-{
-    $kd_pengadaan=$this->uri->segment(3);
-}
-else
-{
-    $kd_pengadaan='';
-}
-?>
-
-<script>
-    var i=0;
-    var data=[];
-    var dataobj=[];
-</script>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <a href="<?=base_url('Permintaanab/proses') ?>" class="badge badge-success" width="100%">Kembali</a>
+    <a  href="javascript:window.history.go(-1);" class="badge badge-success" width="100%">Kembali</a>
     <br>
 
     
     <div class="row">
         <div class="col-lg-12">
-            <?php if (validation_errors()): ?>
-                <div class = "alert alert-danger" role="alert">
-                    <?= validation_errors();?>
-                </div>
-            <?php endif; ?>
-            <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>');?>
-            <?= $this->session->flashdata('message');?>
-
                 <?php
                     if(isset($aktif))
                     {

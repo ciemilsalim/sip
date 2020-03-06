@@ -86,11 +86,10 @@
                                         {
                                             echo "Sudah diproses";
                                         }    
-                                        else if($sm['status_kepala_bidang']==3 ) 
+                                        else if($sm['status_kepala_bidang']==3) 
                                         {
                                             echo "Permintaan ditolak";
-                                        }
-                                                            
+                                        }                            
                                 ?>
                             </td>
                             <td>
@@ -106,11 +105,11 @@
                                         {
                                             echo "Sudah diproses";
                                         }
-                                        else if($sm['status_kepala_gudang']==7  and $sm['status_kepala_bidang']>=3) 
+                                        else if($sm['status_kepala_gudang']==7  and $sm['status_kepala_bidang']==3) 
                                         {
                                             echo "Tidak diproses";
                                         }
-                                        else if($sm['status_kepala_gudang']==3  and $sm['status_kepala_bidang']>=3) 
+                                        else if($sm['status_kepala_gudang']==3  and $sm['status_kepala_bidang']==3) 
                                         {
                                             echo "Permintaan ditolak";
                                         }
@@ -121,7 +120,7 @@
                             <?php
                                     
                                     $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
-                                    if($sm['status_kepala_gudang']>=2 and $sm['status_kepala_bidang']>=2) 
+                                    if($sm['status_selesai_kb']>=0 and $sm['status_kepala_gudang']>=2) 
                                     {
                                         $class='';  
                                     }
@@ -129,6 +128,7 @@
                                 <a href=" <?=base_url('permintaankb/status/'.$sm['kd_permintaan']); ?>" class="badge badge-warning" style="<?= $class; ?>">Selesai</a> 
                             </td>
                         </tr>
+                        
                         <?php endforeach; } ?>
                 </tbody>
 

@@ -15,6 +15,62 @@ else
     var dataobj=[];
 </script>
 
+
+<script>
+
+    var totaltes=0;
+
+    //js untuk ambil nilai TW yang belum diaktifkan pada database
+    $('#pembelian').on('change', function() 
+    {
+        beli=$('#pembelian').val();
+        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihpembelian/"+beli;
+    });
+
+
+    //simpan objek data
+    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
+    {
+        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
+        totaltes+=total;                                
+        // console.log(data);
+    }
+
+    //ganti nilai objek data
+    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
+    {
+        jQuery.each( data, function( i, val ) 
+        {
+            if(val.id==id)
+            {
+                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
+                // console.log(data);
+            }
+            
+        });
+
+    }
+
+    function totalsemua()
+    {
+        $('#totalharga').mask("#,###,###,###,###", {reverse: false});
+        $('#totalharga').val(totaltes);
+        $('#totalharga').mask("#,###,###,###,###", {reverse: true});
+
+        if($('#totalharga').val()==0)
+        {
+            $('#buttonjson').prop("disabled",true);
+        }
+        else
+        {
+            $('#buttonjson').prop("disabled",false);
+        }
+    }
+
+    
+
+</script>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -143,8 +199,8 @@ else
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Saldo</th>
-                            <th scope="col">Harga Saldo</th>
-                            <th scope="col">Action</th>
+                            <!-- <th scope="col">Harga Saldo</th> -->
+                            <th scope="col">Jumlah Permintaan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,7 +214,7 @@ else
                                 <td><?= $sm['satuan']; ?></td>
                                 <td><?= number_format($sm['harga_satuan']);; ?></td>
                                 <td><?= $sm['jumlah']; ?></td>
-                                <td><?= number_format($sm['harga_total']); ?></td>
+                                <!-- <td>//= number_format($sm['harga_total']); ?></td> -->
                                 <td>
                                     <input type="checkbox" id="id<?= $sm['id_saldo']; ?>"  value="<?= $sm['id_saldo']; ?>" >
                                     <input type="number" style="width:100px; padding:10px;" id="jumlah<?= $sm['id_saldo']; ?>"  value="0" disabled>
@@ -167,9 +223,28 @@ else
                             </tr>
 
                             <script> 
+
+                                var klik<?= $sm['id_saldo']; ?>='';
+                                //otomatis dipanggil
+                                if((<?= $sm['jumlah']; ?>)!=0)
+                                {
+                                            
+                                }
+                                else
+                                {
+                                    $("#id"+<?= $sm['id_saldo']; ?>).prop('checked', false);
+                                    $("#id"+<?= $sm['id_saldo']; ?>).prop("disabled",true);
+                                    $('#jumlah'+<?= $sm['id_saldo']; ?>).prop("disabled",true);
+                                    $('#total'+<?= $sm['id_saldo']; ?>).prop("disabled", true);                
+                                    $('#jumlah'+<?= $sm['id_saldo']; ?>).val(0);
+                                    $('#total'+<?= $sm['id_saldo']; ?>).val(0);
+                                }
+
+                                totalsemua();
+
                            
                                 $(document).ready(function() { 
-                                    var klik<?= $sm['id_saldo']; ?>='';
+                                    
 
                                     $("#id"+<?= $sm['id_saldo']; ?>).click(function() 
                                     { 
@@ -271,6 +346,112 @@ else
 
                                     });
 
+
+
+                                    //change input 
+                                    $("#jumlah"+<?= $sm['id_saldo']; ?>).bind('keyup mouseup', function () 
+                                    {
+                                        if( $('#jumlah'+<?= $sm['id_saldo']; ?>).val()==-1 || $('#jumlah'+<?= $sm['id_saldo']; ?>).val()==0)
+                                        {
+                                            alert("Jumlah tidak valid");
+                                            $('#jumlah'+<?= $sm['id_saldo']; ?>).val('1');
+                                            
+                                            nilai=$('#total'+<?= $sm['id_saldo']; ?>).val('1');
+
+                                            $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
+                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
+                                            total=jumlah*harga;
+                                            $('#total'+<?= $sm['id_saldo']; ?>).val(total);
+                                            $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: true});
+
+                                                    
+                                            //kurang tambah total
+                                            nilait=Number(nilai.replace(/[^0-9.-]+/g,""));
+                                            if(nilait>total)
+                                            {
+                                                totaltes-=harga;
+                                            }
+                                            else
+                                            {
+                                                totaltes+=harga;
+                                            }
+
+                                                    
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                            
+                                            totalsemua();
+                                        }
+                                        else if( $('#jumlah'+<?= $sm['id_saldo']; ?>).val() > <?= $sm['jumlah']; ?>)
+                                        {
+                                            alert('Maaf, jumlah permintaan lebih dari jumlah saldo persediaan');
+                                            $('#jumlah'+<?= $sm['id_saldo']; ?>).val(<?= $sm['jumlah']; ?>);
+                                            
+                                            nilai=$('#total'+<?= $sm['id_saldo']; ?>).val();
+
+                                            $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
+                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
+                                            total=jumlah*harga;
+                                            $('#total'+<?= $sm['id_saldo']; ?>).val(total);
+                                            $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: true});
+
+                                                    
+                                            //kurang tambah total
+                                            nilait=Number(nilai.replace(/[^0-9.-]+/g,""));
+                                            if(nilait>total)
+                                            {
+                                                totaltes-=harga;
+                                            }
+                                            else
+                                            {
+                                                totaltes+=harga;
+                                            }
+
+                                                    
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                            
+                                            totalsemua();
+                                        }
+                                        else
+                                        {
+                                                // if( $('#jumlah'+//= $sm['id_saldo']; ?>).val()==-1 || $('#jumlah'+//= $sm['id_saldo']; ?>).val()==0)
+                                                // {
+                                                //     alert("Jumlah tidak valid");
+                                                //     $('#jumlah'+//= $sm['id_saldo']; ?>).val('1');
+                                                // }
+                                                // else
+                                                // {
+                                                    nilai=$('#total'+<?= $sm['id_saldo']; ?>).val();
+
+                                                    $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
+                                                    harga=<?= $sm['harga_satuan']; ?>;
+                                                    jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
+                                                    total=jumlah*harga;
+                                                    $('#total'+<?= $sm['id_saldo']; ?>).val(total);
+                                                    $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: true});
+
+                                                    
+                                                    //kurang tambah total
+                                                    nilait=Number(nilai.replace(/[^0-9.-]+/g,""));
+                                                    if(nilait>total)
+                                                    {
+                                                        totaltes-=harga;
+                                                    }
+                                                    else
+                                                    {
+                                                        totaltes+=harga;
+                                                    }
+
+                                                    
+                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                                // }
+
+                                                totalsemua();
+                                        }           
+                                    });
+
+
                                 }); 
 
                                
@@ -316,63 +497,11 @@ else
 </div>
 <!-- End of Main Content -->
 
-<script>
-
-    var totaltes=0;
-
-    //js untuk ambil nilai TW yang belum diaktifkan pada database
-    $('#pembelian').on('change', function() 
-    {
-        beli=$('#pembelian').val();
-        window.location.href = "<?php echo base_url(); ?>pengadaan/pilihpembelian/"+beli;
-    });
-
-
-    //simpan objek data
-    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
-    {
-        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
-        totaltes+=total;                                
-        // console.log(data);
-    }
-
-    //ganti nilai objek data
-    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
-    {
-        jQuery.each( data, function( i, val ) 
-        {
-            if(val.id==id)
-            {
-                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
-                console.log(data);
-            }
-            
-        });
-
-    }
-
-    
-
-</script>
 
 
 <script>
 
-    function totalsemua()
-    {
-        $('#totalharga').mask("#,###,###,###,###", {reverse: false});
-        $('#totalharga').val(totaltes);
-        $('#totalharga').mask("#,###,###,###,###", {reverse: true});
-
-        if($('#totalharga').val()==0)
-        {
-            $('#buttonjson').prop("disabled",true);
-        }
-        else
-        {
-            $('#buttonjson').prop("disabled",false);
-        }
-    }
+   
 
     $("#buttonjson").click(function() 
     { 

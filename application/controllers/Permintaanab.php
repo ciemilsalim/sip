@@ -22,6 +22,8 @@ class Permintaanab extends CI_Controller
         if(!empty($cektatw))
         {
             $this->form_validation->set_rules('tgl_permintaan', 'Tanggal Permintaan', 'required');
+            $this->form_validation->set_rules('tujuan', 'Tujuan', 'required');
+
 
             if ($this->form_validation->run() == false) 
             {     
@@ -80,8 +82,8 @@ class Permintaanab extends CI_Controller
                     $kd = '1';
                 }
 
-                $kd_bidang = $this->input->post('kd_bidang');
-                $nama_bidang = $this->input->post('nama_bidang');
+                $kd_bid_skpd = $this->input->post('kd_bidang');
+                $nama_bid_skpd = $this->input->post('nama_bidang');
                 $kd_kepala_bidang = $this->input->post('kd_k_bidang');
                 $nama_kepala_bidang = $this->input->post('nama_k_bidang');
                 $nip = $this->input->post('nip');
@@ -94,6 +96,7 @@ class Permintaanab extends CI_Controller
                 $kd_bidang = $this->session->userdata('kd_bidang');
                 $kd_unit = $this->session->userdata('kd_unit');
                 $kd_sub = $this->session->userdata('kd_sub');
+                // $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
                 $datajson = json_decode($this->input->post('jsondata'),true);
 
                 $data = array(
@@ -107,14 +110,14 @@ class Permintaanab extends CI_Controller
                     'tgl_permintaan' =>  $tgl,
                     'tujuan_penggunaan' =>  $tujuan,
                     'nama_admin' =>  $nama_admin,
-                    'kd_bid_skpd' =>  $kd_bidang,
-                    'nama_bidang' =>  $nama_bidang,
+                    'kd_bid_skpd' =>  $kd_bid_skpd,
+                    'nama_bidang' =>   $nama_bid_skpd,
                     'kd_kep_bid_skpd' =>  $kd_kepala_bidang,
                     'nama_kep_bid_skpd' =>  $nama_kepala_bidang,
                     'nip' =>  $nip,
                     'status_kepala_bidang' =>  0,
                     'status_kepala_gudang ' =>  0,
-                    'status_selesai ' =>  0
+                    // 'status_selesai ' =>  0
                 );
 
                 $this->db->insert('tb_permintaan', $data);
@@ -128,6 +131,7 @@ class Permintaanab extends CI_Controller
                         'kd_bidang' => $kd_bidang,
                         'kd_unit' => $kd_unit,
                         'kd_sub' => $kd_sub,
+                        'kd_bid_skpd' => $kd_bidang,
                         'kd_permintaan' => $kd,
                         'kd_jenis' => $datajson[$key]['kd_jenis'],
                         'kd_komponen' => $datajson[$key]['kd_komponen'],
@@ -149,7 +153,7 @@ class Permintaanab extends CI_Controller
                 }
 
                 $data['title'] = 'Proses Permintaan';
-                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil dikirim pada kepala bidang</div>');
                 redirect('permintaanab/proses');
 
             }
@@ -178,12 +182,14 @@ class Permintaanab extends CI_Controller
         if(!empty($cektatw))
         {
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
-        
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
             // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
 
             $this->db->where($array);
-            $this->db->where('status_kepala_bidang < ', 4); 
-            $this->db->where('status_kepala_gudang < ', 4); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('status_kepala_bidang <= ', 9); 
+            $this->db->where('status_kepala_gudang <= ', 7); 
+            $this->db->where('status_admin_bidang < ', 9); 
             $data['permintaan'] = $this->db->get('tb_permintaan')->result_array();
 
             $this->load->view('templates/header', $data);
@@ -198,7 +204,57 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('permintaanab/notactive', $data);
+            $this->load->view('templates/footer');
+        }
+
+    }
+
+
+    public function status()
+    {
+        $data['title'] = 'Proses Permintaan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif']=$cektatw;
+       
+        if(!empty($cektatw))
+        {
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+            $kdp = $this->uri->segment(3);
+
+            $datax = array(
+                'status_admin_bidang' => 9
+            );
+
+            $this->db->where($array); 
+            $this->db->where('kd_permintaan',$kdp); 
+            $this->db->where('kd_bid_skpd',$kd_bid_skpd); 
+            $this->db->update('tb_permintaan', $datax);
+
+            $this->db->where($array);
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('status_kepala_bidang <= ', 9); 
+            $this->db->where('status_kepala_gudang <= ', 7); 
+            $this->db->where('status_admin_bidang < ', 9); 
+            $data['permintaan'] = $this->db->get('tb_permintaan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaanab/proses', $data);
+            $this->load->view('templates/footer');
+
+        }
+        else
+        { 
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaanab/notactive', $data);
             $this->load->view('templates/footer');
         }
 
@@ -267,12 +323,15 @@ class Permintaanab extends CI_Controller
         {
             $kd = $this->uri->segment(3);
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
-            
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+
             $this->db->where($array); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
             $this->db->where('kd_permintaan',$kd); 
             $data['permintaan'] = $this->db->get('tb_permintaan')->row_array();
 
             $this->db->where($array); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
             $this->db->where('kd_permintaan',$kd); 
             $data['detailpermintaan'] = $this->db->get('tb_detail_permintaan')->result_array();
 
@@ -292,6 +351,91 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/footer');
         }
 
+    }
+
+
+    public function history()
+    {
+        $data['title'] = 'History';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif']=$cektatw;
+       
+        if(!empty($cektatw))
+        {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaanab/history', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
+    public function pilihantw()
+    {
+        $data['title'] = 'History';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif']=$cektatw;
+       
+       
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+            // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+
+            $this->db->where($array);
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('status_kepala_bidang >= ', 2); 
+            $this->db->where('status_kepala_gudang >= ', 2); 
+            $this->db->where('status_admin_bidang = ', 9); 
+            $data['permintaan'] = $this->db->get('tb_permintaan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaanab/history', $data);
+            $this->load->view('templates/footer');
+
+       
+    }
+
+    public function detailhistory()
+    {
+        $data['title'] = 'Detail History';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif']=$cektatw;
+       
+        if(!empty($cektatw))
+        {
+            $kd = $this->uri->segment(3);
+            $tahun = $this->uri->segment(4);
+            $tw = $this->uri->segment(5);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $tahun, 'tw' => $tw);
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+
+            $this->db->where($array); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('kd_permintaan',$kd); 
+            $data['permintaan'] = $this->db->get('tb_permintaan')->row_array();
+
+            $this->db->where($array); 
+            $this->db->where('kd_bid_skpd',$kd_bid_skpd); 
+            $this->db->where('kd_permintaan',$kd); 
+            $data['detailpermintaan'] = $this->db->get('tb_detail_permintaan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaanab/detailhistory', $data);
+            $this->load->view('templates/footer');
+        }
     }
 
 
