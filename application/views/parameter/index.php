@@ -1,13 +1,13 @@
 <?php
-$disabled='';
-if($this->session->userdata('role_id')==3)
-{
-    $disabled='';
-}
-else
-{
+// $disabled='';
+// if($this->session->userdata('role_id')==3)
+// {
+//     $disabled='';
+// }
+// else
+// {
     $disabled="disabled";
-}
+// }
 
 ?>
 
@@ -37,7 +37,7 @@ if(!empty($identitas))
                             <div class="form-group row">
                                 <label for="email" class="col-sm-3 col-form-label">Tahun</label>
                                 <div class="col-sm-2">
-                                    <input disabled type="text" class="form-control" id="tahun" name="tahun" value="<?= $identitas['tahun']; ?>">
+                                    <input readonly disabled type="text" class="form-control" id="tahun" name="tahun" value="<?= $identitas['tahun']; ?>">
                                 </div>
                                 <?= form_error('tahun', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
@@ -45,21 +45,21 @@ if(!empty($identitas))
                             <div class="form-group row">
                                 <label for="nama_pemda" class="col-sm-3 col-form-label">Nama Pemda</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nama_pemda" name="nama_pemda" value="<?php if (isset($identitas['nama_pemda'])) { echo $identitas['nama_pemda'];}else echo "" ?>">
+                                    <input  readonly type="text" class="form-control" id="nama_pemda" name="nama_pemda" value="<?php if (isset($identitas['nama_pemda'])) { echo $identitas['nama_pemda'];}else echo "" ?>">
                                     <?= form_error('nama_pemda', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="ibu_kota" class="col-sm-3 col-form-label">Ibu Kota</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="ibu_kota" name="ibu_kota" value="<?php if (isset($identitas['ibu_kota'])) { echo $identitas['ibu_kota'];}else echo "" ?>">
+                                    <input  readonly type="text" class="form-control" id="ibu_kota" name="ibu_kota" value="<?php if (isset($identitas['ibu_kota'])) { echo $identitas['ibu_kota'];}else echo "" ?>">
                                     <?= form_error('ibu_kota', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="alamat" name="alamat"value="<?php if (isset($identitas['alamat'])) { echo $identitas['alamat'];}else echo "" ?>">
+                                    <textarea readonly class="form-control" id="alamat" name="alamat" ><?php if (isset($identitas['alamat'])) { echo $identitas['alamat'];}else echo "" ?></textarea>
                                     <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@ if(!empty($identitas))
                                             <?php }?>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="file" class="custom-file-input" id="logo" name="logo">
+                                            <input  disabled type="file" class="custom-file-input" id="logo" name="logo">
                                             <label class="custom-file-label" for="logo">Ambil gambar</label>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@ if(!empty($identitas))
                             </div>
                             <div class="form-group row justify-content-end">
                                 <div class="col-sm-9">
-                                    <button type="submit" class="btn btn-primary <?= $disabled ?>"">Simpan</button>
+                                    <button type="submit" class="btn btn-primary <?= $disabled ?>" disabled>Simpan</button>
                                 </div>
                             </div>
                             </form>

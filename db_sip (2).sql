@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2020 at 07:08 AM
+-- Generation Time: Mar 07, 2020 at 08:20 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -6877,7 +6877,7 @@ CREATE TABLE `tb_pemda` (
 --
 
 INSERT INTO `tb_pemda` (`id_pemda`, `tahun`, `nama_pemda`, `ibu_kota`, `alamat`, `logo`) VALUES
-(13, '2020', 'Kabupaten Buol', 'Buol', 'Jl. Syarief Mansyur', 'buol1.png'),
+(13, '2020', 'Kabupaten Buol', 'Buol', 'Jl. Batalipu Kelurahan Leok II, Kecamatan Biau, Kabupaten Buol, Sulawesi Tengah 94563', 'buol1.png'),
 (14, '2019', 'dfhdhfdh', 'fhh', 'gh gfj', '859915_3d07585b-26d5-467b-b42e-284349096add_2048_2048.jpg');
 
 -- --------------------------------------------------------
@@ -7140,7 +7140,7 @@ CREATE TABLE `tb_skpd` (
 --
 
 INSERT INTO `tb_skpd` (`id`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_skpd`, `nama_skpd`, `alamat_skpd`, `nip_pimpinan`, `nama_pimpinan`, `jabatan`, `alamat_pimpinan`, `foto`) VALUES
-(11, 2020, 1, 1, 1, 1, '', 'Dinas Pendidikan dan Kebudayaan', 'Jl. Kali', '12345678', 'Lian Aliana, Mpd', 'Kepala Dinas', 'Jl. leok 1', ''),
+(11, 2020, 1, 1, 1, 1, '', 'Dinas Pendidikan dan Kebudayaan ', 'Jl. Kali', '12345678', 'Lian Aliana, Mpd', 'Kepala Dinas', 'Jl. leok 1', 'buol1.png'),
 (12, 0, 4, 4, 1, 1, '', 'Badan Pengelolaan Keuangan dan Aset Daerah', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -7418,21 +7418,14 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (30, 10, 'Pengajuan Permintaan', 'permintaankb/pengajuan', 'fas fa-sw fa-th-list', 1),
 (31, 10, 'Proses Permintaan', 'permintaankb/proses', 'fas fa-sw fa-check', 1),
 (32, 10, 'History', 'permintaankb/history', 'fas fa-sw fa-history', 1),
-(33, 11, 'Supplier', 'laporan/supplier', 'fas fa-sw fa-file', 1),
-(34, 11, 'Belanja', 'laporan/belanja', 'fas fa-sw fa-file', 1),
-(35, 11, 'Jenis Komponen', 'laporan/jenisKomponen', 'fas fa-sw fa-file', 1),
-(36, 11, 'Komponen', 'laporan/komponen', 'fas fa-sw fa-file', 1),
-(37, 11, 'Uraian Komponen', 'laporan/uraiaKomponen', 'fas fa-sw fa-file', 1),
-(38, 11, 'Pembelian', 'laporan/pembelian', 'fas fa-sw fa-file', 1),
-(39, 11, 'Buku Penerimaan', 'laporan/bukuPenerimaan', 'fas fa-sw fa-file', 1),
-(40, 11, 'Buku Pengeluaran', 'laporan/bukuPengeluaran', 'fas fa-sw fa-file', 1),
-(41, 11, 'Stock Opname', 'laporan/stockOpname', 'fas fa-sw fa-file', 1),
-(42, 11, 'Kartu Persediaan', 'laporan/kartuPersediaan', 'fas fa-sw fa-file', 1),
 (43, 4, 'TA', 'managemen/index', 'fas fa-sw fa-calendar', 1),
 (44, 4, 'Managemen TA', 'managemen/managemenTA', 'fas fa-fw fa-cog', 1),
 (49, 5, 'Penyimpanan Gudang', 'parameter/penyimpanan', 'fas fa-sw fa-file', 1),
 (50, 5, 'Belanja', 'parameter/Belanja', 'fas fa-sw fa-file', 1),
-(51, 5, 'Supplier', 'parameter/supplier', 'fas fa-sw fa-file', 1);
+(51, 5, 'Supplier', 'parameter/supplier', 'fas fa-sw fa-file', 1),
+(52, 11, 'Parameter', 'laporan/parameter', 'fas fa-sw fa-file', 1),
+(53, 11, 'Komponen', 'laporan/komponen', 'fas fa-sw fa-file', 1),
+(54, 11, 'Transaksi', 'laporan/transaksi', 'fas fa-sw fa-file', 1);
 
 -- --------------------------------------------------------
 
@@ -7792,7 +7785,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `user_token`
