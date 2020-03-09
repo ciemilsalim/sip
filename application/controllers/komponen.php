@@ -257,8 +257,8 @@ class Komponen extends CI_Controller
             }
 
             $harga=$this->input->post('harga');
-            echo $hargafinal = str_replace(array('.',' '), '',$harga);
-
+            $hargafinal = str_replace('.','',$harga);
+            
             $array = array(
                 'id_uraian' => '',
                 'id_jenis' => $idjenis,
@@ -268,11 +268,11 @@ class Komponen extends CI_Controller
                 'kd_uraian' => $kd_uraian,
                 'uraian_komponen' => $this->input->post('uraian_komponen'),
                 'satuan' => $this->input->post('satuan'),
-                'harga' => $hargafinal
+                'harga' => $harga
             );
 
             $this->db->insert('tb_uraian_komponen', $array);
-            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">uraian Komponen Baru ditambahkan</div>');
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Uraian komponen baru ditambahkan</div>');
             redirect('komponen/uraian_komponen');
         }
     }
@@ -304,7 +304,7 @@ class Komponen extends CI_Controller
         } else {
             $iduraian = $id['id_uraian'] = $this->uri->segment(3);
             $harga=$this->input->post('harga');
-            echo $hargafinal = str_replace(array('.',' '), '',$harga);
+            $hargafinal = str_replace('.','',$harga);
 
             $data = [
                 'uraian_komponen' => $this->input->post('uraian_komponen'),

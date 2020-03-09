@@ -91,6 +91,7 @@
         $('#dataTable2').DataTable();
     });
 </script>
+<script src="<?= base_url('assets/') ?>vendor/validasi/jquery.validate.min.js"></script>
 
 </body>
 

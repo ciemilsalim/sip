@@ -105,7 +105,9 @@ else
                             <option value="Buah">Buah</option>
                             <option value="Lembar">Lembar</option>
                             <option value="Unit">Unit</option>
-                            <option value="Lusin">Lusin</option>    
+                            <option value="Lusin">Lusin</option>   
+                            <option value="Rim">Rim</option> 
+                            <option value="Dos">Dos</option>   
                         </select>
                     </div>
                     <div class="form-group">
@@ -157,7 +159,9 @@ if (isset($uraian_komponen)) {
                                     <option value="Buah">Buah</option>
                                     <option value="Lembar">Lembar</option>
                                     <option value="Unit">Unit</option>
-                                    <option value="Lusin">Lusin</option>    
+                                    <option value="Lusin">Lusin</option>   
+                                    <option value="Rim">Rim</option> 
+                                    <option value="Dos">Dos</option>    
                                 </select>
                             </div>
                             <div class="form-group">

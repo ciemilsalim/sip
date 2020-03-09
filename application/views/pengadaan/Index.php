@@ -134,7 +134,7 @@
                         <label>Data Faktur</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="no_faktur" name="tgl_faktur" placeholder="Nomor Faktur">
+                        <input type="text" class="form-control" id="no_faktur" name="no_faktur" placeholder="Nomor Faktur">
                     </div>
                     <div class="form-group">
                         <input type="date" class="form-control" id="tgl_faktur" name="tgl_faktur">
@@ -144,14 +144,17 @@
                         <label>Data BAP</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="no_bap" name="tgl_bap" placeholder="Nomor BAP">
+                        <input type="text" class="form-control" id="no_bap" name="no_bap" placeholder="Nomor BAP">
                     </div>
                     <div class="form-group">
                         <input type="date" class="form-control" id="tgl_bap" name="tgl_bap">
                     </div>
                     <hr style="border:1px solid grey;"></hr>
                     <div class="form-group">
-                        <label>Data Belanja</label>
+                        <label>Uraian Pembelian</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="uraian" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <select name="belanja" id="belanja" class="form-control">
@@ -223,7 +226,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
 
@@ -288,6 +291,16 @@ foreach ($pengadaan as $sm) : ?>
                         </td>
                         <td width="60%">
                             <label class="form-control"><?php echo $sm['tgl_bap']; ?></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="form-control">Uraian Pembelian</label>
+                        </td>
+                        <td width="60%">
+                            <div class="form-group">
+                                <textarea row="10" name="uraian" class="form-control"><?php echo $sm['uraian_pembelian']; ?></textarea>
+                            </div>
                         </td>
                     </tr>
                     <tr>

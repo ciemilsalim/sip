@@ -512,7 +512,7 @@ else
                             <button type="button" class="btn btn-success pull-right" id="buttonjson">Selesai</button>
                         </td>
                         <td>
-                            <button disabled type="submit" class="btn btn-primary pull-right" id="buttonsimpan">Kirim Permintaan</button>
+                            <button disabled type="submit" class="btn btn-primary pull-right" id="buttonsimpan">Kirim Persetujuan</button>
                         </td>
                     </tr>
                 </table>

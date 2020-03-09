@@ -99,4 +99,41 @@ class Laporan extends CI_Controller
 
     }
 
+    public function downloadtransaksi()
+    {
+        $data['title'] = 'Laporan Transaksi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        
+        $tahun = $this->session->userdata('tahun');
+        $kd_urusan = $this->session->userdata('kd_urusan');
+        $kd_bidang = $this->session->userdata('kd_bidang');
+        $kd_unit = $this->session->userdata('kd_unit');
+        $kd_sub = $this->session->userdata('kd_sub');
+
+        if($this->input->post('pembelian'))
+        {
+            $tw = $this->input->post('tw');
+            $pilih=$this->input->post('pilih');
+            $data['list'] = $this->Laporan_model->get_Download_pembelian($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+            $this->load->view('laporan/pembelian', $data);
+        }
+
+        if($this->input->post('penerimaan'))
+        {
+            $tw = $this->input->post('twpenerimaan');
+            $pilih=$this->input->post('pilih');
+            $data['list'] = $this->Laporan_model->get_Download_penerimaan($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+            $this->load->view('laporan/penerimaan', $data);
+        }
+
+        if($this->input->post('uraian'))
+        {
+            $pilih=$this->input->post('pilih');
+            $data['list'] = $this->Laporan_model->get_Download_uraian($pilih);
+            $this->load->view('laporan/uraian', $data);
+        }
+
+    }
+
 }

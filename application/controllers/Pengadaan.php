@@ -38,6 +38,7 @@ class Pengadaan extends CI_Controller
             $this->form_validation->set_rules('nip', 'NIP', 'required');
             $this->form_validation->set_rules('nama', 'Nama', 'required');
             $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
+            $this->form_validation->set_rules('uraian', 'Uraian', 'required');
 
             if ($this->form_validation->run() == false) 
             {
@@ -56,6 +57,7 @@ class Pengadaan extends CI_Controller
                 $nama = $this->input->post('nama');
                 $jabatan = $this->input->post('jabatan');
                 $ket = $this->input->post('ket');
+                $uraian = $this->input->post('uraian');
                 $no_faktur = $this->input->post('no_faktur');
                 $tgl_faktur = $this->input->post('tgl_faktur');
                 $no_bap = $this->input->post('no_bap');
@@ -95,6 +97,7 @@ class Pengadaan extends CI_Controller
                     'tahun' => $cektatw['tahun'],
                     'tw' => $cektatw['tw'],
                     'kd_pengadaan ' => $no,
+                    'uraian_pembelian' => $uraian,
                     'nomor_faktur' =>  $no_faktur,
                     'tgl_faktur' =>  $tgl_faktur,
                     'nomor_bap' =>  $no_bap,

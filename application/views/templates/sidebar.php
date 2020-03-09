@@ -121,7 +121,7 @@
                     if($x==2)
                     {
                     ?>
-                    <hr class="sidebar-divider mt-3">
+                    <!-- <hr class="sidebar-divider mt-3"> -->
                     <?php
                         $x=0;
                     }

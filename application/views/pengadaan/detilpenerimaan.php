@@ -108,6 +108,14 @@
                         </tr>
                         <tr>
                             <td>
+                                <label>Uraian Pembelian</label>
+                            </td>
+                            <td width="60%">
+                                <label > : <?php echo $detil['uraian_pembelian']; ?></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <label>Keterangan Belanja</label>
                             </td>
                             <td width="60%">
