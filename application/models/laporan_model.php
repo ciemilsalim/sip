@@ -345,7 +345,134 @@ class Laporan_model extends CI_Model
         $final_res['tw']=$strtw;
          
         return $final_res;
-	}
+    }
+    
+
+    // public function get_Download_pengeluaran($action,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw)
+	// {
+    //     if ($action == "") 
+    //     {
+    //         redirect('laporan/transaksi', 'refresh');
+    //     }
+
+    //      //belanja
+    //      $query4="SELECT DISTINCT b.kd_belanja, b.nama_belanja FROM tb_pengadaan a join tb_belanja b on b.kd_urusan=a.kd_urusan and b.kd_bidang=a.kd_bidang and b.kd_unit=a.kd_unit and b.kd_sub=a.kd_sub and b.kd_belanja=a.kd_belanja and b.tahun=a.tahun ORDER BY b.kd_belanja asc";
+
+    //      $res4= $this->db->query($query4)->result_array();
+ 
+    //      $pengadaan=array();
+ 
+
+    //     if($tw=='')
+    //     {
+    //         foreach($res4 as $key1=> $value1)//belanja
+    //         {
+    //             $pengadaan['uraian_belanja'][$value1['kd_belanja']]=$value1;
+
+    //             $kd_belanja=$res4[$key1]['kd_belanja'];
+    //             $querypengadaan = "SELECT a.*, b.kd_supplier, b.nama_supplier, c.kd_belanja, c.nama_belanja FROM tb_pengadaan a join tb_supplier b on b.kd_urusan=a.kd_urusan and b.kd_bidang=a.kd_bidang and b.kd_unit=a.kd_unit and b.kd_sub=a.kd_sub and b.kd_supplier=a.kd_supplier join tb_belanja c on c.kd_urusan=a.kd_urusan and c.kd_bidang=a.kd_bidang and c.kd_unit=a.kd_unit and c.kd_sub=a.kd_sub and c.kd_belanja=a.kd_belanja where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and c.kd_belanja='$kd_belanja'
+    //             ";
+
+    //             $tes=$this->db->query($querypengadaan)->result_array();
+    //             $pengadaan['uraian_belanja'][$value1['kd_belanja']]['uraian_pengadaan']=$tes;
+               
+    //             foreach($tes as $key2=> $value2)//rincian penerimaan
+    //             {
+                   
+    //                 $kd_pengadaan=$value2['kd_pengadaan'];
+    //                 $querypenerimaan = "SELECT a.*, b.uraian_komponen, b.satuan, b.harga FROM tb_penerimaan a JOIN tb_uraian_komponen b on b.kd_jenis=a.kd_jenis and b.kd_komponen=a.kd_komponen and b.kd_uraian=a.kd_uraian where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.kd_pengadaan='$kd_pengadaan'";
+    //                 $pengadaan['uraian_belanja'][$value1['kd_belanja']]['uraian_pengadaan'][$key2]['uraian_penerimaan']=$this->db->query($querypenerimaan)->result_array();
+                   
+    //             }
+            
+    //         }
+    //     }
+    //     else
+    //     {
+    //         foreach($res4 as $key1=> $value1)//belanja
+    //         {
+    //             $pengadaan['uraian_belanja'][$value1['kd_belanja']]=$value1;
+
+    //             $kd_belanja=$res4[$key1]['kd_belanja'];
+    //             $querypengadaan = "SELECT a.*, b.kd_supplier, b.nama_supplier, c.kd_belanja, c.nama_belanja FROM tb_pengadaan a join tb_supplier b on b.kd_urusan=a.kd_urusan and b.kd_bidang=a.kd_bidang and b.kd_unit=a.kd_unit and b.kd_sub=a.kd_sub and b.kd_supplier=a.kd_supplier join tb_belanja c on c.kd_urusan=a.kd_urusan and c.kd_bidang=a.kd_bidang and c.kd_unit=a.kd_unit and c.kd_sub=a.kd_sub and c.kd_belanja=a.kd_belanja where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.tw='$tw' and c.kd_belanja='$kd_belanja'
+    //             ";
+
+    //             $tes=$this->db->query($querypengadaan)->result_array();
+    //             $pengadaan['uraian_belanja'][$value1['kd_belanja']]['uraian_pengadaan']=$tes;
+               
+    //             foreach($tes as $key2=> $value2)//rincian penerimaan
+    //             {
+                   
+    //                 $kd_pengadaan=$value2['kd_pengadaan'];
+    //                 $querypenerimaan = "SELECT a.*, b.uraian_komponen, b.satuan, b.harga FROM tb_penerimaan a JOIN tb_uraian_komponen b on b.kd_jenis=a.kd_jenis and b.kd_komponen=a.kd_komponen and b.kd_uraian=a.kd_uraian where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.tw='$tw' and a.kd_pengadaan='$kd_pengadaan'";
+    //                 $pengadaan['uraian_belanja'][$value1['kd_belanja']]['uraian_pengadaan'][$key2]['uraian_penerimaan']=$this->db->query($querypenerimaan)->result_array();
+                   
+    //             }
+            
+    //         }
+
+    //     }
+
+    //     // echo "<pre>"; print_r($pengadaan);
+    //     // die;
+    
+    //     $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
+    //     $this->db->where($array);
+    //     $res2 = $this->db->get('tb_skpd')->row_array();
+
+    //     $this->db->where($array);
+    //     $this->db->where('kd_jabatan','1');
+    //     $res5 = $this->db->get('tb_penanggung_jawab')->row_array();
+
+    //     $this->db->where($array);
+    //     $this->db->where('kd_jabatan','2');
+    //     $res6 = $this->db->get('tb_penanggung_jawab')->row_array();
+
+    //     $this->db->where($array);
+    //     $this->db->where('kd_jabatan','3');
+    //     $res7 = $this->db->get('tb_penanggung_jawab')->row_array();
+       
+        
+    //     $test = "pdf";
+    //     $final_res = array();
+        
+    //     if ($action == 'pdf') 
+    //     {
+    //         $final_res['action'] = $action;
+    //     } elseif ($action == 'excel') 
+    //     {
+    //         $final_res['action'] = $action;
+    //     }
+
+
+    //     $final_res['pengadaan']=$pengadaan;
+    //     $final_res['skpd']=$res2;
+    //     $final_res['pj1']=$res5;
+    //     $final_res['pj2']=$res6;
+    //     $final_res['pj3']=$res7;
+
+    //     $strtw='';
+    //     if($tw=='1')
+    //     {
+    //         $strtw='I';
+    //     }
+    //     else if($tw=='2')
+    //     {
+    //         $strtw='II';
+    //     }
+    //     else if($tw=='3')
+    //     {
+    //         $strtw='III';
+    //     }
+    //     else if($tw=='4')
+    //     {
+    //         $strtw='IV';
+    //     }
+
+    //     $final_res['tw']=$strtw;
+         
+    //     return $final_res;
+	// }
 }
 
 ?>

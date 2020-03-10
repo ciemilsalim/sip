@@ -47,8 +47,18 @@
                         </div>
                         <input type="submit" class="btn btn-success" name="penerimaan" value="Download"/>
                     </td>
-                    <td>
-                        <input type="submit" class="btn btn-success" name="pengeluaran" value="Download Buku Pengeluaran"/>
+                    <td width="20%">
+                        <label>Buku Pengeluaran</label>
+                        <div class="form-group">
+                            <select name="twpengeluaran" class="form-control">
+                                <option value="">-- Pilih TW --</option> 
+                                <option value="1">I</option> 
+                                <option value="2">II</option> 
+                                <option value="3">III</option> 
+                                <option value="4">IV</option> 
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-success" name="pengeluaran" value="Download"/>
                     </td>
                     <td>
                         <input type="submit" class="btn btn-success" name="stok" value="Download Stock Opname"/>

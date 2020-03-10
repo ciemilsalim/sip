@@ -127,12 +127,13 @@ class Laporan extends CI_Controller
             $this->load->view('laporan/penerimaan', $data);
         }
 
-        if($this->input->post('uraian'))
-        {
-            $pilih=$this->input->post('pilih');
-            $data['list'] = $this->Laporan_model->get_Download_uraian($pilih);
-            $this->load->view('laporan/uraian', $data);
-        }
+        // if($this->input->post('pengeluaran'))
+        // {
+        //     $tw = $this->input->post('twpengeluaran');
+        //     $pilih=$this->input->post('pilih');
+        //     $data['list'] = $this->Laporan_model->get_Download_pengeluaran($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+        //     $this->load->view('laporan/pengeluaran', $data);
+        // }
 
     }
 

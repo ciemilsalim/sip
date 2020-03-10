@@ -37,7 +37,7 @@ if ($action == "excel") {
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Penerimaan</title>
+    <title>Pengeluaran</title>
 </head>
 <body>
 <div style="width:33 cm; height:21 cm; font-size:10px;">
@@ -49,7 +49,7 @@ if ($action == "excel") {
         <tr>
             <td colspan="8" style="font-weight:bold; text-align:center; font-size:1em;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                BUKU PENERIMAAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?>
+                BUKU PENGELUARAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?>
                 <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
@@ -71,7 +71,7 @@ if ($action == "excel") {
             </td>
             <td style="font-weight:bold; text-align:center; font-size:1em;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                BUKU PENERIMAAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?> <br>
+                BUKU PENGELUARAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?> <br>
                 <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
