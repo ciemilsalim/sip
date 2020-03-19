@@ -29,21 +29,21 @@ else
 
 
     //simpan objek data
-    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
+    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber)
     {
-        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
+        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+''};  
         totaltes+=total;                                
         // console.log(data);
     }
 
     //ganti nilai objek data
-    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total)
+    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber)
     {
         jQuery.each( data, function( i, val ) 
         {
             if(val.id==id)
             {
-                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+''};  
+                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+''};  
                 // console.log(data);
             }
             
@@ -88,35 +88,27 @@ else
             <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>');?>
             <?= $this->session->flashdata('message');?>
 
-                <?php
+            <?php
                     if(isset($aktif))
                     {
                         if ($aktif['tahun']==$this->session->userdata('tahun'))
                         {
                     ?>
                     <div class="form-group">
-                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
                     </div>
                     <?php
-                        }
-                        else
-                        {
-                    ?>
-                            <div class="form-group">
-                                <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                            </div>
-                    <?php       
                         }
                     }
                     else
                     {
                     ?>
-                        <div class="form-group">
-                            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
                         </div>
-                    <?php
-                    }
-                    ?>
+
+                    <?php } ?>
                     
 
             <form action="<?= base_url('Permintaanab/index'); ?>" method="POST">
@@ -199,7 +191,7 @@ else
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Saldo</th>
-                            <!-- <th scope="col">Harga Saldo</th> -->
+                            <th scope="col">Sumber Dana</th>
                             <th scope="col">Jumlah Permintaan</th>
                         </tr>
                     </thead>
@@ -212,9 +204,9 @@ else
                                 <td><?= $i++; ?></td>
                                 <td><?= $sm['uraian_komponen']; ?></td>
                                 <td><?= $sm['satuan']; ?></td>
-                                <td><?= number_format($sm['harga_satuan']);; ?></td>
+                                <td><?= number_format($sm['harga_satuan_da']);; ?></td>
                                 <td><?= $sm['jumlah']; ?></td>
-                                <!-- <td>//= number_format($sm['harga_total']); ?></td> -->
+                                <td><?= $sm['nama_sumber']; ?></td>
                                 <td>
                                     <input type="checkbox" id="id<?= $sm['id_saldo']; ?>"  value="<?= $sm['id_saldo']; ?>" >
                                     <input type="number" style="width:100px; padding:10px;" id="jumlah<?= $sm['id_saldo']; ?>"  value="0" disabled>
@@ -261,7 +253,7 @@ else
                                             $('#total'+<?= $sm['id_saldo']; ?>).val(0);
                                             $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
 
-                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            harga=<?= $sm['harga_satuan_da']; ?>;
                                             jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                             total=jumlah*harga;
 
@@ -273,7 +265,7 @@ else
                                             }
                                        
 
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,0,0)
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,0,0,<?= $sm['kd_sumber']; ?>)
                                             
                                             klik<?= $sm['id_saldo']; ?>='2'+<?= $sm['id_saldo']; ?>;
                                         }
@@ -284,13 +276,13 @@ else
                                             $('#total'+<?= $sm['id_saldo']; ?>).prop("disabled", false);
                                                 
                                             $('#jumlah'+<?= $sm['id_saldo']; ?>).val('1');
-                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            harga=<?= $sm['harga_satuan_da']; ?>;
                                             jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                             total=jumlah*harga;
                                             $('#total'+<?= $sm['id_saldo']; ?>).val(total);
                                             $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: true});
 
-                                            simpanobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                            simpanobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
 
                                             klik<?= $sm['id_saldo']; ?>='1'+<?= $sm['id_saldo']; ?>;
                                             
@@ -319,7 +311,7 @@ else
                                                     nilai=$('#total'+<?= $sm['id_saldo']; ?>).val();
 
                                                     $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
-                                                    harga=<?= $sm['harga_satuan']; ?>;
+                                                    harga=<?= $sm['harga_satuan_da']; ?>;
                                                     jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                                     total=jumlah*harga;
                                                     $('#total'+<?= $sm['id_saldo']; ?>).val(total);
@@ -338,7 +330,7 @@ else
                                                     }
 
                                                     
-                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
                                                 }
 
                                                 totalsemua();
@@ -359,7 +351,7 @@ else
                                             nilai=$('#total'+<?= $sm['id_saldo']; ?>).val('1');
 
                                             $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
-                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            harga=<?= $sm['harga_satuan_da']; ?>;
                                             jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                             total=jumlah*harga;
                                             $('#total'+<?= $sm['id_saldo']; ?>).val(total);
@@ -378,7 +370,7 @@ else
                                             }
 
                                                     
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
                                             
                                             totalsemua();
                                         }
@@ -390,7 +382,7 @@ else
                                             nilai=$('#total'+<?= $sm['id_saldo']; ?>).val();
 
                                             $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
-                                            harga=<?= $sm['harga_satuan']; ?>;
+                                            harga=<?= $sm['harga_satuan_da']; ?>;
                                             jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                             total=jumlah*harga;
                                             $('#total'+<?= $sm['id_saldo']; ?>).val(total);
@@ -409,7 +401,7 @@ else
                                             }
 
                                                     
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
                                             
                                             totalsemua();
                                         }
@@ -425,7 +417,7 @@ else
                                                     nilai=$('#total'+<?= $sm['id_saldo']; ?>).val();
 
                                                     $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: false});
-                                                    harga=<?= $sm['harga_satuan']; ?>;
+                                                    harga=<?= $sm['harga_satuan_da']; ?>;
                                                     jumlah=$('#jumlah'+<?= $sm['id_saldo']; ?>).val();
                                                     total=jumlah*harga;
                                                     $('#total'+<?= $sm['id_saldo']; ?>).val(total);
@@ -444,7 +436,7 @@ else
                                                     }
 
                                                     
-                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan']; ?>,jumlah,total);
+                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
                                                 // }
 
                                                 totalsemua();
@@ -500,9 +492,6 @@ else
 
 
 <script>
-
-   
-
     $("#buttonjson").click(function() 
     { 
         datafix=JSON.stringify(data);
@@ -510,11 +499,5 @@ else
         $('#buttonjson').prop("disabled",true);
         $('#buttonsimpan').prop("disabled",false);
     });
-
-
-
-
-    
-
 </script>
 

@@ -22,6 +22,22 @@ if ($action == "excel") {
     {
         padding:6px;
     }
+
+    .x
+    {
+        border-spacing: 0px;
+        border-collapse: separate;
+        border-right:1px solid #000;
+        border-top:1px solid #000;
+    }
+    .x td {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+    .x th {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
 </style>
 <script>
 	(function(){
@@ -37,46 +53,47 @@ if ($action == "excel") {
     <title>Jenis Komponen</title>
 </head>
 <body>
+    <div width="100%">
 
-    <center>
-    <table>
-        <tr>
-            <td colspan="3" style="font-weight:bold; text-align:center;">
-                JENIS KOMPONEN
-            </td>
-        </tr>
-    </table>
-    </center>
- 
+        <center>
+        <table width="100%" style="font-size:0.9em;">
+            <tr>
+                <td colspan="2" style="font-weight:bold; text-align:center;">
+                    JENIS KOMPONEN 
+                </td>
+            </tr>
+        </table>
+        </center>
+    
 
-    <br>
-    <center>
-    <div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="70%" cellspacing="0" border="1|0" >
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Jenis Komponen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php
-                    if (isset($jenis_komponen)) {
-                        foreach ($jenis_komponen as $jk) : ?>
-                            <tr>
-                                <td style="text-align:center;"><?= $i++; ?></td>
-                                <td><?= $jk['kd_jenis']; ?></td>
-                                <td><?= $jk['jenis_komponen']; ?></td>
-                            </tr>
-                        <?php endforeach;
-                } ?>
-                </tbody>
+        <br>
+        <center>
+        <table class="x" width="100%" style="font-size:0.8em">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <!-- <th scope="col">ID</th> -->
+                            <th scope="col">Jenis Komponen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php
+                        if (isset($jenis_komponen)) {
+                            foreach ($jenis_komponen as $jk) : ?>
+                                <tr>
+                                    <td width="5%" style="text-align:center;"><?= $i++; ?></td>
+                                    <!-- <td>= $jk['kd_jenis']; ?></td> -->
+                                    <td><?= $jk['jenis_komponen']; ?></td>
+                                </tr>
+                            <?php endforeach;
+                    } ?>
+                    </tbody>
 
             </table>
-        </div>
         </center>
+
+    </div>
 
 </body>
 </html>

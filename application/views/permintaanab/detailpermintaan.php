@@ -34,35 +34,29 @@ else
             <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>');?>
             <?= $this->session->flashdata('message');?>
 
-                <?php
+            <?php
                     if(isset($aktif))
                     {
                         if ($aktif['tahun']==$this->session->userdata('tahun'))
                         {
                     ?>
                     <div class="form-group">
-                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
                     </div>
                     <?php
-                        }
-                        else
-                        {
-                    ?>
-                            <div class="form-group">
-                                <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                            </div>
-                    <?php       
                         }
                     }
                     else
                     {
                     ?>
-                        <div class="form-group">
-                            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
                         </div>
-                    <?php
-                    }
-                    ?>
+
+                    <?php } ?>
+
+                    
                     
                 <div style="10px solid grey; background-color:#e9d8d8; padding:10px;">
                     <label style="text-decoration:underline">Detail Permintaan</label>

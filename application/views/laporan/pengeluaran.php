@@ -1,7 +1,7 @@
 <?php
 // $data = $list['list'];
 $action = $list['action'];
-$pengadaan = $list['pengadaan'];  
+$pengeluaran = $list['pengeluaran'];  
 $skpd = $list['skpd'];  
 $tw = $list['tw'];  
 $pj1 = $list['pj1']; 
@@ -85,180 +85,67 @@ if ($action == "excel") {
 
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" border="1|0" style="font-size:0.9em;">
                 <thead>
-                    <tr>
-                        <th scope="col" rowspan="2">#</th>
-                        <th scope="col" rowspan="2">Terima <br>
-                        Tanggal</th>
-                        <th scope="col" rowspan="2">Dari</th>
-                        <th scope="col" colspan="2">Dokumen Faktur</th>
-                        <th scope="col" rowspan="2">Nama Barang</th>
-                        <th scope="col" rowspan="2">Banyaknya</th>
-                        <th scope="col" rowspan="2">Harga Satuan</th>
-                        <th scope="col" rowspan="2">Jumlah Harga</th>
-                        <th scope="col" colspan="2">Bukti Penerimaan</th>
-                        <th scope="col" rowspan="2">Keterangan</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Nomor</th>
-                        <th scope="col">Tanggal</th>
-                        <!-- <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th> -->
-                        <th scope="col">Nomor</th>
-                        <th scope="col">Tanggal</th>
+                    <tr style="padding:10px;">
+                        <th scope="col" >#</th>
+                        <th scope="col" >Tanggal</th>
+                        <th scope="col" ">Nama Barang</th>
+                        <th scope="col" >Banyaknya</th>
+                        <th scope="col" >Harga Satuan</th>
+                        <th scope="col" ">Jumlah Harga</th>
+                        <th scope="col" >Untuk</th>
+                        <th scope="col" >Tanggal Penyerahan</th>
+                        <th scope="col" >Keterangan</th>
                     </tr>
                    
                 </thead>
                 <tbody>
-                    <tr style="background-color:#dfe1ed">
-                        <td style="text-align:center;">1</td>
-                        <td style="text-align:center;">2</td>
-                        <td style="text-align:center;">3</td>
-                        <td style="text-align:center;">4</td>
-                        <td style="text-align:center;">5</td>
-                        <td style="text-align:center;">6</td>
-                        <td style="text-align:center;">7</td>
-                        <td style="text-align:center;">8</td>
-                        <td style="text-align:center;">9</td>
-                        <td style="text-align:center;">10</td>
-                        <td style="text-align:center;">11</td>
-                        <td style="text-align:center;">12</td>
-                    </tr>
+                    
                 <?php $i = 1;  $totalsemua=0; ?>
-                <?php   if (isset($pengadaan)) //belanja
+                <?php   if (isset($pengeluaran)) //belanja
                     {
-                        foreach ($pengadaan as $key1 =>$arr1) : 
+                        foreach ($pengeluaran as $key1 =>$arr1) : 
                             foreach ($arr1 as $key2 =>$arr2) : 
                                
                             ?>
                                 <tr>
                                     <td style="text-align:center;"><?= $i++; ?></td>
                                     <td></td>
+                                    <td><?= $arr2['tgl_permintaan']; ?></td>
+                                    <td><?= $arr2['tujuan_penggunaan']; ?></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><?= $arr2['nama_belanja']; ?></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <!-- <td style="border-left:none"></td>
-                                    <td style="border-right:none"></td>
-                                    <td style="border-left:none"></td> -->
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?= $arr2['ket']; ?></td>
                                 </tr>
 
-                                <?php //pengadaan
-                                    foreach ($arr2['uraian_pengadaan'] as $key3 =>$arr3) :
-                                        if(!empty($arr3['uraian_penerimaan']))
-                                        {
-    
-                                    ?>
-    
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><?= $arr3['nama_supplier']; ?></td>
-                                            <td><?php echo substr($arr3['nomor_faktur'],0,12);  ?>
-                                                <br>
-                                                <?php echo substr($arr3['nomor_faktur'],12);  ?></td>
-                                            <td><?php if($arr3['tgl_faktur']=='0000-00-00') echo ''; else echo  $arr3['tgl_faktur'];?></td>
-                                            <td><?= $arr3['uraian_pembelian']; ?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <!-- <td style="border-left:none"></td>
-                                            <td style="border-right:none"></td>
-                                            <td style="border-left:none"></td> -->
-                                            <td><?php echo substr($arr3['nomor_bap'],0,12);  ?>
-                                                <br>
-                                                <?php echo substr($arr3['nomor_bap'],12);  ?></td>
-                                            <td><?php if($arr3['tgl_bap']=='0000-00-00') echo ''; else echo  $arr3['tgl_bap'];?></td>
-                                            <td><?= $arr3['ket']; ?></td>
-                                        </tr>
 
-
-                                            <?php //penerimaan
-                                            $total=0;
-                                            foreach ($arr3['uraian_penerimaan'] as $key4 =>$arr4) : 
-                                            ?>
-                                                <tr>
-                                                    <td></td>
-                                                    <td><?php if($arr4['tgl_penerimaan']=='0000-00-00') echo ''; else echo  $arr4['tgl_penerimaan'];?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><?= $arr4['uraian_komponen']; ?></td>
-                                                    <td><?= $arr4['jumlah']; ?> <?= $arr4['satuan']; ?></td>
-                                                    <!-- <td style="border-right:none">Rp </td> -->
-                                                    <td>Rp <?php echo number_format($arr4['harga_satuan']); ?></td>
-                                                    <!-- <td style="border-right:none">Rp </td> -->
-                                                    <td>Rp <?php echo number_format($arr4['harga_total']); ?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                            <?php 
-                                            $total+=$arr4['harga_total'];
-                                           
-                                            endforeach; 
-
-                                            $totalsemua= $totalsemua+$total;
-                                            
-                                            ?>
-
-                                            
-
-                                        <!-- sum pengadaan -->
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <!-- <td style="border-right:none"></td>
-                                            <td style="border-left:none"></td> -->
-                                            <!-- <td style="border-right:none; font-weight:bold; color:blue;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold; ">Rp <?php echo number_format($total) ?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                            <?php
-                                        }
-                                    endforeach;  //pengadaan
+                                <?php foreach ($arr2['detil'] as $key3 =>$value) : 
+                               
+                               ?>
+                                   <tr>
+                                       <td style="text-align:center;"><?= $i++; ?></td>
+                                       <td></td>
+                                       <td></td>
+                                       <td><?= $arr2['uraian_komponen']; ?></td>
+                                       <td><?= $arr2['jumlah_pengeluaran']; ?> <?= $arr2['satuan']; ?></td>
+                                       <td>Rp <?php echo  number_format($arr2['harga_satuan']); ?></td>
+                                       <td></td>
+                                       <td></td>
+                                       <td><?= $arr2['ket']; ?></td>
+                                   </tr>
+           
+                               <?php
+                               
+                               endforeach; 
+        
                             
                             endforeach; 
                     
-                    endforeach; } //belanja ?>
+                    endforeach; }  ?>
 
 
-                                 <!-- sum everything -->
-                                 <tr style="background-color:#dfe1ed">
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <!-- <td style="border-right:none"></td>
-                                            <td style="border-left:none"></td>
-                                            <td style="border-right:none; font-weight:bold; color:red;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold; color:red;">Rp <?php echo number_format($totalsemua) ?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                </tr>
-
+                      
 
                 </tbody>
 

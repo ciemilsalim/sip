@@ -24,12 +24,20 @@
                     <td width="20%">
                         <label>Laporan Pembelian</label>
                         <div class="form-group">
-                            <select name="tw" id="tw" class="form-control">
-                                <option value="">-- Pilih TW --</option> 
-                                <option value="1">I</option> 
-                                <option value="2">II</option> 
-                                <option value="3">III</option> 
-                                <option value="4">IV</option> 
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari">Januari</option> 
+                            <option value="Februari">Februari</option> 
+                            <option value="Maret">Maret</option> 
+                            <option value="April">April</option> 
+                            <option value="Mei">Mei</option> 
+                            <option value="Juni">Juni</option> 
+                            <option value="Juli">Juli</option> 
+                            <option value="Agustus">Agustus</option> 
+                            <option value="September">September</option> 
+                            <option value="Oktober">Oktober</option> 
+                            <option value="November">November</option> 
+                            <option value="Desember">Desember</option> 
                             </select>
                         </div>
                         <input type="submit" class="btn btn-success" name="pembelian" value="Download"/>
@@ -37,12 +45,20 @@
                     <td width="20%">
                         <label>Buku Penerimaan</label>
                         <div class="form-group">
-                            <select name="twpenerimaan" class="form-control">
-                                <option value="">-- Pilih TW --</option> 
-                                <option value="1">I</option> 
-                                <option value="2">II</option> 
-                                <option value="3">III</option> 
-                                <option value="4">IV</option> 
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari">Januari</option> 
+                            <option value="Februari">Februari</option> 
+                            <option value="Maret">Maret</option> 
+                            <option value="April">April</option> 
+                            <option value="Mei">Mei</option> 
+                            <option value="Juni">Juni</option> 
+                            <option value="Juli">Juli</option> 
+                            <option value="Agustus">Agustus</option> 
+                            <option value="September">September</option> 
+                            <option value="Oktober">Oktober</option> 
+                            <option value="November">November</option> 
+                            <option value="Desember">Desember</option> 
                             </select>
                         </div>
                         <input type="submit" class="btn btn-success" name="penerimaan" value="Download"/>
@@ -50,12 +66,20 @@
                     <td width="20%">
                         <label>Buku Pengeluaran</label>
                         <div class="form-group">
-                            <select name="twpengeluaran" class="form-control">
-                                <option value="">-- Pilih TW --</option> 
-                                <option value="1">I</option> 
-                                <option value="2">II</option> 
-                                <option value="3">III</option> 
-                                <option value="4">IV</option> 
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari">Januari</option> 
+                            <option value="Februari">Februari</option> 
+                            <option value="Maret">Maret</option> 
+                            <option value="April">April</option> 
+                            <option value="Mei">Mei</option> 
+                            <option value="Juni">Juni</option> 
+                            <option value="Juli">Juli</option> 
+                            <option value="Agustus">Agustus</option> 
+                            <option value="September">September</option> 
+                            <option value="Oktober">Oktober</option> 
+                            <option value="November">November</option> 
+                            <option value="Desember">Desember</option> 
                             </select>
                         </div>
                         <input type="submit" class="btn btn-success" name="pengeluaran" value="Download"/>

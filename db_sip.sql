@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2020 at 09:23 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Mar 19, 2020 at 03:20 AM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -3397,7 +3395,7 @@ INSERT INTO `ref_kegiatan` (`Kd_Urusan`, `Kd_Bidang`, `Kd_Prog`, `Kd_Keg`, `Ket_
 (2, 15, 7, 9, 'Kegiatan Penusunan LKPJ'),
 (2, 15, 7, 10, 'Kegiatan Evaluasi Kinerja Pemda DPRD'),
 (2, 15, 7, 11, 'Pembinaan Persatuan Purnawirawan dan Warakawuri TNI - POLRI'),
-(2, 15, 7, 12, 'Fasilitasi Penyelenggaraan Pusat Pembinaan Baca Al-Qur\'an'),
+(2, 15, 7, 12, 'Fasilitasi Penyelenggaraan Pusat Pembinaan Baca Al-Qur''an'),
 (2, 15, 7, 13, 'Fasilitasi Kegiatan Kemahasiswaan'),
 (2, 15, 7, 14, 'Fasilitasi Pelaksanaan Muktamar Muhammadiyah'),
 (2, 15, 8, 1, 'Fasilitasi Penyelesaian Tapal Batas, Kecamatan dan Desa'),
@@ -4750,7 +4748,7 @@ INSERT INTO `ref_kegiatan` (`Kd_Urusan`, `Kd_Bidang`, `Kd_Prog`, `Kd_Keg`, `Ket_
 (4, 1, 7, 9, 'Kegiatan Penyusunan LKPJ'),
 (4, 1, 7, 10, 'Kegiatan Evaluasi Kinerja Pemda DPRD'),
 (4, 1, 7, 11, 'Pembinaan Persatuan Purnawirawan dan Warakawuri TNI - POLRI'),
-(4, 1, 7, 12, 'Fasilitasi Penyelenggaraan Pusat Pembinaan Baca Al-Qur\'an'),
+(4, 1, 7, 12, 'Fasilitasi Penyelenggaraan Pusat Pembinaan Baca Al-Qur''an'),
 (4, 1, 7, 13, 'Fasilitasi Kegiatan Kemahasiswaan'),
 (4, 1, 7, 14, 'Fasilitasi Pelaksanaan Muktamar Muhammadiyah'),
 (4, 1, 7, 15, 'Penataan Kelembagaan Organisasi Perangkat Daerah'),
@@ -6654,12 +6652,11 @@ INSERT INTO `ref_urusan` (`Kd_Urusan`, `Nm_Urusan`) VALUES
 
 CREATE TABLE `tb_belanja` (
   `id_belanja` int(11) NOT NULL,
-  `tahun` int(11) NOT NULL,
-  `kd_urusan` int(11) NOT NULL,
-  `kd_bidang` int(11) NOT NULL,
-  `kd_unit` int(11) NOT NULL,
-  `kd_sub` int(11) NOT NULL,
-  `kd_belanja` int(11) NOT NULL,
+  `kd_urusan` int(11) DEFAULT NULL,
+  `kd_bidang` int(11) DEFAULT NULL,
+  `kd_unit` int(11) DEFAULT NULL,
+  `kd_sub` int(11) DEFAULT NULL,
+  `kd_belanja` varchar(50) NOT NULL,
   `nama_belanja` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -6667,13 +6664,11 @@ CREATE TABLE `tb_belanja` (
 -- Dumping data for table `tb_belanja`
 --
 
-INSERT INTO `tb_belanja` (`id_belanja`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_belanja`, `nama_belanja`) VALUES
-(1, 2020, 4, 3, 1, 1, 1, 'ATK'),
-(2, 2020, 4, 3, 1, 1, 2, 'Suku Cadang'),
-(3, 2020, 4, 3, 1, 1, 3, 'Bahan Bangunan'),
-(4, 2020, 1, 1, 1, 1, 1, 'Belanja Pengadaan ATK'),
-(5, 2020, 1, 1, 1, 1, 2, 'Belanja Pengadaan Suku Cadang'),
-(6, 2020, 1, 1, 1, 1, 3, 'Belanja Pengadaan Bahan Bangunan');
+INSERT INTO `tb_belanja` (`id_belanja`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_belanja`, `nama_belanja`) VALUES
+(1, NULL, NULL, NULL, NULL, '156421', 'ATK'),
+(2, NULL, NULL, NULL, NULL, '237645', 'Suku Cadang'),
+(3, NULL, NULL, NULL, NULL, '63245236', 'Bahan Bangunan'),
+(7, NULL, NULL, NULL, NULL, '27542364', 'Obat Obatan');
 
 -- --------------------------------------------------------
 
@@ -6704,7 +6699,83 @@ INSERT INTO `tb_bidang` (`id_bidang`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_uni
 (23, 2020, 4, 3, 1, 1, 2, 'nbb'),
 (24, 2020, 4, 3, 1, 1, 3, 'sadsad'),
 (25, 2020, 4, 3, 1, 1, 4, 'sdsdf'),
-(26, 2020, 1, 1, 1, 1, 5, 'Sekretariat');
+(26, 2020, 1, 1, 1, 1, 5, 'Sekretariat'),
+(27, 2020, 1, 1, 1, 1, 6, 'yyyy');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_da`
+--
+
+CREATE TABLE `tb_da` (
+  `id_da` int(11) NOT NULL,
+  `kd_urusan` int(11) NOT NULL,
+  `kd_bidang` int(11) NOT NULL,
+  `kd_unit` int(11) NOT NULL,
+  `kd_sub` int(11) NOT NULL,
+  `kd_sumber` int(11) NOT NULL,
+  `kd_da` int(11) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `tgl_input` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_da`
+--
+
+INSERT INTO `tb_da` (`id_da`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_sumber`, `kd_da`, `tahun`, `tgl_input`) VALUES
+(7, 1, 1, 1, 1, 1, 1, 2020, '2020-03-17'),
+(8, 1, 1, 1, 1, 2, 2, 2020, '2020-03-17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_da_detail`
+--
+
+CREATE TABLE `tb_da_detail` (
+  `id_detail_da` int(11) NOT NULL,
+  `kd_urusan` int(11) NOT NULL,
+  `kd_bidang` int(11) NOT NULL,
+  `kd_unit` int(11) NOT NULL,
+  `kd_sub` int(11) NOT NULL,
+  `kd_da` int(11) NOT NULL,
+  `kd_jenis` int(11) NOT NULL,
+  `kd_komponen` int(11) NOT NULL,
+  `kd_uraian` int(11) NOT NULL,
+  `uraian_komponen` varchar(255) NOT NULL,
+  `satuan` varchar(255) NOT NULL,
+  `harga_satuan` double NOT NULL,
+  `harga_input` double NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga_total` double NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `tgl_input` date NOT NULL,
+  `kd_sumber` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_da_detail`
+--
+
+INSERT INTO `tb_da_detail` (`id_detail_da`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_da`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `harga_input`, `jumlah`, `harga_total`, `tahun`, `tgl_input`, `kd_sumber`) VALUES
+(30, 1, 1, 1, 1, 1, 3, 1, 1, 'Skop', 'Buah', 30000, 20000, 10, 200000, 2020, '2020-03-17', 1),
+(31, 1, 1, 1, 1, 1, 3, 2, 1, 'Semen A', 'Buah', 71000, 20000, 7, 140000, 2020, '2020-03-17', 1),
+(32, 1, 1, 1, 1, 1, 3, 2, 2, 'Semen B', 'Buah', 90000, 20000, 5, 100000, 2020, '2020-03-17', 1),
+(33, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 20000, 6, 120000, 2020, '2020-03-17', 1),
+(34, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 20000, 5, 100000, 2020, '2020-03-17', 1),
+(35, 1, 1, 1, 1, 1, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 5, 5000, 2020, '2020-03-17', 1),
+(36, 1, 1, 1, 1, 2, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 50000, 5, 250000, 2020, '2020-03-17', 2),
+(37, 1, 1, 1, 1, 2, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 9000, 5, 100000, 2020, '2020-03-17', 2),
+(38, 1, 1, 1, 1, 2, 3, 1, 1, 'Skop', 'Buah', 30000, 30000, 5, 150000, 2020, '2020-03-17', 2),
+(39, 1, 1, 1, 1, 2, 3, 2, 1, 'Semen A', 'Buah', 71000, 71000, 5, 355000, 2020, '2020-03-17', 2),
+(40, 1, 1, 1, 1, 2, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 100000, 5, 500000, 2020, '2020-03-17', 2),
+(41, 1, 1, 1, 1, 2, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 100000, 5, 500000, 2020, '2020-03-17', 2),
+(43, 1, 1, 1, 1, 2, 3, 2, 2, 'Semen B', 'Buah', 90000, 90000, 5, 450000, 2020, '2020-03-17', 2),
+(44, 1, 1, 1, 1, 2, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 172000, 5, 860000, 2020, '2020-03-17', 2),
+(45, 1, 1, 1, 1, 2, 1, 3, 2, 'Map Besar', 'Dos', 200000, 90000, 5, 1000000, 2020, '2020-03-17', 2),
+(46, 1, 1, 1, 1, 2, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 5, 5000, 2020, '2020-03-17', 2);
 
 -- --------------------------------------------------------
 
@@ -6729,22 +6800,17 @@ CREATE TABLE `tb_detail_pengeluaran` (
   `jumlah_pengeluaran` int(11) NOT NULL,
   `harga_pengeluaran` double NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL
+  `bulan` varchar(50) NOT NULL,
+  `kd_sumber` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_detail_pengeluaran`
 --
 
-INSERT INTO `tb_detail_pengeluaran` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_bid_skpd`, `kd_pengeluaran`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah_pengeluaran`, `harga_pengeluaran`, `tahun`, `tw`) VALUES
-(14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 2, 300000, 2020, 1),
-(15, 1, 1, 1, 1, 1, 1, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 2, 300000, 2020, 1),
-(16, 1, 1, 1, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 2, 150000, 2020, 1),
-(17, 1, 1, 1, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 2, 40000, 2020, 1),
-(18, 1, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 1, 172000, 2020, 1),
-(19, 1, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 1, 200000, 2020, 1),
-(20, 1, 1, 1, 1, 1, 2, 2, 1, 1, 'Ban', 'Buah', 200000, 3, 600000, 2020, 1),
-(21, 1, 1, 1, 1, 1, 2, 2, 2, 1, 'Stir', 'Buah', 200000, 3, 600000, 2020, 1);
+INSERT INTO `tb_detail_pengeluaran` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_bid_skpd`, `kd_pengeluaran`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah_pengeluaran`, `harga_pengeluaran`, `tahun`, `bulan`, `kd_sumber`) VALUES
+(28, 1, 1, 1, 1, 1, 1, 3, 2, 2, 'Semen B', 'Buah', 80000, 2, 160000, 2020, 'Maret', 1),
+(29, 1, 1, 1, 1, 1, 1, 3, 2, 3, 'Paku', 'Buah', 1000, 2, 2000, 2020, 'Maret', 1);
 
 -- --------------------------------------------------------
 
@@ -6770,39 +6836,21 @@ CREATE TABLE `tb_detail_permintaan` (
   `harga_permintaan` double NOT NULL,
   `jumlah_persetujuan_kb` int(11) NOT NULL,
   `jumlah_persetujuan_pg` int(11) NOT NULL,
-  `harga_persetujuan_kb` double NOT NULL DEFAULT 0,
-  `harga_persetujuan_pg` double NOT NULL DEFAULT 0,
+  `harga_persetujuan_kb` double NOT NULL DEFAULT '0',
+  `harga_persetujuan_pg` double NOT NULL DEFAULT '0',
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL
+  `bulan` varchar(50) NOT NULL,
+  `kd_sumber` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_detail_permintaan`
 --
 
-INSERT INTO `tb_detail_permintaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_bid_skpd`, `kd_permintaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah_permintaan`, `harga_permintaan`, `jumlah_persetujuan_kb`, `jumlah_persetujuan_pg`, `harga_persetujuan_kb`, `harga_persetujuan_pg`, `tahun`, `tw`) VALUES
-(10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 3, 300000, 2, 2, 200000, 300000, 2020, 1),
-(11, 1, 1, 1, 1, 1, 1, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 3, 300000, 2, 2, 200000, 300000, 2020, 1),
-(12, 1, 1, 1, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 3, 150000, 2, 2, 100000, 150000, 2020, 1),
-(13, 1, 1, 1, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 3, 60000, 3, 2, 60000, 40000, 2020, 1),
-(14, 1, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 1, 200000, 1, 1, 200000, 200000, 2020, 1),
-(15, 1, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 1, 172000, 1, 1, 172000, 172000, 2020, 1),
-(16, 1, 1, 1, 1, 1, 2, 2, 2, 1, 'Stir', 'Buah', 200000, 3, 600000, 3, 3, 600000, 600000, 2020, 1),
-(17, 1, 1, 1, 1, 1, 2, 2, 1, 1, 'Ban', 'Buah', 200000, 3, 600000, 3, 3, 600000, 600000, 2020, 1),
-(18, 1, 1, 1, 1, 1, 3, 1, 3, 2, 'Map Besar', 'Dos', 200000, 1, 200000, 0, 0, 0, 0, 2020, 1),
-(19, 1, 1, 1, 1, 1, 3, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 1, 172000, 0, 0, 0, 0, 2020, 1),
-(20, 1, 1, 1, 1, 1, 3, 2, 1, 1, 'Ban', 'Buah', 200000, 1, 200000, 0, 0, 0, 0, 2020, 1),
-(21, 1, 1, 1, 1, 1, 3, 2, 1, 2, 'Spion', 'Buah', 200000, 1, 200000, 0, 0, 0, 0, 2020, 1),
-(22, 1, 1, 1, 1, 1, 3, 2, 2, 1, 'Stir', 'Buah', 200000, 1, 200000, 0, 0, 0, 0, 2020, 1),
-(23, 1, 1, 1, 1, 1, 3, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 1, 100000, 0, 0, 0, 0, 2020, 1),
-(24, 1, 1, 1, 1, 1, 4, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 1, 50000, 0, 0, 0, 0, 2020, 1),
-(25, 1, 1, 1, 1, 1, 4, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 1, 20000, 0, 0, 0, 0, 2020, 1),
-(26, 1, 1, 1, 1, 1, 4, 1, 3, 2, 'Map Besar', 'Dos', 200000, 1, 200000, 0, 0, 0, 0, 2020, 1),
-(27, 1, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 5, 860000, 0, 0, 0, 0, 2020, 1),
-(28, 1, 1, 1, 1, 1, 5, 2, 1, 1, 'Ban', 'Buah', 200000, 3, 600000, 0, 0, 0, 0, 2020, 1),
-(29, 1, 1, 1, 1, 1, 5, 2, 1, 2, 'Spion', 'Buah', 200000, 3, 600000, 0, 0, 0, 0, 2020, 1),
-(30, 1, 1, 1, 1, 1, 5, 2, 2, 1, 'Stir', 'Buah', 200000, 2, 400000, 0, 0, 0, 0, 2020, 1),
-(31, 1, 1, 1, 1, 1, 5, 3, 1, 1, 'Skop', 'Buah', 30000, 2, 60000, 0, 0, 0, 0, 2020, 1);
+INSERT INTO `tb_detail_permintaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_bid_skpd`, `kd_permintaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah_permintaan`, `harga_permintaan`, `jumlah_persetujuan_kb`, `jumlah_persetujuan_pg`, `harga_persetujuan_kb`, `harga_persetujuan_pg`, `tahun`, `bulan`, `kd_sumber`) VALUES
+(32, 1, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 80000, 2, 160000, 2, 2, 160000, 160000, 2020, 'Maret', 1),
+(33, 1, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 2, 180000, 0, 0, 0, 0, 2020, 'Maret', 2),
+(34, 1, 1, 1, 1, 1, 3, 3, 2, 3, 'Paku', 'Buah', 1000, 2, 2000, 2, 2, 2000, 2000, 2020, 'Maret', 1);
 
 -- --------------------------------------------------------
 
@@ -6822,7 +6870,6 @@ CREATE TABLE `tb_jenis_komponen` (
 
 INSERT INTO `tb_jenis_komponen` (`id_jenis`, `kd_jenis`, `jenis_komponen`) VALUES
 (27, 1, 'ATK'),
-(29, 2, 'Suku Cadang'),
 (30, 3, 'Bahan Bangunan');
 
 -- --------------------------------------------------------
@@ -6852,7 +6899,8 @@ INSERT INTO `tb_kepala_bidang` (`id_kepala_bidang`, `tahun`, `kd_urusan`, `kd_bi
 (7, 4, 4, 3, 1, 1, 4, 4, 'aa', 'aa'),
 (8, 2020, 4, 3, 1, 1, 2, 2, '34234', 'rerwr'),
 (9, 2020, 4, 3, 1, 1, 3, 3, '3245', 'dfsfdsf'),
-(10, 2020, 1, 1, 1, 1, 1, 1, '1231432432', 'Dedy');
+(10, 2020, 1, 1, 1, 1, 1, 1, '1231432432', 'Dedy'),
+(11, 2020, 1, 1, 1, 1, 6, 6, '67', 'hjj');
 
 -- --------------------------------------------------------
 
@@ -6875,12 +6923,40 @@ CREATE TABLE `tb_komponen` (
 INSERT INTO `tb_komponen` (`id_komponen`, `id_jenis`, `kd_jenis`, `kd_komponen`, `komponen`) VALUES
 (36, 27, 1, 1, 'Pulpen'),
 (37, 27, 1, 2, 'Kertas'),
-(40, 29, 2, 1, 'Alat Motor'),
-(41, 29, 2, 2, 'Alat Mobil'),
 (42, 30, 3, 1, 'Alat Bangunan'),
 (43, 30, 3, 2, 'Bahan Rumah'),
 (44, 27, 1, 3, 'Map'),
 (45, 27, 1, 4, 'Buku');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_koreksi_saldo_awal`
+--
+
+CREATE TABLE `tb_koreksi_saldo_awal` (
+  `id_koreksi` int(11) NOT NULL,
+  `kd_urusan` int(11) NOT NULL,
+  `kd_bidang` int(11) NOT NULL,
+  `kd_unit` int(11) NOT NULL,
+  `kd_sub` int(11) NOT NULL,
+  `kd_pengadaan` int(11) NOT NULL,
+  `kd_jenis` int(11) NOT NULL,
+  `kd_komponen` int(11) NOT NULL,
+  `kd_uraian` int(11) NOT NULL,
+  `uraian_komponen` varchar(255) NOT NULL,
+  `satuan` varchar(255) NOT NULL,
+  `harga_satuan_da` double NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga_total` double NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `bulan` varchar(50) NOT NULL,
+  `kd_sumber` int(11) NOT NULL,
+  `kd_koreksi` int(11) NOT NULL,
+  `harga_koreksi` int(11) NOT NULL,
+  `jumlah_koreksi` int(11) NOT NULL,
+  `harga_total_koreksi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -6891,7 +6967,8 @@ INSERT INTO `tb_komponen` (`id_komponen`, `id_jenis`, `kd_jenis`, `kd_komponen`,
 CREATE TABLE `tb_managementa` (
   `id` int(11) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL,
+  `kd_bulan` int(11) NOT NULL,
+  `bulan` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
   `tgl_aktif` date NOT NULL,
   `tgl_nonaktif` date DEFAULT NULL
@@ -6901,8 +6978,10 @@ CREATE TABLE `tb_managementa` (
 -- Dumping data for table `tb_managementa`
 --
 
-INSERT INTO `tb_managementa` (`id`, `tahun`, `tw`, `status`, `tgl_aktif`, `tgl_nonaktif`) VALUES
-(18, 2020, 1, 'Aktif', '2020-02-17', '2020-02-23');
+INSERT INTO `tb_managementa` (`id`, `tahun`, `kd_bulan`, `bulan`, `status`, `tgl_aktif`, `tgl_nonaktif`) VALUES
+(18, 2020, 1, 'Januari', 'Tidak Aktif', '2020-02-17', '2020-03-11'),
+(21, 2020, 2, 'Februari', 'Tidak Aktif', '2020-03-11', '2020-03-13'),
+(22, 2020, 3, 'Maret', 'Aktif', '2020-03-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -6916,7 +6995,7 @@ CREATE TABLE `tb_pemda` (
   `nama_pemda` text NOT NULL,
   `ibu_kota` text NOT NULL,
   `alamat` text NOT NULL,
-  `logo` text DEFAULT NULL
+  `logo` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -6924,8 +7003,7 @@ CREATE TABLE `tb_pemda` (
 --
 
 INSERT INTO `tb_pemda` (`id_pemda`, `tahun`, `nama_pemda`, `ibu_kota`, `alamat`, `logo`) VALUES
-(13, '2020', 'Kabupaten Buol', 'Buol', 'Jl. Batalipu Kelurahan Leok II, Kecamatan Biau, Kabupaten Buol, Sulawesi Tengah 94563', 'buol1.png'),
-(14, '2019', 'dfhdhfdh', 'fhh', 'gh gfj', '859915_3d07585b-26d5-467b-b42e-284349096add_2048_2048.jpg');
+(13, '2020', 'Kabupaten Buol', 'Buol', 'Jl. Batalipu Kelurahan Leok II, Kecamatan Biau, Kabupaten Buol, Sulawesi Tengah 94563', 'buol1.png');
 
 -- --------------------------------------------------------
 
@@ -6974,43 +7052,47 @@ CREATE TABLE `tb_penerimaan` (
   `kd_uraian` int(11) NOT NULL,
   `uraian_komponen` varchar(255) NOT NULL,
   `satuan` varchar(255) NOT NULL,
-  `harga_satuan` double NOT NULL,
+  `harga_satuan_da` double NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga_total` double NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL,
-  `tgl_penerimaan` date NOT NULL
+  `bulan` varchar(50) NOT NULL,
+  `tgl_penerimaan` date NOT NULL,
+  `kd_sumber` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_penerimaan`
 --
 
-INSERT INTO `tb_penerimaan` (`id_penerimaan`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah`, `harga_total`, `tahun`, `tw`, `tgl_penerimaan`) VALUES
-(63, 1, 1, 1, 1, 1, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 34, 3400000, 2020, 1, '2020-03-08'),
-(64, 1, 1, 1, 1, 1, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 38, 3800000, 2020, 1, '2020-03-08'),
-(65, 1, 1, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 21, 1050000, 2020, 1, '2020-03-08'),
-(66, 1, 1, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 37, 740000, 2020, 1, '2020-03-08'),
-(67, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 22, 4400000, 2020, 1, '2020-03-08'),
-(68, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 17, 2924000, 2020, 1, '2020-03-08'),
-(69, 1, 1, 1, 1, 2, 2, 1, 1, 'Ban', 'Buah', 200000, 40, 8000000, 2020, 1, '2020-03-08'),
-(70, 1, 1, 1, 1, 2, 2, 1, 2, 'Spion', 'Buah', 200000, 18, 3600000, 2020, 1, '2020-03-08'),
-(71, 1, 1, 1, 1, 2, 2, 2, 1, 'Stir', 'Buah', 200000, 42, 8400000, 2020, 1, '2020-03-08'),
-(72, 1, 1, 1, 1, 3, 3, 1, 1, 'Skop', 'Buah', 30000, 34, 1020000, 2020, 1, '2020-03-08'),
-(73, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 28, 2520000, 2020, 1, '2020-03-08'),
-(74, 1, 1, 1, 1, 3, 3, 2, 1, 'Semen A', 'Buah', 71000, 31, 2201000, 2020, 1, '2020-03-08'),
-(75, 1, 1, 1, 1, 4, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 7, 700000, 2020, 1, '2020-03-09'),
-(76, 1, 1, 1, 1, 4, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 7, 700000, 2020, 1, '2020-03-09'),
-(77, 1, 1, 1, 1, 4, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 11, 550000, 2020, 1, '2020-03-09'),
-(78, 1, 1, 1, 1, 4, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 9, 180000, 2020, 1, '2020-03-09'),
-(79, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 1, 172000, 2020, 1, '2020-03-09'),
-(80, 1, 1, 1, 1, 5, 3, 1, 1, 'Skop', 'Buah', 30000, 3, 90000, 2020, 1, '2020-03-09');
+INSERT INTO `tb_penerimaan` (`id_penerimaan`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun`, `bulan`, `tgl_penerimaan`, `kd_sumber`) VALUES
+(158, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 100000, 1, 100000, 2020, 'Maret', '2020-03-18', 1),
+(159, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 100000, 1, 100000, 2020, 'Maret', '2020-03-18', 1),
+(160, 1, 1, 1, 1, 1, 3, 2, 3, 'Paku', 'Buah', 1000, 1, 1000, 2020, 'Maret', '2020-03-18', 1),
+(161, 1, 1, 1, 1, 1, 3, 2, 1, 'Semen A', 'Buah', 50000, 1, 50000, 2020, 'Maret', '2020-03-18', 1),
+(162, 1, 1, 1, 1, 1, 3, 2, 2, 'Semen B', 'Buah', 80000, 1, 80000, 2020, 'Maret', '2020-03-18', 1),
+(163, 1, 1, 1, 1, 1, 3, 1, 1, 'Skop', 'Buah', 30000, 1, 30000, 2020, 'Maret', '2020-03-18', 1),
+(164, 1, 1, 1, 1, 2, 1, 3, 2, 'Map Besar', 'Dos', 100000, 2, 200000, 2020, 'Maret', '2020-03-18', 1),
+(165, 1, 1, 1, 1, 2, 1, 3, 1, 'Map Kecil', 'Dos', 100000, 2, 200000, 2020, 'Maret', '2020-03-18', 1),
+(166, 1, 1, 1, 1, 2, 3, 2, 3, 'Paku', 'Buah', 1000, 2, 2000, 2020, 'Maret', '2020-03-18', 1),
+(167, 1, 1, 1, 1, 3, 3, 2, 3, 'Paku', 'Buah', 1000, 3, 3000, 2020, 'Maret', '2020-03-18', 2),
+(168, 1, 1, 1, 1, 3, 3, 2, 1, 'Semen A', 'Buah', 71000, 3, 213000, 2020, 'Maret', '2020-03-18', 2),
+(169, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 3, 270000, 2020, 'Maret', '2020-03-18', 2),
+(170, 1, 1, 1, 1, 3, 3, 1, 1, 'Skop', 'Buah', 30000, 3, 90000, 2020, 'Maret', '2020-03-18', 2),
+(171, 1, 1, 1, 1, 4, 1, 3, 2, 'Map Besar', 'Dos', 20000, 1, 20000, 2020, 'Maret', '2020-03-18', 1),
+(172, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 20000, 1, 20000, 2020, 'Maret', '2020-03-18', 1),
+(173, 1, 1, 1, 1, 4, 3, 2, 3, 'Paku', 'Buah', 1000, 1, 1000, 2020, 'Maret', '2020-03-18', 1),
+(174, 1, 1, 1, 1, 4, 3, 2, 1, 'Semen A', 'Buah', 20000, 1, 20000, 2020, 'Maret', '2020-03-18', 1),
+(175, 1, 1, 1, 1, 4, 3, 2, 2, 'Semen B', 'Buah', 20000, 1, 20000, 2020, 'Maret', '2020-03-18', 1),
+(176, 1, 1, 1, 1, 4, 3, 1, 1, 'Skop', 'Buah', 20000, 1, 20000, 2020, 'Maret', '2020-03-18', 1),
+(177, 1, 1, 1, 1, 5, 3, 2, 1, 'Semen A', 'Buah', 71000, 1, 71000, 2020, 'Maret', '2020-03-18', 2),
+(178, 1, 1, 1, 1, 5, 3, 2, 2, 'Semen B', 'Buah', 90000, 1, 90000, 2020, 'Maret', '2020-03-18', 2);
 
 --
 -- Triggers `tb_penerimaan`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_saldo_dari_penerimaan` AFTER INSERT ON `tb_penerimaan` FOR EACH ROW INSERT INTO tb_saldo(kd_urusan,kd_bidang,kd_unit,kd_sub,kd_pengadaan,kd_jenis,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan,jumlah, harga_total,tahun,tw) values (new.kd_urusan,new.kd_bidang,new.kd_unit,new.kd_sub,new.kd_pengadaan,new.kd_jenis,new.kd_komponen,new.kd_uraian,new.uraian_komponen,new.satuan,new.harga_satuan,new.jumlah, new.harga_total,new.tahun,new.tw )
+CREATE TRIGGER `insert_saldo_dari_penerimaan` AFTER INSERT ON `tb_penerimaan` FOR EACH ROW INSERT INTO tb_saldo(kd_urusan,kd_bidang,kd_unit,kd_sub,kd_pengadaan,kd_jenis,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah, harga_total,tahun,bulan,kd_sumber) values (new.kd_urusan,new.kd_bidang,new.kd_unit,new.kd_sub,new.kd_pengadaan,new.kd_jenis,new.kd_komponen,new.kd_uraian,new.uraian_komponen,new.satuan,new.harga_satuan_da,new.jumlah, new.harga_total,new.tahun,new.bulan, new.kd_sumber)
 $$
 DELIMITER ;
 
@@ -7027,7 +7109,7 @@ CREATE TABLE `tb_pengadaan` (
   `kd_unit` int(11) NOT NULL,
   `kd_sub` int(11) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL,
+  `bulan` varchar(50) NOT NULL,
   `kd_pengadaan` int(11) DEFAULT NULL,
   `uraian_pembelian` text NOT NULL,
   `nomor_faktur` varchar(200) DEFAULT NULL,
@@ -7039,20 +7121,75 @@ CREATE TABLE `tb_pengadaan` (
   `nip_penerima` varchar(100) NOT NULL,
   `nama_penerima` varchar(150) NOT NULL,
   `jabatan` varchar(150) NOT NULL,
-  `ket` text DEFAULT NULL
+  `no_sp2d` varchar(255) DEFAULT NULL,
+  `kd_sumber` int(11) NOT NULL,
+  `status_penerimaan` int(11) NOT NULL,
+  `status_pengadaan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_pengadaan`
 --
 
-INSERT INTO `tb_pengadaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `tahun`, `tw`, `kd_pengadaan`, `uraian_pembelian`, `nomor_faktur`, `tgl_faktur`, `nomor_bap`, `tgl_bap`, `kd_belanja`, `kd_supplier`, `nip_penerima`, `nama_penerima`, `jabatan`, `ket`) VALUES
-(12, 1, 1, 1, 1, 2020, 1, 1, 'Belanja ATK Bulan Maret Tahun 2019 pada BPKAD Kabupaten Buol', '11111111', '2020-03-02', '22222222', '2020-03-05', 1, 3, '1262342354236', 'Mulyadi', 'Pengurus Gudang', ''),
-(13, 1, 1, 1, 1, 2020, 1, 2, 'Belanja Suku Cadang pada BPKAD Kab. Buol YES', '2222222', '2020-03-14', '22222222', '2020-03-22', 2, 2, '1262342354236', 'Mulyadi', 'Pengurus Gudang', ''),
-(14, 1, 1, 1, 1, 2020, 1, 3, 'Pembelian Bahan Bangunan untuk memperbaiki ruangan sekretariat', '333333', '2020-03-17', '3333333333333', '2020-03-26', 3, 1, '1262342354236', 'Mulyadi', 'Pengurus Gudang', ''),
-(15, 1, 1, 1, 1, 2020, 1, 4, 'Pembelian ATK Anggaran', '4444444', '2020-03-11', '44444444', '2020-03-19', 1, 4, '1262342354236', 'Mulyadi', 'Pengurus Gudang', ''),
-(16, 1, 1, 1, 1, 2020, 1, 5, 'Pembelian bahan bangunan', '555555', '2020-03-12', '55555555', '2020-03-11', 3, 1, '1262342354236', 'Mulyadi', 'Pengurus Gudang', ''),
-(17, 1, 1, 1, 1, 2020, 1, 6, 'Pembelian ATK Aset', '6666666', '2020-03-11', '66666666', '2020-03-11', 1, 3, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '');
+INSERT INTO `tb_pengadaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `tahun`, `bulan`, `kd_pengadaan`, `uraian_pembelian`, `nomor_faktur`, `tgl_faktur`, `nomor_bap`, `tgl_bap`, `kd_belanja`, `kd_supplier`, `nip_penerima`, `nama_penerima`, `jabatan`, `no_sp2d`, `kd_sumber`, `status_penerimaan`, `status_pengadaan`) VALUES
+(59, 1, 1, 1, 1, 2020, 'Maret', 1, 'xxxxxx', '', '0000-00-00', '', '0000-00-00', 156421, 1, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '', 1, 1, 1),
+(60, 1, 1, 1, 1, 2020, 'Maret', 2, 'bnvghfghf', '2374', '2020-03-10', '8324', '2020-03-19', 156421, 3, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '78213541', 1, 1, 1),
+(61, 1, 1, 1, 1, 2020, 'Maret', 3, 'jkwgfdjhjs', '778346', '2020-03-20', '6543647', '2020-03-19', 237645, 2, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '3566756', 2, 1, 1),
+(62, 1, 1, 1, 1, 2020, 'Maret', 4, 'XXXXXXXXXXX', '834583465', '2020-03-01', '82345273', '2020-03-31', 156421, 4, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '8723547623', 1, 1, 1),
+(63, 1, 1, 1, 1, 2020, 'Maret', 5, 'jdsgf', '83465', '2020-03-01', '893456', '2020-03-31', 237645, 1, '1262342354236', 'Mulyadi', 'Pengurus Gudang', '387465', 2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_pengadaan_detail`
+--
+
+CREATE TABLE `tb_pengadaan_detail` (
+  `id_detail_pengadaan` int(11) NOT NULL,
+  `kd_urusan` int(11) NOT NULL,
+  `kd_bidang` int(11) NOT NULL,
+  `kd_unit` int(11) NOT NULL,
+  `kd_sub` int(11) NOT NULL,
+  `kd_pengadaan` int(11) NOT NULL,
+  `kd_jenis` int(11) NOT NULL,
+  `kd_komponen` int(11) NOT NULL,
+  `kd_uraian` int(11) NOT NULL,
+  `uraian_komponen` varchar(255) NOT NULL,
+  `satuan` varchar(255) NOT NULL,
+  `harga_satuan` double NOT NULL,
+  `harga_da` double NOT NULL,
+  `jumlah_pengadaan` int(11) NOT NULL,
+  `harga_pengadaan` double NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `kd_sumber` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_pengadaan_detail`
+--
+
+INSERT INTO `tb_pengadaan_detail` (`id_detail_pengadaan`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `harga_da`, `jumlah_pengadaan`, `harga_pengadaan`, `tahun`, `kd_sumber`) VALUES
+(80, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 100000, 1, 100000, 2020, 1),
+(81, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 100000, 1, 100000, 2020, 1),
+(82, 1, 1, 1, 1, 1, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 1, 1000, 2020, 1),
+(83, 1, 1, 1, 1, 1, 3, 2, 1, 'Semen A', 'Buah', 71000, 50000, 1, 50000, 2020, 1),
+(84, 1, 1, 1, 1, 1, 3, 2, 2, 'Semen B', 'Buah', 90000, 80000, 1, 80000, 2020, 1),
+(85, 1, 1, 1, 1, 1, 3, 1, 1, 'Skop', 'Buah', 30000, 30000, 1, 30000, 2020, 1),
+(86, 1, 1, 1, 1, 2, 1, 3, 2, 'Map Besar', 'Dos', 200000, 100000, 2, 200000, 2020, 1),
+(87, 1, 1, 1, 1, 2, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 100000, 2, 200000, 2020, 1),
+(88, 1, 1, 1, 1, 2, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 2, 2000, 2020, 1),
+(89, 1, 1, 1, 1, 3, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 3, 3000, 2020, 2),
+(90, 1, 1, 1, 1, 3, 3, 2, 1, 'Semen A', 'Buah', 71000, 71000, 3, 213000, 2020, 2),
+(91, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 90000, 3, 270000, 2020, 2),
+(92, 1, 1, 1, 1, 3, 3, 1, 1, 'Skop', 'Buah', 30000, 30000, 3, 90000, 2020, 2),
+(93, 1, 1, 1, 1, 4, 1, 3, 2, 'Map Besar', 'Dos', 200000, 20000, 1, 20000, 2020, 1),
+(94, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 20000, 1, 20000, 2020, 1),
+(95, 1, 1, 1, 1, 4, 3, 2, 3, 'Paku', 'Buah', 1000, 1000, 1, 1000, 2020, 1),
+(96, 1, 1, 1, 1, 4, 3, 2, 1, 'Semen A', 'Buah', 71000, 20000, 1, 20000, 2020, 1),
+(97, 1, 1, 1, 1, 4, 3, 2, 2, 'Semen B', 'Buah', 90000, 20000, 1, 20000, 2020, 1),
+(98, 1, 1, 1, 1, 4, 3, 1, 1, 'Skop', 'Buah', 30000, 20000, 1, 20000, 2020, 1),
+(99, 1, 1, 1, 1, 5, 3, 2, 1, 'Semen A', 'Buah', 71000, 71000, 1, 71000, 2020, 2),
+(100, 1, 1, 1, 1, 5, 3, 2, 2, 'Semen B', 'Buah', 90000, 90000, 1, 90000, 2020, 2);
 
 -- --------------------------------------------------------
 
@@ -7077,16 +7214,16 @@ CREATE TABLE `tb_pengeluaran` (
   `nama_kep_bid_skpd` varchar(255) NOT NULL,
   `nip` varchar(100) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL
+  `bulan` int(11) NOT NULL,
+  `ket` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_pengeluaran`
 --
 
-INSERT INTO `tb_pengeluaran` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengeluaran`, `tgl_pengeluaran`, `kd_permintaan`, `tujuan_penggunaan`, `nama_admin`, `kd_bid_skpd`, `nama_bidang`, `kd_kep_bid_skpd`, `nama_kep_bid_skpd`, `nip`, `tahun`, `tw`) VALUES
-(7, 1, 1, 1, 1, 1, '2020-03-08', 1, 'Keperluan Kantor', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1),
-(8, 1, 1, 1, 1, 2, '2020-03-08', 2, 'Perbaikan Mobil', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1);
+INSERT INTO `tb_pengeluaran` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengeluaran`, `tgl_pengeluaran`, `kd_permintaan`, `tujuan_penggunaan`, `nama_admin`, `kd_bid_skpd`, `nama_bidang`, `kd_kep_bid_skpd`, `nama_kep_bid_skpd`, `nip`, `tahun`, `bulan`, `ket`) VALUES
+(10, 1, 1, 1, 1, 1, '2020-03-18', 3, 'khvcx kjdfd jhfd kkdshf jkjkdshf jsdkh ksahf', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 0, '');
 
 -- --------------------------------------------------------
 
@@ -7134,25 +7271,21 @@ CREATE TABLE `tb_permintaan` (
   `nama_kep_bid_skpd` varchar(255) NOT NULL,
   `nip` varchar(100) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL,
-  `status_admin_bidang` int(11) DEFAULT 0,
+  `bulan` varchar(50) NOT NULL,
+  `status_admin_bidang` int(11) DEFAULT '0',
   `status_kepala_bidang` int(11) NOT NULL,
   `status_kepala_gudang` int(11) NOT NULL,
   `tgl_kepala_bidang` date DEFAULT NULL,
   `tgl_kepala_gudang` date DEFAULT NULL,
-  `status_selesai_kb` int(11) NOT NULL DEFAULT 0
+  `status_selesai_kb` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_permintaan`
 --
 
-INSERT INTO `tb_permintaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_permintaan`, `tgl_permintaan`, `tujuan_penggunaan`, `nama_admin`, `kd_bid_skpd`, `nama_bidang`, `kd_kep_bid_skpd`, `nama_kep_bid_skpd`, `nip`, `tahun`, `tw`, `status_admin_bidang`, `status_kepala_bidang`, `status_kepala_gudang`, `tgl_kepala_bidang`, `tgl_kepala_gudang`, `status_selesai_kb`) VALUES
-(4, 1, 1, 1, 1, 1, '2020-03-08', 'Keperluan Kantor', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1, 0, 2, 2, '2020-03-08', '2020-03-08', 0),
-(5, 1, 1, 1, 1, 2, '2020-03-08', 'Perbaikan Mobil', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1, 0, 2, 2, '2020-03-08', '2020-03-08', 0),
-(6, 1, 1, 1, 1, 3, '2020-03-09', 'Kegiatan X', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1, 0, 0, 0, NULL, NULL, 0),
-(7, 1, 1, 1, 1, 4, '2020-03-09', 'Kegiatan Y', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1, 0, 0, 0, NULL, NULL, 0),
-(8, 1, 1, 1, 1, 5, '2020-03-09', 'Kegiatan V', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 1, 0, 0, 0, NULL, NULL, 0);
+INSERT INTO `tb_permintaan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_permintaan`, `tgl_permintaan`, `tujuan_penggunaan`, `nama_admin`, `kd_bid_skpd`, `nama_bidang`, `kd_kep_bid_skpd`, `nama_kep_bid_skpd`, `nip`, `tahun`, `bulan`, `status_admin_bidang`, `status_kepala_bidang`, `status_kepala_gudang`, `tgl_kepala_bidang`, `tgl_kepala_gudang`, `status_selesai_kb`) VALUES
+(11, 1, 1, 1, 1, 3, '2020-03-18', 'khvcx kjdfd jhfd kkdshf jkjkdshf jsdkh ksahf', 'AB', 1, 'Anggaran', 1, 'Dedy', '1231432432', 2020, 'Maret', 9, 2, 2, '2020-03-18', '2020-03-18', 9);
 
 -- --------------------------------------------------------
 
@@ -7172,36 +7305,40 @@ CREATE TABLE `tb_saldo` (
   `kd_uraian` int(11) NOT NULL,
   `uraian_komponen` varchar(255) NOT NULL,
   `satuan` varchar(255) NOT NULL,
-  `harga_satuan` double NOT NULL,
+  `harga_satuan_da` double NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga_total` double NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL
+  `bulan` varchar(50) NOT NULL,
+  `kd_sumber` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_saldo`
 --
 
-INSERT INTO `tb_saldo` (`id_saldo`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan`, `jumlah`, `harga_total`, `tahun`, `tw`) VALUES
-(57, 1, 1, 1, 1, 1, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 32, 3100000, 2020, 1),
-(58, 1, 1, 1, 1, 1, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 36, 3500000, 2020, 1),
-(59, 1, 1, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 19, 900000, 2020, 1),
-(60, 1, 1, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 35, 700000, 2020, 1),
-(61, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 200000, 21, 4200000, 2020, 1),
-(62, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 16, 2752000, 2020, 1),
-(63, 1, 1, 1, 1, 2, 2, 1, 1, 'Ban', 'Buah', 200000, 37, 7400000, 2020, 1),
-(64, 1, 1, 1, 1, 2, 2, 1, 2, 'Spion', 'Buah', 200000, 18, 3600000, 2020, 1),
-(65, 1, 1, 1, 1, 2, 2, 2, 1, 'Stir', 'Buah', 200000, 39, 7800000, 2020, 1),
-(66, 1, 1, 1, 1, 3, 3, 1, 1, 'Skop', 'Buah', 30000, 34, 1020000, 2020, 1),
-(67, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 28, 2520000, 2020, 1),
-(68, 1, 1, 1, 1, 3, 3, 2, 1, 'Semen A', 'Buah', 71000, 31, 2201000, 2020, 1),
-(69, 1, 1, 1, 1, 4, 1, 1, 1, 'Pulpen Snowman Hitam', 'Lusin', 100000, 7, 700000, 2020, 1),
-(70, 1, 1, 1, 1, 4, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000, 7, 700000, 2020, 1),
-(71, 1, 1, 1, 1, 4, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000, 11, 550000, 2020, 1),
-(72, 1, 1, 1, 1, 4, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000, 9, 180000, 2020, 1),
-(73, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 172000, 1, 172000, 2020, 1),
-(74, 1, 1, 1, 1, 5, 3, 1, 1, 'Skop', 'Buah', 30000, 3, 90000, 2020, 1);
+INSERT INTO `tb_saldo` (`id_saldo`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun`, `bulan`, `kd_sumber`) VALUES
+(152, 1, 1, 1, 1, 1, 1, 3, 2, 'Map Besar', 'Dos', 100000, 1, 100000, 2020, 'Maret', 1),
+(153, 1, 1, 1, 1, 1, 1, 3, 1, 'Map Kecil', 'Dos', 100000, 1, 100000, 2020, 'Maret', 1),
+(154, 1, 1, 1, 1, 1, 3, 2, 3, 'Paku', 'Buah', 1000, 0, 0, 2020, 'Maret', 1),
+(155, 1, 1, 1, 1, 1, 3, 2, 1, 'Semen A', 'Buah', 50000, 1, 50000, 2020, 'Maret', 1),
+(156, 1, 1, 1, 1, 1, 3, 2, 2, 'Semen B', 'Buah', 80000, 0, 0, 2020, 'Maret', 1),
+(157, 1, 1, 1, 1, 1, 3, 1, 1, 'Skop', 'Buah', 30000, 1, 30000, 2020, 'Maret', 1),
+(158, 1, 1, 1, 1, 2, 1, 3, 2, 'Map Besar', 'Dos', 100000, 2, 200000, 2020, 'Maret', 1),
+(159, 1, 1, 1, 1, 2, 1, 3, 1, 'Map Kecil', 'Dos', 100000, 2, 200000, 2020, 'Maret', 1),
+(160, 1, 1, 1, 1, 2, 3, 2, 3, 'Paku', 'Buah', 1000, 1, 3000, 2020, 'Maret', 1),
+(161, 1, 1, 1, 1, 3, 3, 2, 3, 'Paku', 'Buah', 1000, 3, 3000, 2020, 'Maret', 2),
+(162, 1, 1, 1, 1, 3, 3, 2, 1, 'Semen A', 'Buah', 71000, 3, 213000, 2020, 'Maret', 2),
+(163, 1, 1, 1, 1, 3, 3, 2, 2, 'Semen B', 'Buah', 90000, 2, 350000, 2020, 'Maret', 2),
+(164, 1, 1, 1, 1, 3, 3, 1, 1, 'Skop', 'Buah', 30000, 3, 90000, 2020, 'Maret', 2),
+(165, 1, 1, 1, 1, 4, 1, 3, 2, 'Map Besar', 'Dos', 20000, 1, 20000, 2020, 'Maret', 1),
+(166, 1, 1, 1, 1, 4, 1, 3, 1, 'Map Kecil', 'Dos', 20000, 1, 20000, 2020, 'Maret', 1),
+(167, 1, 1, 1, 1, 4, 3, 2, 3, 'Paku', 'Buah', 1000, 1, 1000, 2020, 'Maret', 1),
+(168, 1, 1, 1, 1, 4, 3, 2, 1, 'Semen A', 'Buah', 20000, 1, 20000, 2020, 'Maret', 1),
+(169, 1, 1, 1, 1, 4, 3, 2, 2, 'Semen B', 'Buah', 20000, 1, 20000, 2020, 'Maret', 1),
+(170, 1, 1, 1, 1, 4, 3, 1, 1, 'Skop', 'Buah', 20000, 1, 20000, 2020, 'Maret', 1),
+(171, 1, 1, 1, 1, 5, 3, 2, 1, 'Semen A', 'Buah', 71000, 1, 71000, 2020, 'Maret', 2),
+(172, 1, 1, 1, 1, 5, 3, 2, 2, 'Semen B', 'Buah', 90000, 1, 90000, 2020, 'Maret', 2);
 
 -- --------------------------------------------------------
 
@@ -7210,23 +7347,47 @@ INSERT INTO `tb_saldo` (`id_saldo`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub
 --
 
 CREATE TABLE `tb_saldo_awal` (
-  `id_penerimaan` int(11) NOT NULL,
+  `id_saldo_awal` int(11) NOT NULL,
   `kd_urusan` int(11) NOT NULL,
   `kd_bidang` int(11) NOT NULL,
   `kd_unit` int(11) NOT NULL,
   `kd_sub` int(11) NOT NULL,
-  `kd_pengadaan` int(11) NOT NULL,
   `kd_jenis` int(11) NOT NULL,
   `kd_komponen` int(11) NOT NULL,
   `kd_uraian` int(11) NOT NULL,
   `uraian_komponen` varchar(255) NOT NULL,
   `satuan` varchar(255) NOT NULL,
-  `harga_satuan` double NOT NULL,
+  `harga_satuan_da` double NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga_total` double NOT NULL,
   `tahun` int(11) NOT NULL,
-  `tw` int(11) NOT NULL
+  `bulan` varchar(50) NOT NULL,
+  `kd_sumber` int(11) NOT NULL,
+  `kd_koreksi` int(11) NOT NULL,
+  `harga_koreksi` double NOT NULL,
+  `jumlah_koreksi` int(11) NOT NULL,
+  `harga_total_koreksi` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_satuan`
+--
+
+CREATE TABLE `tb_satuan` (
+  `id` int(11) NOT NULL,
+  `kd_satuan` int(11) NOT NULL,
+  `nama_satuan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_satuan`
+--
+
+INSERT INTO `tb_satuan` (`id`, `kd_satuan`, `nama_satuan`) VALUES
+(29, 1, 'Dos'),
+(31, 2, 'Buah');
 
 -- --------------------------------------------------------
 
@@ -7258,6 +7419,50 @@ CREATE TABLE `tb_skpd` (
 INSERT INTO `tb_skpd` (`id`, `tahun`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_skpd`, `nama_skpd`, `alamat_skpd`, `nip_pimpinan`, `nama_pimpinan`, `jabatan`, `alamat_pimpinan`, `foto`) VALUES
 (11, 2020, 1, 1, 1, 1, '', 'Dinas Pendidikan dan Kebudayaan ', 'Jl. Kali', '12345678', 'Lian Aliana, Mpd', 'Kepala Dinas', 'Jl. leok 1', 'buol1.png'),
 (13, 0, 4, 4, 1, 1, '', 'Badan Pengelolaan Keuangan dan Aset Daerah', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_sumber_dana`
+--
+
+CREATE TABLE `tb_sumber_dana` (
+  `id` int(11) NOT NULL,
+  `kd_sumber` int(11) NOT NULL,
+  `nama_sumber` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_sumber_dana`
+--
+
+INSERT INTO `tb_sumber_dana` (`id`, `kd_sumber`, `nama_sumber`) VALUES
+(1, 1, 'Pendapatan Asli Daerah (P A D)'),
+(2, 2, 'Dana Bagi Hasil'),
+(3, 3, 'Dana Alokasi Umum (D A U)'),
+(4, 4, 'Dana Alokasi Khusus (D A K)'),
+(5, 5, 'Dana Kontinjensi / Dekonsentrasi'),
+(6, 6, 'Lain-Lain Pendapatan Daerah Yang Sah'),
+(7, 7, 'Pembiayaan'),
+(8, 8, 'Lainnya'),
+(11, 11, 'DAK BIDANG Pendidikan'),
+(12, 12, 'DAK BIDANG Kesehatan'),
+(13, 13, 'DAK BIDANG Keluarga Berencana'),
+(14, 14, 'DAK BIDANG Prasarana Jalan'),
+(15, 15, 'DAK BIDANG Prasarana Irigasi'),
+(16, 16, 'DAK BIDANG Air Minum dan Penyehatan Lingkungan'),
+(17, 17, 'DAK BIDANG Prasarana Pemerintah'),
+(18, 18, 'DAK BIDANG Kelautan dan Perikanan'),
+(19, 19, 'DAK BIDANG Pertanian'),
+(20, 20, 'DAK BIDANG Lingkungan Hidup'),
+(21, 21, 'DAK BIDANG Kelautan'),
+(22, 22, 'DAK BIDANG Sarana dan Prasarana Perdesaan'),
+(23, 23, 'DAK BIDANG Perdagangan'),
+(24, 24, 'Pendapatan BLUD'),
+(25, 25, 'Pendapatan Asli Daerah (TP-TGR)'),
+(26, 26, 'Dana Insentif Daerah'),
+(27, 27, 'Dana Hibah'),
+(28, 28, 'Bantuan Keuangan Propinsi');
 
 -- --------------------------------------------------------
 
@@ -7339,16 +7544,14 @@ INSERT INTO `tb_uraian_komponen` (`id_uraian`, `id_jenis`, `id_komponen`, `kd_je
 (51, 27, 36, 1, 1, 2, 'Pulpen Snowman Biru', 'Lusin', 100000),
 (52, 27, 37, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 50000),
 (53, 27, 37, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 20000),
-(54, 29, 40, 2, 1, 1, 'Ban', 'Buah', 200000),
 (55, 30, 42, 3, 1, 1, 'Skop', 'Buah', 30000),
 (56, 30, 43, 3, 2, 1, 'Semen A', 'Buah', 71000),
 (57, 30, 43, 3, 2, 2, 'Semen B', 'Buah', 90000),
 (58, 27, 44, 1, 3, 1, 'Map Kecil', 'Dos', 172000),
 (59, 27, 44, 1, 3, 2, 'Map Besar', 'Dos', 200000),
-(60, 29, 41, 2, 2, 1, 'Stir', 'Buah', 200000),
-(61, 29, 40, 2, 1, 2, 'Spion', 'Buah', 200000),
 (62, 30, 43, 3, 2, 3, 'Paku', 'Buah', 1000),
-(63, 27, 45, 1, 4, 1, 'Buku Album', 'Lusin', 170000);
+(63, 27, 45, 1, 4, 1, 'Buku Album', 'Lusin', 170000),
+(64, 27, 36, 1, 1, 3, 'Pulpen A', 'Dos', 30);
 
 -- --------------------------------------------------------
 
@@ -7386,7 +7589,7 @@ INSERT INTO `user` (`id_user`, `nama`, `email`, `image`, `password`, `role_id`, 
 (28, 'KB', 'kb@gmail.com', 'default.jpg', '$2y$10$SmBn6wcnveHCvQ25qY/Fjegr8g/tox4VYBJmfBUl2XBsnPYmlxcw2', 5, 1, 1582943791, 1, 1, 1, 1, 'Dinas Pendidikan dan Kebudayaan', 1, 'Anggaran'),
 (29, 'KSKPD', 'kskpd@gmail.com', 'default.jpg', '$2y$10$i9tr4RwjHBBoj/nWbcabk.IdpY060NsdLE1RwB4Tn0YAusz20vjDu', 6, 1, 1582943926, 1, 1, 1, 1, 'Dinas Pendidikan dan Kebudayaan', 0, ''),
 (30, 'Mimin', 'admin@gmail.com', 'default.jpg', '$2y$10$bOdoD.1.yGr7n4KrQOyf3.IqnAWwuPJPxiBYyGo1ddo6r6mMzIQum', 7, 1, 1582943984, 4, 4, 1, 1, 'Badan Pengelolaan Keuangan dan Aset Daerah', 0, ''),
-(32, 'iin', 'i@gmail.com', 'default.jpg', '$2y$10$t7e9kYck9EueIYv6bfXg.eWCWRtghqVRlECEu4LkQ/Ro3rBJUmj1a', 5, 0, 1583131726, 1, 1, 1, 1, 'Dinas Pendidikan dan Kebudayaan', 5, 'Sekretariat');
+(33, 'admin', 'admin1@gmail.com', 'default.jpg', '$2y$10$A4.1vtX7Z3o9LhUKRGn6tefAfOYis2G21tNVC1nadR5DeOBPkFdy6', 2, 0, 1584165398, 1, 1, 1, 1, 'Dinas Pendidikan dan Kebudayaan', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -7417,7 +7620,6 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (25, 4, 9),
 (26, 5, 10),
 (28, 6, 11),
-(29, 1, 11),
 (30, 7, 6),
 (31, 7, 4),
 (32, 1, 6),
@@ -7432,7 +7634,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (41, 4, 2),
 (42, 5, 2),
 (43, 6, 2),
-(44, 7, 2);
+(44, 7, 2),
+(45, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -7544,7 +7747,11 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (51, 5, 'Supplier', 'parameter/supplier', 'fas fa-sw fa-file', 1),
 (52, 11, 'Parameter', 'laporan/parameter', 'fas fa-sw fa-file', 1),
 (53, 11, 'Komponen', 'laporan/komponen', 'fas fa-sw fa-file', 1),
-(54, 11, 'Transaksi', 'laporan/transaksi', 'fas fa-sw fa-file', 1);
+(54, 11, 'Transaksi', 'laporan/transaksi', 'fas fa-sw fa-file', 1),
+(55, 2, 'Pengguna', 'user/pengguna', 'fas fa-fw fa-tachometer-alt', 1),
+(56, 5, 'Sumber Dana', 'Parameter/sumberdana', 'fas fa-sw fa-folder-open', 1),
+(57, 5, 'Satuan', 'Parameter/satuan', 'fas fa-sw fa-folder-open', 1),
+(58, 5, 'Data Awal', 'Parameter/da', 'fas fa-fw fa-user-edit', 1);
 
 -- --------------------------------------------------------
 
@@ -7578,7 +7785,8 @@ INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
 (25, 'kskpd@gmail.com', 'ne79IDxCoUC40VKJaBVlris7mP4eXSKsxchqMNZlGzA=', 1582943926),
 (26, 'admin@gmail.com', '8AbnMPs+Hs9wxFE8i1QtWPkxfPzq9IMK27bYJAX+GoA=', 1582943984),
 (27, 'v@gmail.com', 'hX0PzhblR4q6MP5WSNqy/2GXdamUcX1By9a5IkB+bgE=', 1583131016),
-(28, 'i@gmail.com', 'WZu1wm4NvTYnMwrMimaFwZnY14etpT2OLBozMtWy8jc=', 1583131726);
+(28, 'i@gmail.com', 'WZu1wm4NvTYnMwrMimaFwZnY14etpT2OLBozMtWy8jc=', 1583131726),
+(29, 'admin1@gmail.com', 'fIXdVTkBcjyRJQBe5KdZg4H6ZjPcZaoFDua0FDI6Bk0=', 1584165398);
 
 --
 -- Indexes for dumped tables
@@ -7595,6 +7803,18 @@ ALTER TABLE `tb_belanja`
 --
 ALTER TABLE `tb_bidang`
   ADD PRIMARY KEY (`id_bidang`);
+
+--
+-- Indexes for table `tb_da`
+--
+ALTER TABLE `tb_da`
+  ADD PRIMARY KEY (`id_da`);
+
+--
+-- Indexes for table `tb_da_detail`
+--
+ALTER TABLE `tb_da_detail`
+  ADD PRIMARY KEY (`id_detail_da`);
 
 --
 -- Indexes for table `tb_detail_pengeluaran`
@@ -7627,6 +7847,12 @@ ALTER TABLE `tb_komponen`
   ADD PRIMARY KEY (`id_komponen`);
 
 --
+-- Indexes for table `tb_koreksi_saldo_awal`
+--
+ALTER TABLE `tb_koreksi_saldo_awal`
+  ADD PRIMARY KEY (`id_koreksi`);
+
+--
 -- Indexes for table `tb_managementa`
 --
 ALTER TABLE `tb_managementa`
@@ -7657,6 +7883,12 @@ ALTER TABLE `tb_pengadaan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_pengadaan_detail`
+--
+ALTER TABLE `tb_pengadaan_detail`
+  ADD PRIMARY KEY (`id_detail_pengadaan`);
+
+--
 -- Indexes for table `tb_pengeluaran`
 --
 ALTER TABLE `tb_pengeluaran`
@@ -7684,12 +7916,24 @@ ALTER TABLE `tb_saldo`
 -- Indexes for table `tb_saldo_awal`
 --
 ALTER TABLE `tb_saldo_awal`
-  ADD PRIMARY KEY (`id_penerimaan`);
+  ADD PRIMARY KEY (`id_saldo_awal`);
+
+--
+-- Indexes for table `tb_satuan`
+--
+ALTER TABLE `tb_satuan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_skpd`
 --
 ALTER TABLE `tb_skpd`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_sumber_dana`
+--
+ALTER TABLE `tb_sumber_dana`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -7754,165 +7998,167 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `tb_belanja`
 --
 ALTER TABLE `tb_belanja`
-  MODIFY `id_belanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id_belanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tb_bidang`
 --
 ALTER TABLE `tb_bidang`
-  MODIFY `id_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
+  MODIFY `id_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `tb_da`
+--
+ALTER TABLE `tb_da`
+  MODIFY `id_da` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `tb_da_detail`
+--
+ALTER TABLE `tb_da_detail`
+  MODIFY `id_detail_da` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `tb_detail_pengeluaran`
 --
 ALTER TABLE `tb_detail_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `tb_detail_permintaan`
 --
 ALTER TABLE `tb_detail_permintaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `tb_jenis_komponen`
 --
 ALTER TABLE `tb_jenis_komponen`
   MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
 --
 -- AUTO_INCREMENT for table `tb_kepala_bidang`
 --
 ALTER TABLE `tb_kepala_bidang`
-  MODIFY `id_kepala_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id_kepala_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `tb_komponen`
 --
 ALTER TABLE `tb_komponen`
   MODIFY `id_komponen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
+--
+-- AUTO_INCREMENT for table `tb_koreksi_saldo_awal`
+--
+ALTER TABLE `tb_koreksi_saldo_awal`
+  MODIFY `id_koreksi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tb_managementa`
 --
 ALTER TABLE `tb_managementa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tb_pemda`
 --
 ALTER TABLE `tb_pemda`
-  MODIFY `id_pemda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
+  MODIFY `id_pemda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tb_penanggung_jawab`
 --
 ALTER TABLE `tb_penanggung_jawab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tb_penerimaan`
 --
 ALTER TABLE `tb_penerimaan`
-  MODIFY `id_penerimaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
-
+  MODIFY `id_penerimaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 --
 -- AUTO_INCREMENT for table `tb_pengadaan`
 --
 ALTER TABLE `tb_pengadaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+--
+-- AUTO_INCREMENT for table `tb_pengadaan_detail`
+--
+ALTER TABLE `tb_pengadaan_detail`
+  MODIFY `id_detail_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `tb_pengeluaran`
 --
 ALTER TABLE `tb_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tb_penyimpanan`
 --
 ALTER TABLE `tb_penyimpanan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `tb_permintaan`
 --
 ALTER TABLE `tb_permintaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `tb_saldo`
 --
 ALTER TABLE `tb_saldo`
-  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
-
+  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT for table `tb_saldo_awal`
 --
 ALTER TABLE `tb_saldo_awal`
-  MODIFY `id_penerimaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
+  MODIFY `id_saldo_awal` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_satuan`
+--
+ALTER TABLE `tb_satuan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `tb_skpd`
 --
 ALTER TABLE `tb_skpd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
+--
+-- AUTO_INCREMENT for table `tb_sumber_dana`
+--
+ALTER TABLE `tb_sumber_dana`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `tb_tahun`
 --
 ALTER TABLE `tb_tahun`
   MODIFY `id_tahun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `tb_uraian_komponen`
 --
 ALTER TABLE `tb_uraian_komponen`
-  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
-
+  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -325,7 +325,8 @@ class Auth extends CI_Controller
             $this->load->view('templates/auth_footer');
         } else {
             $email = $this->input->post('email');
-            $user =  $this->db->get_where('user', ['email' => $email], ['is_active' => 1]->row_array);
+            $user =  $this->db->get_where('user', ['email' => $email], ['is_active' => 1])->row_array();
+
             if ($user) {
 
                 $token = base64_encode(random_bytes(32));

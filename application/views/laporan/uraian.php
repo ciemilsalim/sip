@@ -22,6 +22,22 @@ if ($action == "excel") {
     {
         padding:6px;
     }
+
+    .x
+    {
+        border-spacing: 0px;
+        border-collapse: separate;
+        border-right:1px solid #000;
+        border-top:1px solid #000;
+    }
+    .x td {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+    .x th {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
 </style>
 <script>
 	(function(){
@@ -39,7 +55,7 @@ if ($action == "excel") {
 <body>
 
     <center>
-    <table>
+        <table width="100%" style="font-size:0.9em;">
         <tr>
             <td colspan="4" style="font-weight:bold; text-align:center;">
                 URAIAN KOMPONEN
@@ -52,7 +68,7 @@ if ($action == "excel") {
     <br>
     <center>
     <div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="70%" cellspacing="0" border="1|0" >
+    <table class="x" width="100%" style="font-size:0.8em">
     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -69,7 +85,7 @@ if ($action == "excel") {
                     if (isset($uraian)) {
                         foreach ($uraian as $k) : ?>
                             <tr>
-                                <td style="text-align:center;"><?= $i++; ?></td>
+                                <td width="5%" style="text-align:center;"><?= $i++; ?></td>
                                 <!-- <td>//= $k['kd_jenis']; ?></td> -->
                                 <td><?= $k['jenis_komponen']; ?></td>
                                 <!-- <td>//= $k['kd_komponen']; ?></td> -->

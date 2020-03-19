@@ -24,6 +24,22 @@ if ($action == "excel") {
     {
         padding:6px;
     }
+
+    .x
+    {
+        border-spacing: 0px;
+        border-collapse: separate;
+        border-right:1px solid #000;
+        border-top:1px solid #000;
+    }
+    .x td {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+    .x th {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
 </style>
 <script>
 	(function(){
@@ -43,11 +59,11 @@ if ($action == "excel") {
     if ($action == "excel") {
     ?>
     <center>
-    <table>
+    <table width="100%" style="font-size:0.9em">
         <tr>
             <td colspan="3" style="font-weight:bold; text-align:center;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
+                BELANJA <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
     </table>
@@ -59,7 +75,7 @@ if ($action == "excel") {
     {
         ?>
     <center>
-    <table>
+    <table width="100%">
         <tr>
             <td width="10%" style="text-align:right">
                 <?php if (isset($skpd['foto'])){ ?>
@@ -68,7 +84,7 @@ if ($action == "excel") {
             </td>
             <td style="font-weight:bold; text-align:center;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
+                BELANJA <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
     </table>
@@ -80,7 +96,7 @@ if ($action == "excel") {
     <br>
      
     <center>
-    <table class="table table-bordered" id="dataTable" width="70%" cellspacing="0" border="1|0" >
+    <table class="x" id="dataTable" width="100%" cellspacing="0" border="1|0" style="font-size:0.8em">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

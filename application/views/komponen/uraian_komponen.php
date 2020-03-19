@@ -33,14 +33,14 @@ else
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Jenis Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Uraian</th>
                         <th scope="col">Satuan</th>
-                        <th scope="col">Harga (Rp)</th>
+                        <th scope="col">Harga Maksimal (Rp)</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -51,11 +51,11 @@ else
                         foreach ($uraian_komponen as $uk) : ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td><?= $uk['kd_jenis']; ?></td>
+                                <!-- <td>$uk['kd_jenis']; ?></td> -->
                                 <td><?= $uk['jenis_komponen']; ?></td>
-                                <td><?= $uk['kd_komponen']; ?></td>
+                                <!-- <td> $uk['kd_komponen']; ?></td> -->
                                 <td><?= $uk['komponen']; ?></td>
-                                <td><?= $uk['kd_uraian']; ?></td>
+                                <!-- <td> $uk['kd_uraian']; ?></td> -->
                                 <td><?= $uk['uraian_komponen']; ?></td>
                                 <td><?= $uk['satuan']; ?></td>
                                 <td><?= number_format($uk['harga']); ?></td>
@@ -76,6 +76,7 @@ else
 </div>
 <!-- End of Main Content -->
 
+
 <!-- Modal -->
 <div class="modal fade" id="uraiankomponenModal" tabindex="-1" role="dialog" aria-labelledby="uraiankomponenModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -86,7 +87,7 @@ else
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('komponen/uraian_komponen'); ?>" method="POST">
+            <form action="<?= base_url('komponen/uraian_komponen'); ?>" method="POST" name="formx">
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="id_komponen" id="id_komponen" class="form-control">
@@ -100,18 +101,15 @@ else
                         <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen">
                     </div>
                     <div class="form-group">
-                        <select name="satuan" id="satuan" class="form-control">
+                        <select name="id_komponen" id="id_komponen" class="form-control">
                             <option value="">Pilih Satuan</option>
-                            <option value="Buah">Buah</option>
-                            <option value="Lembar">Lembar</option>
-                            <option value="Unit">Unit</option>
-                            <option value="Lusin">Lusin</option>   
-                            <option value="Rim">Rim</option> 
-                            <option value="Dos">Dos</option>   
+                            <?php foreach ($satuan as $k) : ?>
+                                <option value="<?= $k['nama_satuan']; ?>"><?= $k['nama_satuan']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga">
+                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Maksimal">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -156,16 +154,13 @@ if (isset($uraian_komponen)) {
                                 <select name="satuan" id="satuan" class="form-control">
                                     <option value="<?= $uk['satuan']; ?>"><?= $uk['satuan']; ?></option>
 
-                                    <option value="Buah">Buah</option>
-                                    <option value="Lembar">Lembar</option>
-                                    <option value="Unit">Unit</option>
-                                    <option value="Lusin">Lusin</option>   
-                                    <option value="Rim">Rim</option> 
-                                    <option value="Dos">Dos</option>    
+                                    <?php foreach ($satuan as $k) : ?>
+                                        <option value="<?= $k['nama_satuan']; ?>"><?= $k['nama_satuan']; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="harga<?= $uk['id_uraian'] ?>" name="harga" placeholder="Harga" value="<?php echo number_format($uk['harga']); ?>">
+                                <input type="text" class="form-control" id="harga<?= $uk['id_uraian'] ?>" name="harga" placeholder="Harga Maksimal" value="<?php echo number_format($uk['harga']); ?>">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -189,4 +184,13 @@ if (isset($uraian_komponen)) {
 
 <script>
     $('#harga').mask("#,###,###,###,###", {reverse: true});
+</script>
+
+<script>
+
+    $(function(){
+        $("select").prop('required',true);
+        $("#input").prop('required',true);
+    });
+
 </script>

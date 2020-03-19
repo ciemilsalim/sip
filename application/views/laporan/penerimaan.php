@@ -47,7 +47,7 @@ if ($action == "excel") {
     <center>
     <table style="font-size:0.9em;">
         <tr>
-            <td colspan="8" style="font-weight:bold; text-align:center; font-size:1em;">
+            <td colspan="12" style="font-weight:bold; text-align:center; font-size:1em;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
                 BUKU PENERIMAAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?>
                 <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
@@ -192,12 +192,12 @@ if ($action == "excel") {
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td><?= $arr4['uraian_komponen']; ?></td>
-                                                    <td><?= $arr4['jumlah']; ?> <?= $arr4['satuan']; ?></td>
+                                                    <td style="mso-number-format:\@;"><?= $arr4['uraian_komponen']; ?></td>
+                                                    <td style="mso-number-format:\@;"><?= $arr4['jumlah']; ?> <?= $arr4['satuan']; ?></td>
                                                     <!-- <td style="border-right:none">Rp </td> -->
-                                                    <td>Rp <?php echo number_format($arr4['harga_satuan']); ?></td>
+                                                    <td style="mso-number-format:\@;">Rp <?php echo number_format($arr4['harga_satuan']); ?></td>
                                                     <!-- <td style="border-right:none">Rp </td> -->
-                                                    <td>Rp <?php echo number_format($arr4['harga_total']); ?></td>
+                                                    <td style="mso-number-format:\@;">Rp <?php echo number_format($arr4['harga_total']); ?></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -226,7 +226,7 @@ if ($action == "excel") {
                                             <!-- <td style="border-right:none"></td>
                                             <td style="border-left:none"></td> -->
                                             <!-- <td style="border-right:none; font-weight:bold; color:blue;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold; ">Rp <?php echo number_format($total) ?></td>
+                                            <td style="border-left:none; font-weight:bold;  mso-number-format:\@;">Rp <?php echo number_format($total) ?></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -253,7 +253,7 @@ if ($action == "excel") {
                                             <!-- <td style="border-right:none"></td>
                                             <td style="border-left:none"></td>
                                             <td style="border-right:none; font-weight:bold; color:red;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold; color:red;">Rp <?php echo number_format($totalsemua) ?></td>
+                                            <td style="border-left:none; font-weight:bold; color:red; mso-number-format:\@;">Rp <?php echo number_format($totalsemua) ?></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -271,12 +271,12 @@ if ($action == "excel") {
             <tr>
                 <td>
                 </td>
-                <td style="text-align:center;">
+                <td style="text-align:center;" colspan="12">
                     Buol, <?php echo tgl_indo(date('Y-m-d')); ?>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center;" width="50%">
+                <td style="text-align:center;" width="50%" colspan="6">
                     <?php
                     if(!empty($pj2))
                     {
@@ -294,7 +294,7 @@ if ($action == "excel") {
                     }
                     ?>
                 </td>
-                <td style="text-align:center;" width="50%" >
+                <td style="text-align:center;" width="50%" colspan="6">
                 <?php
                     if(!empty($pj3))
                     {
@@ -313,7 +313,7 @@ if ($action == "excel") {
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="2">
+                <td style="text-align:center;" colspan="12">
                 <?php
                     if(!empty($pj1))
                     {

@@ -22,7 +22,7 @@ if(!empty($identitas))
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <!-- Default Card Example -->
             <div class="card mb-4">
                 <div class="card-header">
@@ -59,7 +59,7 @@ if(!empty($identitas))
                             <div class="form-group row">
                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                 <div class="col-sm-9">
-                                    <textarea readonly class="form-control" id="alamat" name="alamat" ><?php if (isset($identitas['alamat'])) { echo $identitas['alamat'];}else echo "" ?></textarea>
+                                    <textarea readonly class="form-control" id="alamat" name="alamat"><?php if (isset($identitas['alamat'])) { echo $identitas['alamat'];}else echo "" ?></textarea>
                                     <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>

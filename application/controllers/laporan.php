@@ -32,15 +32,17 @@ class Laporan extends CI_Controller
         {
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_supplier($pilih);
-            $this->load->view('laporan/supplier', $data);
+            // $this->load->view('laporan/supplier', $data);
         }
 
         if($this->input->post('belanja'))
         {
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_belanja($pilih);
-            $this->load->view('laporan/belanja', $data);
+            // $this->load->view('laporan/belanja', $data);
         }
+
+        redirect('laporan/parameter');
 
     }
 
@@ -67,22 +69,24 @@ class Laporan extends CI_Controller
         {
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_jenis($pilih);
-            $this->load->view('laporan/jenis', $data);
+            // $this->load->view('laporan/jenis', $data);
         }
 
         if($this->input->post('komponen'))
         {
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_komponen($pilih);
-            $this->load->view('laporan/komponenn', $data);
+            // $this->load->view('laporan/komponenn', $data);
         }
 
         if($this->input->post('uraian'))
         {
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_uraian($pilih);
-            $this->load->view('laporan/uraian', $data);
+            // $this->load->view('laporan/uraian', $data);
         }
+
+        redirect('laporan/parameter');
 
     }
 
@@ -127,13 +131,13 @@ class Laporan extends CI_Controller
             $this->load->view('laporan/penerimaan', $data);
         }
 
-        // if($this->input->post('pengeluaran'))
-        // {
-        //     $tw = $this->input->post('twpengeluaran');
-        //     $pilih=$this->input->post('pilih');
-        //     $data['list'] = $this->Laporan_model->get_Download_pengeluaran($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
-        //     $this->load->view('laporan/pengeluaran', $data);
-        // }
+        if($this->input->post('pengeluaran'))
+        {
+            $tw = $this->input->post('twpengeluaran');
+            $pilih=$this->input->post('pilih');
+            $data['list'] = $this->Laporan_model->get_Download_pengeluaran($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+            $this->load->view('laporan/pengeluaran', $data);
+        }
 
     }
 

@@ -1,7 +1,7 @@
 <?php
 $disabled='';
 $class='';
-if($this->session->userdata('role_id')==3)
+if($this->session->userdata('role_id')==7)
 {
     $disabled='';
     $class='';
@@ -34,7 +34,7 @@ else
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Kode Belanja</th>
+                        <th scope="col">Kode Rekening</th>
                         <th scope="col">Belanja</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -78,7 +78,11 @@ else
             <form action="<?= base_url('parameter/belanja'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama_bidang" name="nama_belanja" placeholder="Nama Belanja">
+                        <input type="text" class="form-control" id="kd_belanja" name="kd_belanja" placeholder="Rekening Belanja">
+                    </div>
+                    <?= form_error('kd_belanja', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Belanja">
                     </div>
                     <?= form_error('belanja', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
@@ -104,13 +108,16 @@ else
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bidangModalLabel">Tambah Belanja</h5>
+                <h5 class="modal-title" id="bidangModalLabel">Ubah Belanja</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form action="<?= base_url("parameter/editbelanja/".$b['id_belanja']); ?>" method="POST">
                 <div class="modal-body">
+                     <div class="form-group">
+                        <input disabled type="text" class="form-control" id="kd_belanja" name="kd_belanja" value="<?php echo $b['kd_belanja']; ?>">
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Bidang" value="<?php echo $b['nama_belanja']; ?>">
                     </div>

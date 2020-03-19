@@ -12,6 +12,8 @@ class Komponen extends CI_Controller
     {
         $data['title'] = 'Jenis Komponen';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->db->order_by('jenis_komponen');
         $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
 
         $this->form_validation->set_rules('jenis_komponen', 'Jenis Komponen', 'required');
@@ -102,9 +104,10 @@ class Komponen extends CI_Controller
         $this->db->select('*');
         $this->db->from('tb_komponen');
         $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_komponen.id_jenis', 'left');
+        $this->db->order_by('jenis_komponen');
         $data['komponen'] = $this->db->get()->result_array();
 
-        $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
+        // $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
 
         $this->form_validation->set_rules('id_jenis', 'Jenis Komponen', 'required');
         $this->form_validation->set_rules('komponen', 'Komponen', 'required');
@@ -206,23 +209,28 @@ class Komponen extends CI_Controller
         $data['title'] = 'Uraian Komponen';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->db->select('*');
-        $this->db->from('tb_uraian_komponen');
-
-        $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_uraian_komponen.id_jenis', 'left');
-        $this->db->join('tb_komponen', 'tb_komponen.id_komponen = tb_uraian_komponen.id_komponen', 'left');
-        $this->db->order_by('tb_jenis_komponen.kd_jenis');
-        $this->db->order_by('tb_komponen.kd_komponen');
-        $data['uraian_komponen'] = $this->db->get()->result_array();
-
-        $data['komponen'] = $this->db->get('tb_komponen')->result_array();
-
         $this->form_validation->set_rules('id_komponen', 'Komponen', 'required');
         $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() == false) {
+
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->db->select('*');
+            $this->db->from('tb_uraian_komponen');
+    
+            $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_uraian_komponen.id_jenis', 'left');
+            $this->db->join('tb_komponen', 'tb_komponen.id_komponen = tb_uraian_komponen.id_komponen', 'left');
+            // $this->db->order_by('tb_jenis_komponen.kd_jenis');
+            // $this->db->order_by('tb_komponen.kd_komponen');
+            $this->db->order_by('jenis_komponen');
+            $this->db->order_by('komponen');
+            $data['uraian_komponen'] = $this->db->get()->result_array();
+    
+            $data['komponen'] = $this->db->get('tb_komponen')->result_array();
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);

@@ -23,6 +23,22 @@ if ($action == "excel") {
     {
         padding:6px;
     }
+
+    .x
+    {
+        border-spacing: 0px;
+        border-collapse: separate;
+        border-right:1px solid #000;
+        border-top:1px solid #000;
+    }
+    .x td {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+    .x th {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
 </style>
 <script>
 	(function(){
@@ -42,12 +58,12 @@ if ($action == "excel") {
     if ($action == "excel") {
     ?>
     <center>
-    <table>
+    <table width="100%" style="font-size:0.9em">
         <tr>
-            <td colspan="6" style="font-weight:bold; text-align:center;">
+            <th colspan="6" style="font-weight:bold; text-align:center;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
-            </td>
+                SUPPLIER <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
+            </th>
         </tr>
     </table>
     </center>
@@ -58,17 +74,17 @@ if ($action == "excel") {
     {
         ?>
     <center>
-    <table>
+    <table width="100%" style="font-size:0.9em">
         <tr>
-            <td width="10%" style="text-align:right">
+            <th width="10%" style="text-align:right">
                 <?php if (isset($skpd['foto'])){ ?>
                     <img width="50px" height="50px" src="<?= base_url('assets/img/foto/') . $skpd['foto'];?> " class="img-thumbnail">
                 <?php }?>
-            </td>
-            <td style="font-weight:bold; text-align:center;">
+            </th>
+            <th width="90%" style="font-weight:bold; text-align:center;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
-            </td>
+                SUPPLIER <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
+            </th>
         </tr>
     </table>
     </center>
@@ -78,7 +94,7 @@ if ($action == "excel") {
 
     <br>
 
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" border="1|0" >
+    <table class="x" id="dataTable" width="100%" cellspacing="0" border="1|0" style="font-size:0.8em">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

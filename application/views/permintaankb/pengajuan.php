@@ -15,7 +15,6 @@
             <?= $this->session->flashdata('message');?>
            
             
-                <div class="modal-body">
                 <?php
                     if(isset($aktif))
                     {
@@ -23,28 +22,20 @@
                         {
                     ?>
                     <div class="form-group">
-                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
                     </div>
                     <?php
-                        }
-                        else
-                        {
-                    ?>
-                            <div class="form-group">
-                                <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                            </div>
-                    <?php       
                         }
                     }
                     else
                     {
                     ?>
-                        <div class="form-group">
-                            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
                         </div>
-                    <?php
-                    }
-                    ?>
+
+                    <?php } ?>
                    
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -52,7 +43,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Tahun</th>
-                        <th scope="col">TW</th>
+                        <th scope="col">Bulan</th>
                         <th scope="col">Kode Permintaan</th>
                         <th scope="col">Tanggal Permintaan</th>
                         <th scope="col">Tujuan Penggunaan</th>
@@ -67,7 +58,7 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $sm['tahun']; ?></td>
-                            <td><?= $sm['tw']; ?></td>
+                            <td><?= $sm['bulan']; ?></td>
                             <td><?= $sm['kd_permintaan']; ?></td>
                             <td><?= $sm['tgl_permintaan']; ?></td>
                             <td><?= $sm['tujuan_penggunaan']; ?></td>

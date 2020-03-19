@@ -31,10 +31,10 @@ else
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ID</th>
+                        <th scope="col" width="5%">#</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Jenis Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Komponen</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -45,10 +45,10 @@ else
                     if (isset($komponen)) {
                         foreach ($komponen as $k) : ?>
                             <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $k['kd_jenis']; ?></td>
+                                <td style="text-align:center;"><?= $i++; ?></td>
+                                <!-- <td> $k['kd_jenis']; ?></td> -->
                                 <td><?= $k['jenis_komponen']; ?></td>
-                                <td><?= $k['kd_komponen']; ?></td>
+                                <!-- <td> $k['kd_komponen']; ?></td> -->
                                 <td><?= $k['komponen']; ?></td>
                                 <td><a href="#ubahkomponenModal<?= $k['id_komponen']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_komponen/' . $k['id_komponen']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
                             </tr>
@@ -66,6 +66,15 @@ else
 
 </div>
 <!-- End of Main Content -->
+
+
+
+<script>
+    $(function(){
+        $("select").prop('required',true);
+        $("input").prop('required',true);
+    });
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="komponenModal" tabindex="-1" role="dialog" aria-labelledby="komponenModalLabel" aria-hidden="true">

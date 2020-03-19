@@ -186,7 +186,7 @@
                         },
                         error: function() 
                         {
-                            alert("Invalide! jsdfghds "+kd);
+                            alert("Invalide! "+kd);
                         }
                     });
 

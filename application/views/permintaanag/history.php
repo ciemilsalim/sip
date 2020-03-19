@@ -8,45 +8,99 @@
     <div class="row">
         <div class="col-lg-12">
                
-                <div class="modal-body">
-                <?php
+        <?php
                     if(isset($aktif))
                     {
                         if ($aktif['tahun']==$this->session->userdata('tahun'))
                         {
                     ?>
                     <div class="form-group">
-                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
                     </div>
                     <?php
                         }
-                        else
-                        {
+                    }
+                    else
+                    {
                     ?>
-                            <div class="form-group">
-                                <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                            </div>
-                    <?php       
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                        </div>
+
+                    <?php } ?>
+                    
+                    <?php
+                    if(isset($aktif))
+                    {
+                        if($index=='ya')
+                        {
+                        ?>
+                        <div class="form-group">
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari" <?php if($aktif['bulan']=='Januari') { echo "selected"; } ?>>Januari</option> 
+                            <option value="Februari" <?php if($aktif['bulan']=='Februari') { echo "selected"; } ?>>Februari</option> 
+                            <option value="Maret" <?php if($aktif['bulan']=='Maret') { echo "selected"; } ?>>Maret</option> 
+                            <option value="April" <?php if($aktif['bulan']=='April') { echo "selected"; } ?>>April</option> 
+                            <option value="Mei" <?php if($aktif['bulan']=='Mei') { echo "selected"; } ?>>Mei</option> 
+                            <option value="Juni" <?php if($aktif['bulan']=='Juni') { echo "selected"; } ?>>Juni</option> 
+                            <option value="Juli" <?php if($aktif['bulan']=='Juli') { echo "selected"; } ?>>Juli</option> 
+                            <option value="Agustus" <?php if($aktif['bulan']=='Agustus') { echo "selected"; } ?>>Agustus</option> 
+                            <option value="September" <?php if($aktif['bulan']=='September') { echo "selected"; } ?>>September</option> 
+                            <option value="Oktober" <?php if($aktif['bulan']=='Oktober') { echo "selected"; } ?>>Oktober</option> 
+                            <option value="November" <?php if($aktif['bulan']=='November') { echo "selected"; } ?>>November</option> 
+                            <option value="Desember" <?php if($aktif['bulan']=='Desember') { echo "selected"; } ?>>Desember</option> 
+                            </select>
+                        </div>
+
+                        <?php
+                        }
+                        else
+                        {?>
+                         <div class="form-group">
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari" <?php if($index=='Januari') { echo "selected"; } ?>>Januari</option> 
+                            <option value="Februari" <?php if($index=='Februari') { echo "selected"; } ?>>Februari</option> 
+                            <option value="Maret" <?php if($index=='Maret') { echo "selected"; } ?>>Maret</option> 
+                            <option value="April" <?php if($index=='April') { echo "selected"; } ?>>April</option> 
+                            <option value="Mei" <?php if($index=='Mei') { echo "selected"; } ?>>Mei</option> 
+                            <option value="Juni" <?php if($index=='Juni') { echo "selected"; } ?>>Juni</option> 
+                            <option value="Juli" <?php if($index=='Juli') { echo "selected"; } ?>>Juli</option> 
+                            <option value="Agustus" <?php if($index=='Agustus') { echo "selected"; } ?>>Agustus</option> 
+                            <option value="September" <?php if($index=='September') { echo "selected"; } ?>>September</option> 
+                            <option value="Oktober" <?php if($index=='Oktober') { echo "selected"; } ?>>Oktober</option> 
+                            <option value="November" <?php if($index=='November') { echo "selected"; } ?>>November</option> 
+                            <option value="Desember" <?php if($index=='Desember') { echo "selected"; } ?>>Desember</option> 
+                            </select>
+                        </div>
+                        <?php
                         }
                     }
                     else
                     {
                     ?>
                         <div class="form-group">
-                            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                            <select name="bulan" id="bulan" class="form-control">
+                            <option value="">-- Pilih Bulan --</option> 
+                            <option value="Januari">Januari</option> 
+                            <option value="Februari">Februari</option> 
+                            <option value="Maret">Maret</option> 
+                            <option value="April">April</option> 
+                            <option value="Mei">Mei</option> 
+                            <option value="Juni">Juni</option> 
+                            <option value="Juli">Juli</option> 
+                            <option value="Agustus">Agustus</option> 
+                            <option value="September">September</option> 
+                            <option value="Oktober">Oktober</option> 
+                            <option value="November">November</option> 
+                            <option value="Desember">Desember</option> 
+                            </select>
                         </div>
                     <?php
                     }
                     ?>
-                    <div class="form-group">
-                        <select name="tw" id="tw" class="form-control">
-                           <option value="">-- Pilih TW --</option> 
-                           <option value="1">I</option> 
-                           <option value="2">II</option> 
-                           <option value="3">III</option> 
-                           <option value="4">IV</option> 
-                        </select>
-                    </div>
             
             <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -54,7 +108,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Tahun</th>
-                        <th scope="col">TW</th>
+                        <th scope="col">Bulan</th>
                         <th scope="col">Kode Permintaan</th>
                         <th scope="col">Tanggal Permintaan</th>
                         <th scope="col">Tujuan Penggunaan</th>
@@ -70,7 +124,7 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $sm['tahun']; ?></td>
-                            <td><?= $sm['tw']; ?></td>
+                            <td><?= $sm['bulan']; ?></td>
                             <td><?= $sm['kd_permintaan']; ?></td>
                             <td><?= $sm['tgl_permintaan']; ?></td>
                             <td><?= $sm['tujuan_penggunaan']; ?></td>
@@ -96,10 +150,10 @@
 <script>
 
     //js untuk ambil nilai TW yang belum diaktifkan pada database
-    $('#tw').on('change', function() 
+    $('#bulan').on('change', function() 
     {
-        tw=$('#tw').val();
-        window.location.href = "<?php echo base_url(); ?>Permintaanag/pilihantw/"+tw;
+        bulan=$('#bulan').val();
+        window.location.href = "<?php echo base_url(); ?>Permintaanag/pilihantw/"+bulan;
     });
 
 </script>

@@ -97,28 +97,20 @@ else
                         {
                     ?>
                     <div class="form-group">
-                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
                     </div>
                     <?php
-                        }
-                        else
-                        {
-                    ?>
-                            <div class="form-group">
-                                <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                            </div>
-                    <?php       
                         }
                     }
                     else
                     {
                     ?>
-                        <div class="form-group">
-                            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
                         </div>
-                    <?php
-                    }
-                    ?>
+
+                    <?php } ?>
                     
 
             <form action="<?= base_url('Permintaankb/detailpermintaan'); ?>" method="POST">
@@ -205,8 +197,8 @@ else
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Jumlah Permintaan</th>
-                            <!-- <th scope="col">Harga Permintaan</th> -->
                             <th scope="col">Saldo</th>
+                            <th scope="col">Sumber Dana</th>
                             <th scope="col">Persetujuan Kepala Bidang</th>
                         </tr>
                     </thead>
@@ -221,8 +213,8 @@ else
                                 <td><?= $sm['satuan']; ?></td>
                                 <td><?= number_format($sm['harga_satuan']);; ?></td>
                                 <td><?= $sm['jumlah_permintaan']; ?></td>
-                                <!-- <td>//= number_format($sm['harga_permintaan']); ?></td> -->
                                 <td><?= $sm['jumlah']; ?></td>
+                                <td><?= $sm['nama_sumber']; ?></td>
                                 <td>
                                     <input type="checkbox" id="id<?= $sm['id']; ?>"  value="<?= $sm['id']; ?>" >
                                     <input type="number" style="width:100px; padding:10px;" id="jumlah<?= $sm['id']; ?>"  value="0" disabled>

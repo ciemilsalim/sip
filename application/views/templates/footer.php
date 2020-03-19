@@ -93,6 +93,13 @@
 </script>
 <script src="<?= base_url('assets/') ?>vendor/validasi/jquery.validate.min.js"></script>
 
+
+
+
+<script src="<?=base_url('assets/') ?>vendor/select/dist/js/select2.js"></script>
+<script src="<?= base_url('assets/') ?>vendor/select/dist/js/select2.min.js"></script>
+
+
 </body>
 
 </html>

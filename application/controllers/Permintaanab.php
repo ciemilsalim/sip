@@ -27,10 +27,15 @@ class Permintaanab extends CI_Controller
 
             if ($this->form_validation->run() == false) 
             {     
-                $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+                $kd_urusan= $this->session->userdata('kd_urusan');
+                $kd_bidang = $this->session->userdata('kd_bidang');
+                $kd_unit = $this->session->userdata('kd_unit');
+                $kd_sub = $this->session->userdata('kd_sub');
+                $tahun = $cektatw['tahun'];
+                $bulan= $cektatw['bulan'];
                 
-                $this->db->where($array); 
-                $data['komponen'] = $this->db->get('tb_saldo')->result_array();
+                $query = "SELECT a.*,sum(a.jumlah) as jumlah,SUM(a.harga_total) as harga_total, b.nama_sumber FROM tb_saldo a join tb_sumber_dana b on b.kd_sumber=a.kd_sumber where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.bulan='$bulan' GROUP BY a.kd_urusan,a.kd_bidang,a.kd_unit,a.kd_sub,a.kd_jenis,a.kd_komponen,a.kd_uraian,a.satuan, a.kd_sumber";
+                $data['komponen'] = $this->db->query($query)->result_array();;
 
                 $array2 = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
                 $this->db->where($array2); 
@@ -91,7 +96,7 @@ class Permintaanab extends CI_Controller
                 $tgl = $this->input->post('tgl_permintaan');
                 $tujuan = $this->input->post('tujuan');
                 $tahun = $cektatw['tahun'];
-                $tw = $cektatw['tw'];
+                $bulan = $cektatw['bulan'];
                 $kd_urusan = $this->session->userdata('kd_urusan');
                 $kd_bidang = $this->session->userdata('kd_bidang');
                 $kd_unit = $this->session->userdata('kd_unit');
@@ -105,7 +110,7 @@ class Permintaanab extends CI_Controller
                     'kd_unit' => $kd_unit,
                     'kd_sub' => $kd_sub,
                     'tahun' => $tahun,
-                    'tw' => $tw,
+                    'bulan' => $bulan,
                     'kd_permintaan ' => $kd,
                     'tgl_permintaan' =>  $tgl,
                     'tujuan_penggunaan' =>  $tujuan,
@@ -126,29 +131,37 @@ class Permintaanab extends CI_Controller
 
                 foreach($datajson as $key=> $arr)
                 {
-                    $data = array(
-                        'kd_urusan' => $kd_urusan,
-                        'kd_bidang' => $kd_bidang,
-                        'kd_unit' => $kd_unit,
-                        'kd_sub' => $kd_sub,
-                        'kd_bid_skpd' => $kd_bidang,
-                        'kd_permintaan' => $kd,
-                        'kd_jenis' => $datajson[$key]['kd_jenis'],
-                        'kd_komponen' => $datajson[$key]['kd_komponen'],
-                        'kd_uraian' => $datajson[$key]['kd_uraian'],
-                        'uraian_komponen' => $datajson[$key]['uraian'],
-                        'satuan' => $datajson[$key]['satuan'],
-                        'harga_satuan' => $datajson[$key]['harga'],
-                        'jumlah_permintaan ' => $datajson[$key]['jumlah'],
-                        'harga_permintaan' =>  $datajson[$key]['total'],
-                        'jumlah_persetujuan_kb' => 0,
-                        'jumlah_persetujuan_pg' =>  0,
-                        'tahun' => $tahun,
-                        'tw' => $tw
-                    );
+                    if($datajson[$key]['jumlah']==0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        $data = array(
+                            'kd_urusan' => $kd_urusan,
+                            'kd_bidang' => $kd_bidang,
+                            'kd_unit' => $kd_unit,
+                            'kd_sub' => $kd_sub,
+                            'kd_bid_skpd' => $kd_bidang,
+                            'kd_permintaan' => $kd,
+                            'kd_jenis' => $datajson[$key]['kd_jenis'],
+                            'kd_komponen' => $datajson[$key]['kd_komponen'],
+                            'kd_uraian' => $datajson[$key]['kd_uraian'],
+                            'uraian_komponen' => $datajson[$key]['uraian'],
+                            'satuan' => $datajson[$key]['satuan'],
+                            'harga_satuan' => $datajson[$key]['harga'],
+                            'jumlah_permintaan ' => $datajson[$key]['jumlah'],
+                            'harga_permintaan' =>  $datajson[$key]['total'],
+                            'kd_sumber' =>  $datajson[$key]['kdsumber'],
+                            'jumlah_persetujuan_kb' => 0,
+                            'jumlah_persetujuan_pg' =>  0,
+                            'tahun' => $tahun,
+                            'bulan' => $bulan
+                        );
 
 
-                    $this->db->insert('tb_detail_permintaan', $data);
+                        $this->db->insert('tb_detail_permintaan', $data);
+                    }
                     
                 }
 
@@ -181,7 +194,7 @@ class Permintaanab extends CI_Controller
        
         if(!empty($cektatw))
         {
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
             // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
 
@@ -222,13 +235,14 @@ class Permintaanab extends CI_Controller
        
         if(!empty($cektatw))
         {
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
             $kdp = $this->uri->segment(3);
 
             $datax = array(
                 'status_admin_bidang' => 9
             );
+
 
             $this->db->where($array); 
             $this->db->where('kd_permintaan',$kdp); 
@@ -274,7 +288,7 @@ class Permintaanab extends CI_Controller
         if(!empty($cektatw))
         {
 
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
             
             $this->db->where($array); 
             $data['komponen'] = $this->db->get('tb_saldo')->result_array();
@@ -322,7 +336,7 @@ class Permintaanab extends CI_Controller
         if(!empty($cektatw))
         {
             $kd = $this->uri->segment(3);
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
 
             $this->db->where($array); 
@@ -362,9 +376,23 @@ class Permintaanab extends CI_Controller
         $this->db->where('status', "Aktif"); 
         $cektatw = $this->db->get('tb_managementa')->row_array();
         $data['aktif']=$cektatw;
-       
+
         if(!empty($cektatw))
         {
+            $data['index'] = 'ya';
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+            // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+
+            $this->db->where($array);
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('status_kepala_bidang >= ', 2); 
+            $this->db->where('status_kepala_gudang >= ', 2); 
+            $this->db->where('status_admin_bidang = ', 9); 
+            $data['permintaan'] = $this->db->get('tb_permintaan')->result_array();
+
+            // echo "<pre>"; print_r($data['permintaan']);
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -381,9 +409,12 @@ class Permintaanab extends CI_Controller
         $this->db->where('status', "Aktif"); 
         $cektatw = $this->db->get('tb_managementa')->row_array();
         $data['aktif']=$cektatw;
+
+        $bulan= $this->uri->segment(3);;
+        $data['index'] =  $bulan;
        
        
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'tw' => $cektatw['tw']);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $bulan);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
             // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
 
@@ -416,8 +447,8 @@ class Permintaanab extends CI_Controller
         {
             $kd = $this->uri->segment(3);
             $tahun = $this->uri->segment(4);
-            $tw = $this->uri->segment(5);
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $tahun, 'tw' => $tw);
+            $bulan = $this->uri->segment(5);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $tahun, 'bulan' => $bulan);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
 
             $this->db->where($array); 
