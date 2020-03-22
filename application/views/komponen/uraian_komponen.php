@@ -101,7 +101,7 @@ else
                         <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen">
                     </div>
                     <div class="form-group">
-                        <select name="id_komponen" id="id_komponen" class="form-control">
+                        <select name="satuan" id="satuan" class="form-control">
                             <option value="">Pilih Satuan</option>
                             <?php foreach ($satuan as $k) : ?>
                                 <option value="<?= $k['nama_satuan']; ?>"><?= $k['nama_satuan']; ?></option>
@@ -190,7 +190,7 @@ if (isset($uraian_komponen)) {
 
     $(function(){
         $("select").prop('required',true);
-        $("#input").prop('required',true);
+        $("input").prop('required',true);
     });
 
 </script>

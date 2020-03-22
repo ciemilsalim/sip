@@ -133,14 +133,14 @@ if (isset($subMenu))
                     </div>
                     <div class="form-group">
                         <select name="menu_id" id="menu_id" class="form-control">
-                           <option value="<?= $sm['id_menu']; ?>"><?= $sm['menu']; ?></option>
+                           <option value="<?= $sm['id']; ?>"><?= $sm['menu']; ?></option>
                             <?php 
 
                             if (isset($menu)) 
                             {
                             
                             foreach ($menu as $r) : 
-                                if($sm['id_menu']!=$r['menu_id'])
+                                if($sm['id']!=$r['menu_id'])
                                 {
                             ?>
                                 <option value="<?= $r['id']; ?>"><?= $r['menu']; ?></option>

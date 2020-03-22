@@ -47,7 +47,7 @@ else
                                 <td style="text-align:center;"><?= $i++; ?></td>
                                 <!-- <td>$jk['kd_jenis']; ?></td> -->
                                 <td><?= $jk['nama_satuan']; ?></td>
-                                <td><a href="#ubahsatuanModal<?= $jk['id']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('parameter/deletesatuan/' . $jk['id']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
+                                <td><a href="#ubahsatuanModal<?= $jk['id']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('Komponen/deletesatuan/' . $jk['id']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
@@ -84,7 +84,7 @@ else
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('parameter/satuan'); ?>" method="POST">
+            <form action="<?= base_url('Komponen/satuan'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Satuan">
@@ -116,7 +116,7 @@ if (isset($satuan)) {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="<?= base_url('parameter/editsatuan/' . $jk['id']); ?>" method="POST"  onsubmit="return validateformjenis()" name="formjenis">
+                    <form action="<?= base_url('Komponen/editsatuan/' . $jk['id']); ?>" method="POST"  onsubmit="return validateformjenis()" name="formjenis">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="satuan" name="satuan"value="<?php echo $jk['nama_satuan']; ?>">
@@ -134,6 +134,14 @@ if (isset($satuan)) {
     <?php
 }
 } ?>
+
+<script>
+
+    $(function(){
+        $("input").prop('required',true);
+    });
+
+</script>
 
 
 

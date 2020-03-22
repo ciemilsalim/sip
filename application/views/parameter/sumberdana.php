@@ -127,3 +127,11 @@ else
         } 
     }
 ?>
+
+<script>
+
+    $(function(){
+        $("input").prop('required',true);
+    });
+
+</script>

@@ -13,10 +13,14 @@
             </button>
 
 
-            
+           
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
 
+            <?php 
+                if (($this->session->userdata('role_id') != 7) and ($this->session->userdata('role_id') != 1)) 
+                {
+            ?>
                  <!-- Nav Item - Messages -->
                 <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
@@ -80,6 +84,10 @@
 
                 <div class="topbar-divider d-none d-sm-block"></div>
 
+
+                <?php } ?>
+
+               
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,6 +109,7 @@
                 </li>
 
             </ul>
+             
 
         </nav>
         <!-- End of Topbar -->

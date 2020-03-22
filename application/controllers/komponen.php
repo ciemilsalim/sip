@@ -230,7 +230,7 @@ class Komponen extends CI_Controller
             $data['uraian_komponen'] = $this->db->get()->result_array();
     
             $data['komponen'] = $this->db->get('tb_komponen')->result_array();
-
+         
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -280,6 +280,7 @@ class Komponen extends CI_Controller
             );
 
             $this->db->insert('tb_uraian_komponen', $array);
+         
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Uraian komponen baru ditambahkan</div>');
             redirect('komponen/uraian_komponen');
         }
@@ -335,4 +336,97 @@ class Komponen extends CI_Controller
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen/uraian_komponen');
     }
+
+    
+    public function satuan()
+    {
+        $data['title'] = 'Satuan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+
+        $this->form_validation->set_rules('satuan', 'Nama Satuan', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->order_by('nama_satuan');
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/satuan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nama_satuan = $this->input->post('satuan');
+         
+            $cek = $this->db->get('tb_satuan')->result_array();
+
+            if ($cek > 0) {
+                $this->db->select_max('kd_satuan');
+                $result = $this->db->get('tb_satuan')->row_array();
+                $maxkd = $result['kd_satuan'];
+                $maxkd++;
+                $no = $maxkd++;
+            } else {
+                $no = '1';
+            }
+
+
+
+            $data = array(
+                'kd_satuan' => $no,
+                'nama_satuan' => $nama_satuan
+            );
+
+
+            $this->db->insert('tb_satuan', $data);
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+            redirect('komponen/satuan');
+        }
+    }
+
+
+    public function editsatuan()
+    {
+        $data['title'] = 'Satuan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+       
+        $this->form_validation->set_rules('satuan', 'Nama Satuan', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->order_by('nama_satuan');
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/satuan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id['id'] = $this->uri->segment(3);
+            $nama_satuan= $this->input->post('satuan');
+
+            $data = array(
+                'nama_satuan' => $nama_satuan
+            );
+
+            $this->db->where($id);
+            $this->db->update('tb_satuan', $data);
+
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diubah</div>');
+            redirect('komponen/satuan');
+        }
+    }
+
+
+    public function deletesatuan()
+    {
+        $id['id'] = $this->uri->segment(3);
+        $this->db->where($id);
+        $this->db->delete('tb_satuan', $id);
+        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
+        redirect('komponen/satuan');
+    }
+
 }

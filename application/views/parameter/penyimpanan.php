@@ -126,3 +126,11 @@ else
 <?php
 }
 ?>
+
+<script>
+
+    $(function(){
+        $("input").prop('required',true);
+    });
+
+</script>

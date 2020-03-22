@@ -70,7 +70,7 @@ class Managemen extends CI_Controller
             $this->db->where('id_tahun', $id_tahun);
             $this->db->update('tb_tahun', $data);
 
-            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil update</div>');
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil diubah</div>');
             redirect('managemen');
         }
     }
@@ -79,7 +79,7 @@ class Managemen extends CI_Controller
     {
         $id['id_tahun'] = $this->uri->segment(3);
 		$this->db->delete('tb_tahun', $id);
-		$this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
+		$this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
 		redirect('managemen');
     }
 
