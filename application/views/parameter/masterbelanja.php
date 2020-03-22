@@ -36,8 +36,6 @@ else
                         <th scope="col">#</th>
                         <th scope="col">Kode Belanja</th>
                         <th scope="col">Belanja</th>
-                        <th scope="col">Kode Sub Belanja</th>
-                        <th scope="col">Sub Belanja</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -51,9 +49,7 @@ else
                             <td><?= $i++; ?></td>
                             <td><?= $b['kd_belanja_master']; ?></td>
                             <td><?= $b['nama_belanja_master']; ?></td>
-                            <td><?= $b['kd_belanja']; ?></td>
-                            <td><?= $b['nama_belanja']; ?></td>
-                            <td><a href="#ubahbidangModal<?=$b['id_belanja']?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>" >Edit</a> </td>
+                            <td><a href="#ubahbidangModal<?=$b['id_belanja_master']?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>" >Edit</a> </td>
                         </tr>
                         <?php endforeach; }?>
                 </tbody>
@@ -79,22 +75,14 @@ else
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('parameter/belanja'); ?>" method="POST">
+            <form action="<?= base_url('parameter/masterbelanja'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <select name="master_belanja" id="master_belanja" class="form-control">
-                                    <option value="">--Pilih Belanja--</option>
-                                    <?php foreach ($master as $r=>$value) : ?>
-                                        <option value="<?= $value['kd_belanja_master']; ?>"><?=  $value['nama_belanja_master']; ?></option>
-                                    <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="kd_belanja" name="kd_belanja" placeholder="Kode Sub Belanja">
+                        <input type="text" class="form-control" id="kd_belanja" name="kd_belanja" placeholder="Kode Belanja">
                     </div>
                     <?= form_error('kd_belanja', '<small class="text-danger pl-3">', '</small>'); ?>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Sub Belanja">
+                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Belanja">
                     </div>
                     <?= form_error('belanja', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
@@ -116,7 +104,7 @@ else
         {
 ?>
 
-<div class="modal fade" id="ubahbidangModal<?=$b['id_belanja']?>" tabindex="-1" role="dialog" aria-labelledby="bidangModalLabel" aria-hidden="true">
+<div class="modal fade" id="ubahbidangModal<?=$b['id_belanja_master']?>" tabindex="-1" role="dialog" aria-labelledby="bidangModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -125,16 +113,13 @@ else
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url("parameter/editbelanja/".$b['id_belanja']); ?>" method="POST">
+            <form action="<?= base_url("parameter/editbelanjamaster/".$b['id_belanja_master']); ?>" method="POST">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <input disabled type="text" class="form-control" id="kd_belanja" name="kd_belanja" value="<?php echo $b['nama_belanja_master']; ?>">
-                    </div>
                      <div class="form-group">
-                        <input disabled type="text" class="form-control" id="kd_belanja" name="kd_belanja" value="<?php echo $b['kd_belanja']; ?>">
+                        <input disabled type="text" class="form-control" id="kd_belanja" name="kd_belanja" placeholder="Kode Belanja" value="<?php echo $b['kd_belanja_master']; ?>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Bidang" value="<?php echo $b['nama_belanja']; ?>">
+                        <input type="text" class="form-control" id="nama_belanja" name="nama_belanja" placeholder="Nama Belanja" value="<?php echo $b['nama_belanja_master']; ?>">
                     </div>
                 </div>
                 <div class="modal-footer">

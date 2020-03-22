@@ -108,7 +108,7 @@ class Permintaanag extends CI_Controller
                 $nama_bidang = $this->input->post('nama_bidang');
                 $nama_k_bid = $this->input->post('nama_k_bidang');
                 $kd_k_bid = $this->input->post('kd_k_bidang');
-                $ket = $this->input->post('ket');
+                // $ket = $this->input->post('ket');
                 $nip = $this->input->post('nip');
                 $tujuan = $this->input->post('tujuan');
                 $nama_admin = $this->input->post('nama_admin');
@@ -273,7 +273,7 @@ class Permintaanag extends CI_Controller
                         'nip' =>  $nip,
                         'tahun' => $tahun,
                         'bulan' => $bulan,
-                        'ket' => $ket
+                        // 'ket' => $ket
                         // 'status_selesai ' =>  0
                     );
     
@@ -336,8 +336,7 @@ class Permintaanag extends CI_Controller
         $cektatw = $this->db->get('tb_managementa')->row_array();
         $data['aktif']=$cektatw;
        
-        if(!empty($cektatw))
-        {
+      
             $data['index'] = 'ya';
             $bulan= $cektatw['bulan'];
             $data['index'] =  $bulan;
@@ -358,7 +357,7 @@ class Permintaanag extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('permintaanag/history', $data);
             $this->load->view('templates/footer');
-        }
+        
     }
 
     public function pilihantw()

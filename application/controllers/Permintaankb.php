@@ -179,7 +179,50 @@ class Permintaankb extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('permintaankb/notactive', $data);
+            $this->load->view('templates/footer');
+        }
+
+    }
+
+    public function detailpermintaanproses()
+    {
+        $data['title'] = 'Permintaan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif']=$cektatw;
+
+        if(!empty($cektatw))
+        {
+            $kd = $this->uri->segment(3);
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+
+            $this->db->where($array); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('kd_permintaan',$kd); 
+            $data['permintaan'] = $this->db->get('tb_permintaan')->row_array();
+
+            $this->db->where($array); 
+            $this->db->where("kd_bid_skpd",$kd_bid_skpd);
+            $this->db->where('kd_permintaan',$kd); 
+            $data['detailpermintaan'] = $this->db->get('tb_detail_permintaan')->result_array();
+
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaankb/detailpermintaanproses', $data);
+            $this->load->view('templates/footer');
+        }
+        else
+        { 
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('permintaankb/notactive', $data);
             $this->load->view('templates/footer');
         }
 
@@ -285,9 +328,7 @@ class Permintaankb extends CI_Controller
         $this->db->where('status', "Aktif"); 
         $cektatw = $this->db->get('tb_managementa')->row_array();
         $data['aktif']=$cektatw;
-       
-        if(!empty($cektatw))
-        {
+     
             $data['index'] = 'ya';
             $bulan=$cektatw['bulan'];
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $bulan);
@@ -307,7 +348,7 @@ class Permintaankb extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('permintaankb/history', $data);
             $this->load->view('templates/footer');
-        }
+        
     }
 
     public function pilihantw()

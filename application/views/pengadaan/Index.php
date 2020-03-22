@@ -165,7 +165,7 @@
                              if($sm['status_pengadaan']==1)
                              {
                             ?>
-                            <td><a href="<?=base_url('Pengadaan/detilpengadaan2/'.$sm['kd_pengadaan'].'/'.$sm['kd_sumber'])?>" class="badge badge-success">Detail</a> | 
+                            <td><a href="<?=base_url('Pengadaan/detilpengadaan2/'.$sm['kd_pengadaan'].'/'.$sm['kd_sumber'])?>" class="badge badge-success">Detail Pengadaan</a> | 
                             
                             <?php
                                 if($sm['status_penerimaan']==0)

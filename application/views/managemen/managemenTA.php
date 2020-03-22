@@ -11,7 +11,7 @@
             <?= $this->session->flashdata('message');?>
             <div class="row">
             <div class="col-lg-12" style=" height:200px">
-                <H3 style="text-align:center; font-weight:bold; padding:20px;">INFORMASI TA AKTIF</H3>
+                <H3 style="text-align:center; font-weight:bold; padding:20px;">INFORMASI TA DAN BULAN AKTIF</H3>
                 <div class="row">
                     <div class="col-lg-6" style="text-align:center; padding:35px; background-color:#fefe7b; height:100px"><H4>TAHUN <label id="adatahun"><?php if(isset($managementa['tahun'])) { echo  $managementa['tahun']; }?></label></H4></div>
                     <div class="col-lg-6" style="text-align:center; padding:35px; background-color:#fefe7b; height:100px"><H4>BULAN <?php if(isset($managementa['bulan'])) { echo  strtoupper($managementa['bulan']); }?></H4></div>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="col-lg-12" style="height:350px">
-                <H3 style="text-align:center; font-weight:bold; padding:20px;">SETTING TAHUN ANGGARAN</H3>
+                <H3 style="text-align:center; font-weight:bold; padding:20px;">SETTING TAHUN ANGGARAN DAN BULAN</H3>
                 <div class="row">
                         <div class="col-lg-12">
                             <form action="<?= base_url('managemen/managementa'); ?>" method="POST">
@@ -42,7 +42,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="bulan" name="bulan" placeholder="TW" value="" readonly>
+                                    <input type="text" class="form-control" id="bulan" name="bulan" placeholder="Bulan" value="" readonly>
                                 </div>
                                 <!-- <div class="form-group">
                                     <select name="tw" id="tw" class="form-control">

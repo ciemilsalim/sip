@@ -119,7 +119,7 @@
                     },
                     error: function() 
                     {
-                        alert("Invalide! jsdfghds "+kd);
+                        alert("Invalide! jsdfghds ");
                     }
                 });
 
@@ -167,7 +167,7 @@
                 else
                 {
                     kd=$('#skpd').val();
-                    string=kd.split('-');
+                    string=kd.split('#');
 
                     jQuery.ajax({
                         type: "POST",
@@ -186,7 +186,7 @@
                         },
                         error: function() 
                         {
-                            alert("Invalide! "+kd);
+                            alert("Invalide! ");
                         }
                     });
 

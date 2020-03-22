@@ -176,7 +176,7 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('permintaanab/notactive', $data);
             $this->load->view('templates/footer');
         }
       
@@ -277,7 +277,7 @@ class Permintaanab extends CI_Controller
 
     public function tambahpermintaan()
     {
-        $data['title'] = 'Pengadaan';
+        $data['title'] = 'Permintaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         
         $this->db->where('status', "Aktif"); 
@@ -316,7 +316,7 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('permintaanab/notactive', $data);
             $this->load->view('templates/footer');
         }
 
@@ -326,7 +326,7 @@ class Permintaanab extends CI_Controller
 
     public function detailpermintaan()
     {
-        $data['title'] = 'Pengadaan';
+        $data['title'] = 'Permintaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         
         $this->db->where('status', "Aktif"); 
@@ -361,7 +361,7 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
+            $this->load->view('permintaanab/notactive', $data);
             $this->load->view('templates/footer');
         }
 
@@ -377,8 +377,7 @@ class Permintaanab extends CI_Controller
         $cektatw = $this->db->get('tb_managementa')->row_array();
         $data['aktif']=$cektatw;
 
-        if(!empty($cektatw))
-        {
+      
             $data['index'] = 'ya';
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
             $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
@@ -398,7 +397,7 @@ class Permintaanab extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('permintaanab/history', $data);
             $this->load->view('templates/footer');
-        }
+        
     }
 
     public function pilihantw()

@@ -204,6 +204,7 @@ $skpd = $list['skpd'];
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
+                        echo "<br>";
                         
                         echo "<label style='text-decoration:underline; font-weight:bold;' >Pimpinan</label>";
                         echo "<br>";
@@ -215,7 +216,7 @@ $skpd = $list['skpd'];
                 <?php
                     if(!empty($pj1))
                     {
-                        echo $pj1['jabatan']. ' '.$skpd['nama_skpd'];
+                        echo $pj1['jabatan']. '<br>'.$skpd['nama_skpd'];
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";

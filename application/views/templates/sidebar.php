@@ -109,7 +109,7 @@
                                         
                                         if ($this->session->userdata('role_id')==7)
                                         {
-                                            if($menuId==5 and ($sm['title']=='Belanja' or $sm['title']=='Identitas' or $sm['title']=='Sumber Dana' or $sm['title']=='Satuan' or $sm['title']=='Identitas'))
+                                            if($menuId==5 and ($sm['title']=='Belanja' or $sm['title']=='Sub Belanja' or $sm['title']=='Identitas' or $sm['title']=='Sumber Dana' or $sm['title']=='Satuan Komponen' or $sm['title']=='Identitas'))
                                             {
                                             ?>
 
@@ -143,6 +143,28 @@
                                             }
 
                                             if($menuId==4)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                            if($menuId==12)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+                                            
+                                            if($menuId==13)
                                             {
                                             ?>
 

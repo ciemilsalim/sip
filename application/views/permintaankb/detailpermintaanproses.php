@@ -1,10 +1,20 @@
+<?php
+if($this->uri->segment(3)!='')
+{
+    $kd_pengadaan=$this->uri->segment(3);
+}
+else
+{
+    $kd_pengadaan='';
+}
+?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <a  href="javascript:window.history.go(-1);" class="badge badge-success" width="100%">Kembali</a>
+    <a href="<?=base_url('Permintaanab/proses') ?>" class="badge badge-success" width="100%">Kembali</a>
     <br>
 
     
@@ -18,27 +28,29 @@
             <?= form_error('menu', '<div class = "alert alert-danger" role="alert">', '</div>');?>
             <?= $this->session->flashdata('message');?>
 
-                <?php
-                     if(isset($aktif))
-                     {
-                         if ($aktif['tahun']==$this->session->userdata('tahun'))
-                         {
-                     ?>
-                     <div class="form-group">
-                         <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
-                     </div>
-                     <?php
-                         }
-                     }
-                     else
-                     {
-                     ?>
-                     
-                          <div class="form-group">
-                             <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-                         </div>
- 
-                     <?php } ?>
+            <?php
+                    if(isset($aktif))
+                    {
+                        if ($aktif['tahun']==$this->session->userdata('tahun'))
+                        {
+                    ?>
+                    <div class="form-group">
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
+                    </div>
+                    <?php
+                        }
+                    }
+                    else
+                    {
+                    ?>
+                    
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                        </div>
+
+                    <?php } ?>
+
+                    
                     
                 <div style="10px solid grey; background-color:#e9d8d8; padding:10px;">
                     <label style="text-decoration:underline">Detail Permintaan</label>
@@ -135,7 +147,7 @@
                             <!-- <th scope="col">Harga Permintaan</th> -->
                             <th scope="col">Jumlah Persetujuan Kepala Bidang</th>
                             <!-- <th scope="col">Harga Persetujuan Kepala Bidang</th> -->
-                            <th scope="col">Jumlah Persetujuan Pengurus Gudang</th>
+                            <th scope="col">Jumlah Persetujuan Pengurus Barang</th>
                             <!-- <th scope="col">Harga Persetujuan Pengurus Gudang</th> -->
                         </tr>
                     </thead>

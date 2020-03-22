@@ -108,8 +108,7 @@
                                         }
                                 ?> 
                             </td>
-                            <td><a href=" <?=base_url('permintaanab/detailpermintaan/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> </td>
-                            <td>
+                            <td><a href=" <?=base_url('permintaanab/detailpermintaan/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> 
                             <?php
                                     
                                     $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
@@ -118,7 +117,7 @@
                                         $class='';  
                                     }
                             ?>   
-                                <a href=" <?=base_url('permintaanab/status/'.$sm['kd_permintaan']); ?>" class="badge badge-warning" style="<?= $class; ?>">Selesai</a> 
+                                 | <a href=" <?=base_url('permintaanab/status/'.$sm['kd_permintaan']); ?>" class="badge badge-warning" style="<?= $class; ?>">Selesai</a> 
                             </td>
                         </tr>
                         <?php endforeach; } ?>

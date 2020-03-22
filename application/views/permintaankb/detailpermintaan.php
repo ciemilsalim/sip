@@ -715,6 +715,8 @@ else
         
         $('#buttonjson').prop("disabled",true);
         $('#buttonsimpan').prop("disabled",false);
+
+        // console.log(datano);
     });
 </script>
 

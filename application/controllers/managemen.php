@@ -194,7 +194,6 @@ class Managemen extends CI_Controller
                 'tgl_aktif' =>$currentDate
             );
 
-
             $this->db->insert('tb_managementa', $data);
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Berhasil diaktifkan</div>');
             redirect('managemen/managemenTA');
@@ -215,11 +214,39 @@ class Managemen extends CI_Controller
 
 
     public function nonaktifta()
-    {
+    {          
+            //pemindahan data saldo ke data koreksi awal
+            $this->db->where('status', "Aktif"); 
+            $cektatw = $this->db->get('tb_managementa')->row_array();
+            $tahun=$cektatw['tahun'];
+            $bulan=$cektatw['bulan'];
 
+            $cek = $this->db->get('tb_koreksi_saldo_awal')->result_array();
+            if ($cek > 0) 
+            {
+                $this->db->select_max('kd_koreksi');
+                $this->db->where('tahun', $tahun);
+                $result = $this->db->get('tb_koreksi_saldo_awal')->row_array();
+                $maxkd = $result['kd_koreksi'];
+                $maxkd++;
+                $kd = $maxkd++;
+            } else 
+            {
+                $kd = '1';
+            }
+    
+            $query="INSERT INTO tb_koreksi_saldo_awal (kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,'$kd',harga_satuan_da,jumlah,harga_total from tb_saldo where tahun='$tahun' and bulan='$bulan'";
+            $this->db->query($query);
+
+            $query="INSERT INTO tb_koreksi_status (kd_urusan,kd_bidang,kd_unit,kd_sub,tahun,bulan,nm_sub_unit) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,'$tahun','$bulan',nm_sub_unit from ref_sub_unit ";
+            $this->db->query($query);
+            
+            $this->db->where('tahun',$tahun);
+            $this->db->where('bulan',$bulan);
+            $this->db->delete('tb_saldo');
+
+            //eksekusi
             $id = $this->uri->segment(3);
-            $tahun = $this->input->post('tahun');
-            $tw =$this->input->post('tw');
             $status = "Tidak Aktif";
             $currentDate = date('Y-m-d');
 
@@ -231,6 +258,16 @@ class Managemen extends CI_Controller
 
             $this->db->where('id', $id);
             $this->db->update('tb_managementa', $data);
+
+
+            //simpan ke status koreksi nonaktif
+            $dataxx = array(
+                'tahun' => $tahun,
+                'bulan' =>$bulan,
+                'status_koreksi' =>'Aktif',
+            );
+
+            $this->db->insert('tb_koreksi_ta_nonaktif', $dataxx);
 
             $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Berhasil dinonaktifkan</div>');
             redirect('managemen/managemenTA');

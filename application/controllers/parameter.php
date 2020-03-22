@@ -912,15 +912,22 @@ class Parameter extends CI_Controller
 
     public function belanja()
     {
-        $data['title'] = 'Belanja';
+        $data['title'] = 'Sub Belanja';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         
-        $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
+        $this->form_validation->set_rules('nama_belanja', 'Sub Belanja', 'required');
+        $this->form_validation->set_rules('master_belanja', 'Belanja', 'required');
 
         if ($this->form_validation->run() == false) {
 
-            // $this->db->where($array);
-            $data['belanja'] = $this->db->get('tb_belanja')->result_array();
+
+            $this->db->select('*');
+            $this->db->from('tb_belanja a');
+            $this->db->join('tb_belanja_master b', 'b.kd_belanja_master = a.kd_belanja_master', 'left');
+            $this->db->order_by('b.kd_belanja_master');
+            $data['belanja'] = $this->db->get()->result_array();
+
+            $data['master'] = $this->db->get('tb_belanja_master')->result_array();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -928,27 +935,39 @@ class Parameter extends CI_Controller
             $this->load->view('parameter/belanja', $data);
             $this->load->view('templates/footer');
         } else {
+            $master = $this->input->post('master_belanja');
             $nama_belanja = $this->input->post('nama_belanja');
             $kd_belanja = $this->input->post('kd_belanja');
+
+            $this->db->where('kd_belanja',$kd_belanja);
+            $query = $this->db->get('tb_belanja');
+            if ($query->num_rows() <=0)
+            {
+                $data = array(
+                    'id_belanja' => '',
+                    'kd_belanja_master' => $master,
+                    'kd_belanja' => $kd_belanja,
+                    'nama_belanja' =>  $nama_belanja
+                );
+
+                $this->db->insert('tb_belanja', $data);
+                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+                redirect('parameter/belanja');
+            }
+            else
+            {
+                $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Kode Sub Belanja Sudah Pernah Digunakan</div>');
+                redirect('parameter/belanja');
+            }
             
 
-            $data = array(
-                'id_belanja' => '',
-                'kd_belanja' => $kd_belanja,
-                'nama_belanja' =>  $nama_belanja
-            );
-
-
-            $this->db->insert('tb_belanja', $data);
-            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
-            redirect('parameter/belanja');
         }
     }
 
 
     public function editbelanja()
     {
-        $data['title'] = 'Belanja';
+        $data['title'] = 'Sub Belanja';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         
         $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
@@ -1286,108 +1305,123 @@ class Parameter extends CI_Controller
         $data['title'] = 'Data Awal';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $this->db->where('tahun', $this->session->userdata('tahun'));
+        $this->db->where('status', "Aktif"); 
+        $cektatw = $this->db->get('tb_managementa')->row_array();
+
+        if(!empty($cektatw))
+        {
     
-        $this->form_validation->set_rules('sumber', 'Sumber', 'required');
+                $this->form_validation->set_rules('sumber', 'Sumber', 'required');
 
-        $tahun = $this->session->userdata('tahun');
-        $kd_urusan = $this->session->userdata('kd_urusan');
-        $kd_bidang = $this->session->userdata('kd_bidang');
-        $kd_unit = $this->session->userdata('kd_unit');
-        $kd_sub = $this->session->userdata('kd_sub');
+                $tahun = $this->session->userdata('tahun');
+                $kd_urusan = $this->session->userdata('kd_urusan');
+                $kd_bidang = $this->session->userdata('kd_bidang');
+                $kd_unit = $this->session->userdata('kd_unit');
+                $kd_sub = $this->session->userdata('kd_sub');
 
-        if ($this->form_validation->run() == false) {
+                if ($this->form_validation->run() == false) {
 
-            $data['belanja'] = $this->db->get('tb_belanja')->result_array();
+                    $data['belanja'] = $this->db->get('tb_belanja')->result_array();
 
-            $data['sumber'] = $this->db->get('tb_sumber_dana')->result_array();
+                    $data['sumber'] = $this->db->get('tb_sumber_dana')->result_array();
 
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'));
-            $this->db->where($array);
-            $data['program'] = $this->db->get('ref_program')->result_array();
+                    $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'));
+                    $this->db->where($array);
+                    $data['program'] = $this->db->get('ref_program')->result_array();
 
 
-            $query="SELECT a.*, e.kd_sumber, e.nama_sumber from  tb_da a join tb_sumber_dana e on e.kd_sumber = a.kd_sumber where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' order by a.kd_da";
-            $data['rka'] = $this->db->query($query)->result_array();
+                    $query="SELECT a.*, e.kd_sumber, e.nama_sumber from  tb_da a join tb_sumber_dana e on e.kd_sumber = a.kd_sumber where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' order by a.kd_da";
+                    $data['rka'] = $this->db->query($query)->result_array();
 
-            // echo"<pre>"; print_r( $data['program']);
-            // die;
-          
+                    // echo"<pre>"; print_r( $data['program']);
+                    // die;
+                
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('templates/sidebar', $data);
+                    $this->load->view('templates/topbar', $data);
+                    $this->load->view('parameter/da', $data);
+                    $this->load->view('templates/footer');
+                } else {
+                
+                    $sumberdana = $this->input->post('sumber');
+                
+                    $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
+                    
+                    if($this->input->post('kd_da')==null)
+                    {
+                        $cek = $this->db->get('tb_da')->result_array();
+                        if ($cek > 0) {
+                            $this->db->select_max('kd_da');
+                            $this->db->where($array);
+                            $result = $this->db->get('tb_da')->row_array();
+                            $maxkd = $result['kd_da'];
+                            $maxkd++;
+                            $no = $maxkd++;
+                        } else {
+                            $no = '1';
+                        }
+
+                        $data = array(
+                            'tahun' => $tahun,
+                            'kd_urusan' => $kd_urusan,
+                            'kd_bidang' => $kd_bidang,
+                            'kd_unit' => $kd_unit,
+                            'kd_sub' => $kd_sub,
+                            'kd_sumber'=>$sumberdana,
+                            'kd_da' =>$no,
+                            'tgl_input' =>  date("Y/m/d")
+                        );
+                        $this->db->insert('tb_da', $data);
+                    }
+                    else
+                    {
+                        $no=$this->input->post('kd_da');
+                    }
+
+                    $datajson = json_decode($this->input->post('jsondata'),true);
+                    foreach($datajson as $key=> $arr)
+                    {
+                        if($datajson[$key]['jumlah']==0)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            $data = array(
+                                'kd_urusan' => $kd_urusan,
+                                'kd_bidang' => $kd_bidang,
+                                'kd_unit' => $kd_unit,
+                                'kd_sub' => $kd_sub,
+                                'kd_da' => $no,
+                                'kd_jenis' => $datajson[$key]['kd_jenis'],
+                                'kd_komponen' => $datajson[$key]['kd_komponen'],
+                                'kd_uraian' => $datajson[$key]['kd_uraian'],
+                                'uraian_komponen' => $datajson[$key]['uraian'],
+                                'satuan' => $datajson[$key]['satuan'],
+                                'harga_satuan' => $datajson[$key]['harga'],
+                                'harga_input' => $datajson[$key]['hargainput'],
+                                'jumlah ' => $datajson[$key]['jumlah'],
+                                'harga_total' =>  $datajson[$key]['total'],
+                                'tahun' =>  $tahun,
+                                'kd_sumber'=>$sumberdana,
+                                'tgl_input' =>  date("Y/m/d")
+                            );
+                            $this->db->insert('tb_da_detail', $data);
+                        }
+                    }
+
+                    $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+                    redirect('parameter/da');
+                }
+        }
+        else
+        { 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('parameter/da', $data);
+            $this->load->view('parameter/notactive', $data);
             $this->load->view('templates/footer');
-        } else {
-          
-            $sumberdana = $this->input->post('sumber');
-          
-            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
-            
-            if($this->input->post('kd_da')==null)
-            {
-                $cek = $this->db->get('tb_da')->result_array();
-                if ($cek > 0) {
-                    $this->db->select_max('kd_da');
-                    $this->db->where($array);
-                    $result = $this->db->get('tb_da')->row_array();
-                    $maxkd = $result['kd_da'];
-                    $maxkd++;
-                    $no = $maxkd++;
-                } else {
-                    $no = '1';
-                }
-
-                $data = array(
-                    'tahun' => $tahun,
-                    'kd_urusan' => $kd_urusan,
-                    'kd_bidang' => $kd_bidang,
-                    'kd_unit' => $kd_unit,
-                    'kd_sub' => $kd_sub,
-                    'kd_sumber'=>$sumberdana,
-                    'kd_da' =>$no,
-                    'tgl_input' =>  date("Y/m/d")
-                );
-                $this->db->insert('tb_da', $data);
-            }
-            else
-            {
-                $no=$this->input->post('kd_da');
-            }
-
-            $datajson = json_decode($this->input->post('jsondata'),true);
-            foreach($datajson as $key=> $arr)
-            {
-                if($datajson[$key]['jumlah']==0)
-                {
-                    continue;
-                }
-                else
-                {
-                    $data = array(
-                        'kd_urusan' => $kd_urusan,
-                        'kd_bidang' => $kd_bidang,
-                        'kd_unit' => $kd_unit,
-                        'kd_sub' => $kd_sub,
-                        'kd_da' => $no,
-                        'kd_jenis' => $datajson[$key]['kd_jenis'],
-                        'kd_komponen' => $datajson[$key]['kd_komponen'],
-                        'kd_uraian' => $datajson[$key]['kd_uraian'],
-                        'uraian_komponen' => $datajson[$key]['uraian'],
-                        'satuan' => $datajson[$key]['satuan'],
-                        'harga_satuan' => $datajson[$key]['harga'],
-                        'harga_input' => $datajson[$key]['hargainput'],
-                        'jumlah ' => $datajson[$key]['jumlah'],
-                        'harga_total' =>  $datajson[$key]['total'],
-                        'tahun' =>  $tahun,
-                        'kd_sumber'=>$sumberdana,
-                        'tgl_input' =>  date("Y/m/d")
-                    );
-                    $this->db->insert('tb_da_detail', $data);
-                }
-            }
-
-            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
-            redirect('parameter/da');
         }
     }
 
@@ -1525,6 +1559,97 @@ class Parameter extends CI_Controller
             $this->load->view('templates/footer');  
         }
       
+    }
+
+
+    // public function deletekbidang()
+    // {
+    //     $id['id_kepala_bidang'] = $this->uri->segment(3);
+    //     $this->db->delete('tb_kepala_bidang', $id);
+    //     $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">data berhasil dihapus</div>');
+    //     redirect('parameter/kepalaBidang');
+    // }
+
+
+    public function masterbelanja()
+    {
+        $data['title'] = 'Belanja';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            // $this->db->where($array);
+            $data['belanja'] = $this->db->get('tb_belanja_master')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('parameter/masterbelanja', $data);
+            $this->load->view('templates/footer');
+        }
+        else 
+        {
+            $nama_belanja = $this->input->post('nama_belanja');
+            $kd_belanja = $this->input->post('kd_belanja');
+
+            $this->db->where('kd_belanja_master',$kd_belanja);
+            $query = $this->db->get('tb_belanja_master');
+            if ($query->num_rows() <=0)
+            {
+                $data = array(
+                    'kd_belanja_master' => $kd_belanja,
+                    'nama_belanja_master' =>  $nama_belanja
+                );
+    
+                $this->db->insert('tb_belanja_master', $data);
+                $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+                redirect('parameter/masterbelanja');
+            }
+            else
+            {
+                $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Kode Belanja Sudah Pernah Digunakan</div>');
+                redirect('parameter/masterbelanja');
+            }
+
+           
+        }
+    }
+
+
+    public function editbelanjamaster()
+    {
+        $data['title'] = 'Belanja';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->form_validation->set_rules('nama_belanja', 'Nama Belanja', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $data['belanja'] = $this->db->get('tb_belanja_master')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('parameter/masterbelanja', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $id_belanja['id_belanja_master'] = $this->uri->segment(3);
+            $nama_belanja = $this->input->post('nama_belanja');
+
+            $data = array(
+                'nama_belanja_master' => $nama_belanja
+            );
+
+            $this->db->where($id_belanja);
+            $this->db->update('tb_belanja_master', $data);
+
+
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diubah</div>');
+            redirect('parameter/masterbelanja');
+        }
     }
 
 }

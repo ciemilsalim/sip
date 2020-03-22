@@ -185,14 +185,14 @@ else
                             <input readonly type="text" class="form-control" value="<?php if(isset($permintaan)) { echo $permintaan['tgl_kepala_bidang']; } ?>" />
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td style="padding:10px;">
                                 <label >Keterangan</label>
                             </td>
                             <td width="60%">
                             <textarea class="form-control" id="ket" name="ket" ></textarea>
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </table>
                 </div>
