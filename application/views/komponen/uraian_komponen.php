@@ -173,7 +173,7 @@ if (isset($uraian_komponen)) {
         </div>
 
         <script>
-            $('#harga<?= $uk['id_uraian'] ?>').mask("#,###.###.###.###", {reverse: true});
+            $('#harga<?= $uk['id_uraian'] ?>').mask("#,###,###,###,###", {reverse: true});
         </script>
 
     <?php

@@ -4,80 +4,52 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-    <a href="<?= base_url('pengadaan/tambahsaldoawal'); ?>" class="btn btn-primary mb-3" >Tambah Saldo Awal</a>
-
     <?php
-    if(isset($aktif))
+    if(isset($status))
     {
-        if ($aktif['tahun']==$this->session->userdata('tahun'))
+        if($status==0)
         {
     ?>
-        <div class="form-group">
-           <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Triwulan <?=$aktif['tw'];?></label>
-        </div>
-        <?php
-            $tahun=$aktif['tahun'];
-            $tw='';
-            if ($aktif['tw']==1)
-            {
-                $tahun=$aktif['tahun']-1;
-                $tw='IV';
-            }
-            else if($aktif['tw']==2)
-            {
-                $tw='I';
-            }
-            else if($aktif['tw']==3)
-            {
-                $tw='II';
-            }
-            else if($aktif['tw']==4)
-            {
-                $tw='III';
-            }
-        ?>
+
+    <a href="<?= base_url('pengadaan/tambahsaldoawal'); ?>" class="btn btn-primary mb-3" >Tambah Saldo Awal</a>
+
     <?php
         }
         else
         {
     ?>
-        <div class="form-group">
-            <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-        </div>
-    <?php       
-        }
-    }
-    else
-    {
-    ?>
-        <div class="form-group">
-        <label>Tidak ada tahun anggaran dan tw aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
-        </div>
+
+    <a disabled class="btn btn-primary mb-3 disabled" >Tambah Saldo Awal</a>
+
     <?php
+        }
     }
     ?>
 
+    <?php
+                    if(isset($aktif))
+                    {
+                        if ($aktif['tahun']==$this->session->userdata('tahun'))
+                        {
+                    ?>
+                    <div class="form-group">
+                        <label>Data Aktif : Tahun Anggaran <?=$aktif['tahun'];?> - Bulan <?=$aktif['bulan'];?></label>
+                    </div>
+                    <?php
+                        }
+                    }
+                    else
+                    {
+                    ?>
+                         <div class="form-group">
+                            <label>Tidak ada tahun anggaran dan bulan aktif untuk login tahun <?=$this->session->userdata('tahun');?></label>
+                        </div>
+                    <?php } ?>
+
+
     <div class="row">
         <div class="col-lg-12">
-            <label style="text-decoration:underline">Detail Saldo Awal</label>
-            <table width="70%">
-            <tr>
-                <td width="20%">Tahun</td>
-                <td>
-                    <div class="form-group">
-                    <input readonly type="text" class="form-control" name="tahun" value="<?php echo $tahun; ?>">
-                </div>
-                </td>
-                <tr>
-                <tr>
-                <td>TW</td>
-                <td>
-                    <div class="form-group">
-                        <input readonly type="text" class="form-control" name="tw" placeholder="icon submenu" value="<?php echo $tw; ?>">
-                    </div>
-                </td>
-            </table>
-          
+           
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -88,6 +60,7 @@
                         <th scope="col">Harga Satuan</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Total Harga</th>
+                        <th scope="col">Sumber Dana</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,9 +72,10 @@
                                 <td><?= $i++; ?></td>
                                 <td><?= $uk['uraian_komponen']; ?></td>
                                 <td><?= $uk['satuan']; ?></td>
-                                <td><?= number_format($uk['harga_satuan']); ?></td>
-                                <td><?= $uk['jumlah']; ?></td>
-                                <td><?= number_format($uk['harga_total']); ?></td>
+                                <td><?= number_format($uk['harga_koreksi']); ?></td>
+                                <td><?= $uk['jumlah_koreksi']; ?></td>
+                                <td><?= number_format($uk['harga_total_koreksi']); ?></td>
+                                <td><?= $uk['nama_sumber']; ?></td>
                             </tr>
                         <?php endforeach;
                 } ?>

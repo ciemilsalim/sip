@@ -538,7 +538,7 @@ class Pengadaan extends CI_Controller
     {
         $data['title'] = 'Saldo Awal';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
+        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
 
         $this->db->where('tahun', $this->session->userdata('tahun'));
         $this->db->where('status', "Aktif"); 
@@ -548,36 +548,33 @@ class Pengadaan extends CI_Controller
         {
             $data['aktif']=$cektatw;
 
+            $this->db->select('*');
+            $this->db->from('tb_saldo_awal a');
+            $this->db->join('tb_sumber_dana b', 'b.kd_sumber = a.kd_sumber');
             $this->db->where($array);
-            $this->db->where('tahun', $cektatw['tahun']);
-            $this->db->where('tw', $cektatw['tw']);
-            
-            $tw = '';
-            $tahun=$cektatw['tahun'];
-            if ($cektatw['tw']=='4')
-            {
-                $tw='3';
-            }
-            else if($cektatw['tw']=='3')
-            {
-                $tw='2';
-            }
-            else if($cektatw['tw']=='2')
-            {
-                $tw='1';
-            }
-            else if($cektatw['tw']=='1')
-            {
-                $tahun=$cektatw['tahun']-1;
-                $tw='4';
-            }
+            $this->db->where('a.tahun_saldo_awal', $cektatw['tahun']);
+            $this->db->where('a.bulan_saldo_awal', $cektatw['bulan']);
+            $this->db->order_by('b. nama_sumber');
+            $this->db->order_by('a. uraian_komponen');
+            $data['saldo_awal'] = $this->db->get()->result_array();
 
-            $kd_urusan = $this->session->userdata('kd_urusan');
-            $kd_bidang = $this->session->userdata('kd_bidang');
-            $kd_unit = $this->session->userdata('kd_unit');
-            $kd_sub = $this->session->userdata('kd_sub');
-
-            $data['saldo_awal'] = $this->pengadaan->getSaldoAwal($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
+            $this->db->where($array);
+            $status=$this->db->get('tb_saldo_awal_skpd_status')->row_array();
+            if(count($status)>0)
+            {
+                if($data['status']==0)
+                {
+                    $data['status']='0';
+                }
+                else
+                {
+                    $data['status']='1';
+                }
+            }
+            else
+            {
+                $data['status']='0';
+            }
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -600,98 +597,88 @@ class Pengadaan extends CI_Controller
 
     public function tambahsaldoawal()
     {
-        $data['title'] = 'Saldo Awal';
+        $data['title'] = 'Tambah Saldo Awal';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
 
+        $tahun = $this->session->userdata('tahun');
+        $kd_urusan = $this->session->userdata('kd_urusan');
+        $kd_bidang = $this->session->userdata('kd_bidang');
+        $kd_unit = $this->session->userdata('kd_unit');
+        $kd_sub = $this->session->userdata('kd_sub');
+       
+        $this->db->where("tb_sumber_dana.kd_sumber NOT IN (select kd_sumber from tb_da where kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub' and tahun='$tahun' )",NULL,FALSE);
+        $data['sumber'] = $this->db->get('tb_sumber_dana')->result_array();
+
+        
         $this->db->where('tahun', $this->session->userdata('tahun'));
         $this->db->where('status', "Aktif"); 
-        $cektatw = $this->db->get('tb_managementa')->row_array();
+        $data['aktif'] = $this->db->get('tb_managementa')->row_array();
 
-        if(!empty($cektatw))
-        {
-            $data['aktif']=$cektatw;
-            $data['komponen']= $this->db->get('tb_uraian_komponen')->result_array();
+      
+        $data['komponen']= $this->db->get('tb_uraian_komponen')->result_array();
 
-            $this->db->where($array);
-            $this->db->where('tahun', $cektatw['tahun']);
-            $this->db->where('tw', $cektatw['tw']);
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/tambahsaldoawal', $data);
-            $this->load->view('templates/footer');
-          
-        }
-        else
-        { 
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('pengadaan/notactive', $data);
-            $this->load->view('templates/footer');
-        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pengadaan/tambahsaldoawal', $data);
+        $this->load->view('templates/footer');  
+      
       
     }
 
 
     public function simpansaldoawal()
     {
-        $datajson = json_decode($this->input->post('jsondata'),true);
-        $tahun=$this->input->post('tahun');
-        $twpost=$this->input->post('tw');
-
-        $tw='';
-        if ($twpost=='IV')
-        {
-            $tw='4';
-        }
-        else if($twpost=='III')
-        {
-            $tw='3';
-        }
-        else if($twpost=='II')
-        {
-            $tw='2';
-        }
-        else if($twpost=='I')
-        {
-            $tw='1';
-        }
-
+        $sumberdana = $this->input->post('sumber');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+                
+        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
         $kd_urusan = $this->session->userdata('kd_urusan');
         $kd_bidang = $this->session->userdata('kd_bidang');
         $kd_unit = $this->session->userdata('kd_unit');
         $kd_sub = $this->session->userdata('kd_sub');
 
+         
+        $datajson = json_decode($this->input->post('jsondata'),true);
         foreach($datajson as $key=> $arr)
         {
-            $data = array(
-                'kd_urusan' => $kd_urusan,
-                'kd_bidang' => $kd_bidang,
-                'kd_unit' => $kd_unit,
-                'kd_sub' => $kd_sub,
-                'kd_pengadaan' => '0',
-                'kd_jenis' => $datajson[$key]['kd_jenis'],
-                'kd_komponen' => $datajson[$key]['kd_komponen'],
-                'kd_uraian' => $datajson[$key]['kd_uraian'],
-                'uraian_komponen' => $datajson[$key]['uraian'],
-                'satuan' => $datajson[$key]['satuan'],
-                'harga_satuan' => $datajson[$key]['harga'],
-                'jumlah ' => $datajson[$key]['jumlah'],
-                'harga_total' =>  $datajson[$key]['total'],
-                'tahun' =>  $tahun,
-                'tw' =>  $tw,
-            );
-
-
-            $this->db->insert('tb_saldo_awal', $data);
-             
+            if($datajson[$key]['jumlah']==0)
+            {
+                continue;
+            }
+            else
+            {
+                $data = array(
+                    'kd_urusan' => $kd_urusan,
+                    'kd_bidang' => $kd_bidang,
+                    'kd_unit' => $kd_unit,
+                    'kd_sub' => $kd_sub,
+                    // 'kd_da' => $no,
+                    'kd_jenis' => $datajson[$key]['kd_jenis'],
+                    'kd_komponen' => $datajson[$key]['kd_komponen'],
+                    'kd_uraian' => $datajson[$key]['kd_uraian'],
+                    'uraian_komponen' => $datajson[$key]['uraian'],
+                    'satuan' => $datajson[$key]['satuan'],
+                    'kd_pengadaan' =>'0',
+                    'harga_satuan_da' =>$datajson[$key]['hargainput'],
+                    'jumlah' =>$datajson[$key]['jumlah'],
+                    'harga_total' =>$datajson[$key]['total'],
+                    'harga_koreksi' => $datajson[$key]['hargainput'],
+                    'jumlah_koreksi' => $datajson[$key]['jumlah'],
+                    'harga_total_koreksi' =>  $datajson[$key]['total'],
+                    'tahun_saldo_awal' =>  $tahun,
+                    'bulan_saldo_awal' =>  $bulan,
+                    'kd_sumber'=>$sumberdana,
+                    'tahun_sebelumnya' =>  '0',
+                    'bulan_sebelumnya' =>  '0'
+                );
+                $this->db->insert('tb_saldo_awal', $data);
+            }
         }
 
         $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
-        redirect('pengadaan/saldoawal');
+        redirect('pengadaan/saldoAwal');
     }
 
 

@@ -182,7 +182,7 @@ class Koreksi extends CI_Controller
             $tahunfix=$tahun+1;
         }
 
-        $query="INSERT INTO tb_saldo_awal (kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun_sebelumnya,bulan_sebelumnya,tahun_saldo_awal,bulan_saldo_awal,kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,'$tahunfix','$bulanfix',kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi from tb_koreksi_saldo_awal where tahun='$tahun' and bulan='$bulan'";
+        $query="INSERT INTO tb_saldo_awal (kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun_sebelumnya,bulan_sebelumnya,tahun_saldo_awal,bulan_saldo_awal,kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,0,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,'$tahunfix','$bulanfix',kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi from tb_koreksi_saldo_awal where tahun='$tahun' and bulan='$bulan'";
         $this->db->query($query);
 
         $data = [
