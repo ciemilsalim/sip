@@ -12,6 +12,8 @@ class Komponen extends CI_Controller
     {
         $data['title'] = 'Jenis Komponen';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->db->order_by('jenis_komponen');
         $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
 
         $this->form_validation->set_rules('jenis_komponen', 'Jenis Komponen', 'required');
@@ -102,9 +104,10 @@ class Komponen extends CI_Controller
         $this->db->select('*');
         $this->db->from('tb_komponen');
         $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_komponen.id_jenis', 'left');
+        $this->db->order_by('jenis_komponen');
         $data['komponen'] = $this->db->get()->result_array();
 
-        $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
+        // $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
 
         $this->form_validation->set_rules('id_jenis', 'Jenis Komponen', 'required');
         $this->form_validation->set_rules('komponen', 'Komponen', 'required');
@@ -206,23 +209,28 @@ class Komponen extends CI_Controller
         $data['title'] = 'Uraian Komponen';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->db->select('*');
-        $this->db->from('tb_uraian_komponen');
-
-        $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_uraian_komponen.id_jenis', 'left');
-        $this->db->join('tb_komponen', 'tb_komponen.id_komponen = tb_uraian_komponen.id_komponen', 'left');
-        $this->db->order_by('tb_jenis_komponen.kd_jenis');
-        $this->db->order_by('tb_komponen.kd_komponen');
-        $data['uraian_komponen'] = $this->db->get()->result_array();
-
-        $data['komponen'] = $this->db->get('tb_komponen')->result_array();
-
         $this->form_validation->set_rules('id_komponen', 'Komponen', 'required');
         $this->form_validation->set_rules('uraian_komponen', 'Uraian Komponen', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() == false) {
+
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->db->select('*');
+            $this->db->from('tb_uraian_komponen');
+    
+            $this->db->join('tb_jenis_komponen', 'tb_jenis_komponen.id_jenis = tb_uraian_komponen.id_jenis', 'left');
+            $this->db->join('tb_komponen', 'tb_komponen.id_komponen = tb_uraian_komponen.id_komponen', 'left');
+            // $this->db->order_by('tb_jenis_komponen.kd_jenis');
+            // $this->db->order_by('tb_komponen.kd_komponen');
+            $this->db->order_by('jenis_komponen');
+            $this->db->order_by('komponen');
+            $data['uraian_komponen'] = $this->db->get()->result_array();
+    
+            $data['komponen'] = $this->db->get('tb_komponen')->result_array();
+         
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -257,8 +265,8 @@ class Komponen extends CI_Controller
             }
 
             $harga=$this->input->post('harga');
-            echo $hargafinal = str_replace(array('.',' '), '',$harga);
-
+            $hargafinal = str_replace(',','',$harga);
+           
             $array = array(
                 'id_uraian' => '',
                 'id_jenis' => $idjenis,
@@ -272,7 +280,8 @@ class Komponen extends CI_Controller
             );
 
             $this->db->insert('tb_uraian_komponen', $array);
-            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">uraian Komponen Baru ditambahkan</div>');
+         
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Uraian komponen baru ditambahkan</div>');
             redirect('komponen/uraian_komponen');
         }
     }
@@ -304,8 +313,8 @@ class Komponen extends CI_Controller
         } else {
             $iduraian = $id['id_uraian'] = $this->uri->segment(3);
             $harga=$this->input->post('harga');
-            echo $hargafinal = str_replace(array('.',' '), '',$harga);
-
+            $hargafinal = str_replace(',','',$harga);
+           
             $data = [
                 'uraian_komponen' => $this->input->post('uraian_komponen'),
                 'satuan' => $this->input->post('satuan'),
@@ -327,4 +336,97 @@ class Komponen extends CI_Controller
         $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
         redirect('komponen/uraian_komponen');
     }
+
+    
+    public function satuan()
+    {
+        $data['title'] = 'Satuan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+
+        $this->form_validation->set_rules('satuan', 'Nama Satuan', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->order_by('nama_satuan');
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/satuan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nama_satuan = $this->input->post('satuan');
+         
+            $cek = $this->db->get('tb_satuan')->result_array();
+
+            if ($cek > 0) {
+                $this->db->select_max('kd_satuan');
+                $result = $this->db->get('tb_satuan')->row_array();
+                $maxkd = $result['kd_satuan'];
+                $maxkd++;
+                $no = $maxkd++;
+            } else {
+                $no = '1';
+            }
+
+
+
+            $data = array(
+                'kd_satuan' => $no,
+                'nama_satuan' => $nama_satuan
+            );
+
+
+            $this->db->insert('tb_satuan', $data);
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil disimpan</div>');
+            redirect('komponen/satuan');
+        }
+    }
+
+
+    public function editsatuan()
+    {
+        $data['title'] = 'Satuan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+       
+        $this->form_validation->set_rules('satuan', 'Nama Satuan', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->db->order_by('nama_satuan');
+            $data['satuan'] = $this->db->get('tb_satuan')->result_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('komponen/satuan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id['id'] = $this->uri->segment(3);
+            $nama_satuan= $this->input->post('satuan');
+
+            $data = array(
+                'nama_satuan' => $nama_satuan
+            );
+
+            $this->db->where($id);
+            $this->db->update('tb_satuan', $data);
+
+            $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data berhasil diubah</div>');
+            redirect('komponen/satuan');
+        }
+    }
+
+
+    public function deletesatuan()
+    {
+        $id['id'] = $this->uri->segment(3);
+        $this->db->where($id);
+        $this->db->delete('tb_satuan', $id);
+        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">data berhasil dihapus</div>');
+        redirect('komponen/satuan');
+    }
+
 }

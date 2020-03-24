@@ -86,7 +86,19 @@
     $(document).ready(function(){
         $('#dataTable').DataTable();
     });
+
+    $(document).ready(function(){
+        $('#dataTable2').DataTable();
+    });
 </script>
+<script src="<?= base_url('assets/') ?>vendor/validasi/jquery.validate.min.js"></script>
+
+
+
+
+<script src="<?=base_url('assets/') ?>vendor/select/dist/js/select2.js"></script>
+<script src="<?= base_url('assets/') ?>vendor/select/dist/js/select2.min.js"></script>
+
 
 </body>
 

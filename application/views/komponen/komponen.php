@@ -1,3 +1,18 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==7)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -6,20 +21,20 @@
 
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <?= form_error('komponen', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
 
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#komponenModal">Tambah Komponen</a>
+            <a href="#" class="btn btn-primary mb-3  <?= $disabled ?>" data-toggle="modal" data-target="#komponenModal">Tambah Komponen</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ID</th>
+                        <th scope="col" width="5%">#</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Jenis Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Komponen</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -30,12 +45,12 @@
                     if (isset($komponen)) {
                         foreach ($komponen as $k) : ?>
                             <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $k['kd_jenis']; ?></td>
+                                <td style="text-align:center;"><?= $i++; ?></td>
+                                <!-- <td> $k['kd_jenis']; ?></td> -->
                                 <td><?= $k['jenis_komponen']; ?></td>
-                                <td><?= $k['kd_komponen']; ?></td>
+                                <!-- <td> $k['kd_komponen']; ?></td> -->
                                 <td><?= $k['komponen']; ?></td>
-                                <td><a href="#ubahkomponenModal<?= $k['id_komponen']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_komponen/' . $k['id_komponen']); ?>" class="badge badge-danger">Hapus</a></td>
+                                <td><a href="#ubahkomponenModal<?= $k['id_komponen']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_komponen/' . $k['id_komponen']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
@@ -51,6 +66,15 @@
 
 </div>
 <!-- End of Main Content -->
+
+
+
+<script>
+    $(function(){
+        $("select").prop('required',true);
+        $("input").prop('required',true);
+    });
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="komponenModal" tabindex="-1" role="dialog" aria-labelledby="komponenModalLabel" aria-hidden="true">
@@ -78,7 +102,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

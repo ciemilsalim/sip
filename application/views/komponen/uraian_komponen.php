@@ -1,3 +1,19 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==7)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -6,25 +22,25 @@
 
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <?= form_error('komponen', '<div class = "alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
 
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#uraiankomponenModal">Tambah Komponen</a>
+            <a href="#" class="btn btn-primary mb-3 <?= $disabled ?>" data-toggle="modal" data-target="#uraiankomponenModal">Tambah Komponen</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Jenis Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Komponen</th>
-                        <th scope="col">ID</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">Uraian</th>
                         <th scope="col">Satuan</th>
-                        <th scope="col">Harga (Rp)</th>
+                        <th scope="col">Harga Maksimal (Rp)</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -35,15 +51,15 @@
                         foreach ($uraian_komponen as $uk) : ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td><?= $uk['kd_jenis']; ?></td>
+                                <!-- <td>$uk['kd_jenis']; ?></td> -->
                                 <td><?= $uk['jenis_komponen']; ?></td>
-                                <td><?= $uk['kd_komponen']; ?></td>
+                                <!-- <td> $uk['kd_komponen']; ?></td> -->
                                 <td><?= $uk['komponen']; ?></td>
-                                <td><?= $uk['kd_uraian']; ?></td>
+                                <!-- <td> $uk['kd_uraian']; ?></td> -->
                                 <td><?= $uk['uraian_komponen']; ?></td>
                                 <td><?= $uk['satuan']; ?></td>
                                 <td><?= number_format($uk['harga']); ?></td>
-                                <td><a href="#ubahuraiankomponenModal<?= $uk['id_uraian']; ?>" data-toggle="modal" class="badge badge-success">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_uraian_komponen/' . $uk['id_uraian']); ?>" class="badge badge-danger">Hapus</a></td>
+                                <td><a href="#ubahuraiankomponenModal<?= $uk['id_uraian']; ?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> | <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?= base_url('komponen/delete_uraian_komponen/' . $uk['id_uraian']); ?>" class="badge badge-danger" style="<?= $class; ?>">Hapus</a></td>
                             </tr>
                         <?php endforeach;
                 } ?>
@@ -60,6 +76,7 @@
 </div>
 <!-- End of Main Content -->
 
+
 <!-- Modal -->
 <div class="modal fade" id="uraiankomponenModal" tabindex="-1" role="dialog" aria-labelledby="uraiankomponenModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -70,7 +87,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('komponen/uraian_komponen'); ?>" method="POST">
+            <form action="<?= base_url('komponen/uraian_komponen'); ?>" method="POST" name="formx">
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="id_komponen" id="id_komponen" class="form-control">
@@ -86,14 +103,13 @@
                     <div class="form-group">
                         <select name="satuan" id="satuan" class="form-control">
                             <option value="">Pilih Satuan</option>
-                            <option value="Buah">Buah</option>
-                            <option value="Lembar">Lembar</option>
-                            <option value="Unit">Unit</option>
-                            <option value="Lusin">Lusin</option>    
+                            <?php foreach ($satuan as $k) : ?>
+                                <option value="<?= $k['nama_satuan']; ?>"><?= $k['nama_satuan']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga">
+                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Maksimal">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -125,27 +141,26 @@ if (isset($uraian_komponen)) {
                     <form action="<?= base_url('komponen/edit_uraian_komponen/' . $uk['id_uraian']); ?>" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="id_jenis" name="id_jenis" placeholder="Jenis Komponen" value="<?php echo $uk['jenis_komponen']; ?>" readonly>
+                                <input readonly type="text" class="form-control" id="id_jenis" name="id_jenis" placeholder="Jenis Komponen" value="<?php echo $uk['jenis_komponen']; ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="id_komponen" name="id_komponen" placeholder="Komponen" value="<?php echo $uk['komponen']; ?>" readonly>
+                                <input readonly type="text" class="form-control" id="id_komponen" name="id_komponen" placeholder="Komponen" value="<?php echo $uk['komponen']; ?>" readonly>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen" value="<?php echo $uk['uraian_komponen']; ?>">
+                                <input readonly type="text" class="form-control" id="uraian_komponen" name="uraian_komponen" placeholder="Uraian Komponen" value="<?php echo $uk['uraian_komponen']; ?>">
                             </div>
                             <div class="form-group">
                                 <select name="satuan" id="satuan" class="form-control">
                                     <option value="<?= $uk['satuan']; ?>"><?= $uk['satuan']; ?></option>
 
-                                    <option value="Buah">Buah</option>
-                                    <option value="Lembar">Lembar</option>
-                                    <option value="Unit">Unit</option>
-                                    <option value="Lusin">Lusin</option>    
+                                    <?php foreach ($satuan as $k) : ?>
+                                        <option value="<?= $k['nama_satuan']; ?>"><?= $k['nama_satuan']; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="harga<?= $uk['id_uraian'] ?>" name="harga" placeholder="Harga" value="<?php echo number_format($uk['harga']); ?>">
+                                <input type="text" class="form-control" id="harga<?= $uk['id_uraian'] ?>" name="harga" placeholder="Harga Maksimal" value="<?php echo number_format($uk['harga']); ?>">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -158,7 +173,7 @@ if (isset($uraian_komponen)) {
         </div>
 
         <script>
-            $('#harga<?= $uk['id_uraian'] ?>').mask("#,###.###.###.###", {reverse: true});
+            $('#harga<?= $uk['id_uraian'] ?>').mask("#,###,###,###,###", {reverse: true});
         </script>
 
     <?php
@@ -168,5 +183,14 @@ if (isset($uraian_komponen)) {
 
 
 <script>
-    $('#harga').mask("#,###.###.###.###", {reverse: true});
+    $('#harga').mask("#,###,###,###,###", {reverse: true});
+</script>
+
+<script>
+
+    $(function(){
+        $("select").prop('required',true);
+        $("input").prop('required',true);
+    });
+
 </script>

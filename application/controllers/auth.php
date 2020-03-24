@@ -45,6 +45,7 @@ class Auth extends CI_Controller
                         'kd_bidang' => $user['kd_bidang'],
                         'kd_unit' => $user['kd_unit'],
                         'kd_sub' => $user['kd_sub'],
+                        'kd_bid_skpd' => $user['kd_bid_skpd'],
                         'tahun' => $tahun
                     ];
 
@@ -59,7 +60,12 @@ class Auth extends CI_Controller
                         $this->session->set_userdata($data);
 
                         //direct
+<<<<<<< HEAD
                         if ($user['role_id'] == 1) {
+=======
+                        if ($user['role_id'] == 1 or $user['role_id'] == 7) 
+                        {
+>>>>>>> e870ad49fd8d0fe58322d5d6826e046f47459a8b
                             redirect('admin');
                         } else {
                             //cek apakah data skpd sudah ada atau belum
@@ -124,10 +130,20 @@ class Auth extends CI_Controller
             'min_length' => 'Password too short'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        $role_id = $this->input->post('role_id', true);
+        $kd_bid = $this->input->post('bidang', true);
+        if(($role_id==4 and $kd_bid=='') or ($role_id==5 and $kd_bid==''))
+        {
+            $this->form_validation->set_rules('bidang', 'Bidang', 'required');
+        }
+        
+
         if ($this->form_validation->run() == false) {
 
-
-            $data = $this->db->get_where('user_role', ['id !=' => 1])->result_array();
+            $this->db->where('id !=', 1); 
+            $this->db->where('id !=', 7); 
+            $data = $this->db->get('user_role')->result_array();
             $data['role'] = $data;
 
             // $this->db->select('*');
@@ -144,8 +160,15 @@ class Auth extends CI_Controller
             $email = $this->input->post('email', true);
             $role_id = $this->input->post('role_id', true);
             $skpd = $this->input->post('skpd', true);
+<<<<<<< HEAD
 
             $dataskpd = explode("#", $skpd);
+=======
+            $kd_bid = $this->input->post('bidang', true);
+            $nama_bid = $this->input->post('nama_bid', true);
+            $dataskpd=explode("#",$skpd);
+>>>>>>> e870ad49fd8d0fe58322d5d6826e046f47459a8b
+
 
             $data = [
                 'nama' => htmlspecialchars($nama),
@@ -155,11 +178,21 @@ class Auth extends CI_Controller
                 'role_id' => htmlspecialchars($role_id),
                 'is_active' => 0,
                 'date_created' => time(),
+<<<<<<< HEAD
                 'kd_urusan' => $dataskpd[0],
                 'kd_bidang' => $dataskpd[1],
                 'kd_unit' => $dataskpd[2],
                 'kd_sub' => $dataskpd[3],
                 'nama_skpd' => $dataskpd[4]
+=======
+                'kd_urusan' =>$dataskpd[0],
+                'kd_bidang' =>$dataskpd[1],
+                'kd_unit' =>$dataskpd[2],
+                'kd_sub' =>$dataskpd[3],
+                'nama_skpd' =>$dataskpd[4],
+                'kd_bid_skpd' =>$kd_bid,
+                'nama_bid_skpd' =>$nama_bid
+>>>>>>> e870ad49fd8d0fe58322d5d6826e046f47459a8b
             ];
 
             //token
@@ -181,39 +214,55 @@ class Auth extends CI_Controller
     }
 
 
+    public function pilihbidang()
+    {
+        $kd_urusan = $this->uri->segment(3);
+        $kd_bidang = $this->uri->segment(4);
+        $kd_unit = $this->uri->segment(5);
+        $kd_sub = $this->uri->segment(6);
+       
+        $array = array('kd_urusan' => $kd_urusan, 'kd_bidang' =>  $kd_bidang, 'kd_unit' => $kd_unit, 'kd_sub' => $kd_sub);
+   
+        $this->db->where($array);
+        $data['bidang']= $this->db->get('tb_bidang')->result_array();
+
+        echo json_encode($data['bidang']);
+    }
+
+
     private function _sendEmail($token, $type)
     {
-        $config = [
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.gmail.com',
-            'smtp_user' => 'emilbiosci2018@gmail.com',
-            'smtp_pass' => 'aspireone2018',
-            'smtp_port' => 465,
-            'mailtype' => 'html',
-            'chartset' => 'utf-8',
-            'newline' => "\r\n"
-        ];
+        // $config = [
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.gmail.com',
+        //     'smtp_user' => 'emilbiosci2018@gmail.com',
+        //     'smtp_pass' => 'aspireone2018',
+        //     'smtp_port' => 465,
+        //     'mailtype' => 'html',
+        //     'chartset' => 'utf-8',
+        //     'newline' => "\r\n"
+        // ];
 
-        $this->load->library('email', $config);
-        $this->email->initialize($config);
+        // $this->load->library('email', $config);
+        // $this->email->initialize($config);
 
-        $this->email->from('emilbiosci2018@gmail.com', 'Zahra dev');
-        $this->email->to($this->input->post('email'));
+        // $this->email->from('emilbiosci2018@gmail.com', 'Zahra dev');
+        // $this->email->to($this->input->post('email'));
 
-        if ($type == 'verify') {
-            $this->email->subject('Verifikasi Akun');
-            $this->email->message('Klik Link ini untuk verifikasi akun anda <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Aktifkan</a>');
-        } else if ($type == 'forgot') {
-            $this->email->subject('Reset Password');
-            $this->email->message('Klik Link ini untuk reset password anda <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
-        }
+        // if ($type == 'verify') {
+        //     $this->email->subject('Verifikasi Akun');
+        //     $this->email->message('Klik Link ini untuk verifikasi akun anda <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Aktifkan</a>');
+        // } else if ($type == 'forgot') {
+        //     $this->email->subject('Reset Password');
+        //     $this->email->message('Klik Link ini untuk reset password anda <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
+        // }
 
-        if ($this->email->send()) {
+        // if ($this->email->send()) {
             return true;
-        } else {
-            echo $this->email->print_debugger();
-            die;
-        };
+        // } else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // };
     }
 
 
@@ -286,6 +335,10 @@ class Auth extends CI_Controller
         } else {
             $email = $this->input->post('email');
             $user =  $this->db->get_where('user', ['email' => $email], ['is_active' => 1])->row_array();
+<<<<<<< HEAD
+=======
+
+>>>>>>> e870ad49fd8d0fe58322d5d6826e046f47459a8b
             if ($user) {
 
                 $token = base64_encode(random_bytes(32));

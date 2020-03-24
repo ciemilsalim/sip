@@ -12,6 +12,10 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['jenis']=count($this->db->get('tb_jenis_komponen')->result_array());
+        $data['komponen']=count($this->db->get('tb_komponen')->result_array());
+        $data['uraian_komponen']=count($this->db->get('tb_uraian_komponen')->result_array());
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

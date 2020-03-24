@@ -1,3 +1,19 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==3)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -11,7 +27,7 @@
             <?= $this->session->flashdata('message');?>
 
 
-            <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#bidangModal">Tambah Bidang</a>
+            <a href="#" class="btn btn-primary mb-3 <?= $disabled ?>" data-toggle="modal" data-target="#bidangModal">Tambah Bidang</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -32,7 +48,7 @@
                             <td><?= $i++; ?></td>
                             <td><?= $b['kd_bid_skpd']; ?></td>
                             <td><?= $b['nama_bidang']; ?></td>
-                            <td><a href="#ubahbidangModal<?=$b['kd_bid_skpd']?>" data-toggle="modal" class="badge badge-success">Edit</a> </td>
+                            <td><a href="#ubahbidangModal<?=$b['kd_bid_skpd']?>" data-toggle="modal" class="badge badge-success" style="<?= $class; ?>">Edit</a> </td>
                         </tr>
                         <?php endforeach; }?>
                 </tbody>
@@ -67,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -111,3 +127,13 @@
         } 
     }
 ?>
+
+<script>
+
+    $(function(){
+     
+        $("input").prop('required',true);
+        
+    });
+
+</script>

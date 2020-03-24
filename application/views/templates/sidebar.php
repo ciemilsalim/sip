@@ -48,7 +48,15 @@
             $subMenu = $this->db->query($querySubmenu)->result_array();
             ?>
 
-            <?php foreach ($subMenu as $sm) : ?>
+            <?php foreach ($subMenu as $sm) : 
+                 if ($this->session->userdata('role_id')==7 and $sm['title']=='Role')
+                 {
+                     continue;
+                 }
+                 else
+                 {
+                ?>
+
                 <?php if ($title == $sm['title']) : ?>
                     <!-- Nav Item - Dashboard -->
                     <li class="nav-item active">
@@ -61,12 +69,14 @@
                         <i class="<?= $sm['icon']; ?>"></i>
                         <span><?= $sm['title']; ?></span></a>
                 </li>
-            <?php endforeach; ?>
+            <?php } endforeach; ?>
             <!-- Divider -->
             <hr class="sidebar-divider mt-3">
 
         <?php }?>
     <?php endforeach; ?>
+
+
 
 
 
@@ -104,14 +114,111 @@
                                 $subMenu = $this->db->query($querySubmenu)->result_array();
                                 ?>
                             
-                                <?php foreach ($subMenu as $sm) : ?>
+                                <?php foreach ($subMenu as $sm) : 
                                     
-                                        <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                        
+                                        if ($this->session->userdata('role_id')==7)
+                                        {
+                                            if($menuId==5 and ($sm['title']=='Belanja' or $sm['title']=='Sub Belanja' or $sm['title']=='Identitas' or $sm['title']=='Sumber Dana' or $sm['title']=='Satuan Komponen' or $sm['title']=='Identitas'))
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
                                             <i class="<?= $sm['icon']; ?>"></i>
                                             <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                            if($menuId==2)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                            if($menuId==6)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                            if($menuId==4)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                            if($menuId==12)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+                                            
+                                            if($menuId==13)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
+                                         }
+                                        else
+                                        {
+                                            if ($this->session->userdata('role_id')==7)
+                                            {
+                                                continue;
+                                            }
+                                            else if ($this->session->userdata('role_id')==4 and ($sm['title']=='Bidang' or $sm['title']=='Kepala Bidang' or $sm['title']=='Penanggung Jawab' or $sm['title']=='Penyimpanan Gudang' or $sm['title']=='Supplier' or $sm['title']=='Sumber Dana' or $sm['title']=='Data Awal' or $sm['title']=='Belanja' or $sm['title']=='Sub Belanja' or $sm['title']=='Sumber Dana'))
+                                            {
+                                                continue;
+                                            }
+                                            else if ($this->session->userdata('role_id')==5 and ($sm['title']=='Bidang' or $sm['title']=='Kepala Bidang' or $sm['title']=='Penanggung Jawab' or $sm['title']=='Penyimpanan Gudang' or $sm['title']=='Supplier' or $sm['title']=='Sumber Dana' or $sm['title']=='Data Awal' or $sm['title']=='Belanja' or $sm['title']=='Sub Belanja' or $sm['title']=='Sumber Dana' ))
+                                            {
+                                                continue;
+                                            }
+                                            else if ($this->session->userdata('role_id')==3 and ($sm['title']=='Sumber Dana'  or $sm['title']=='Belanja' or $sm['title']=='Sub Belanja' ))
+                                            {
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                if($sm['title']!='Pengguna')
+                                                {
+                                        ?>
+                                        
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+                                        
                                     
-                                
-                                <?php endforeach; ?>
+                                    <?php } } }
+                   
+
+                            endforeach; ?>
                             </div>
                             </div>
                         </li>
@@ -121,7 +228,7 @@
                     if($x==2)
                     {
                     ?>
-                    <hr class="sidebar-divider mt-3">
+                    <!-- <hr class="sidebar-divider mt-3"> -->
                     <?php
                         $x=0;
                     }

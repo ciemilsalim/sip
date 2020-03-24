@@ -32,8 +32,8 @@
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id'] ?>" class="badge badge-warning">Access</a> |
-                                <a href="#ubahroleModal<?=$r['id']?>" data-toggle="modal" class="badge badge-success">Edit</a> |
-                                <a onclick="return confirm('Yakin akan menghapus data?');" href=" <?=base_url('admin/deleterole/'.$r['id']); ?>" class="badge badge-danger">Hapus</a>
+                                <a href="#ubahroleModal<?=$r['id']?>" data-toggle="modal" class="badge badge-success">Edit</a> 
+                                <!--| <a onclick="return confirm('Yakin akan menghapus data?');" href=" //=base_url('admin/deleterole/'.$r['id']); ?>" class="badge badge-danger">Hapus</a> -->
                             </td>
                         </tr>
                          <?php endforeach; }?>
@@ -94,7 +94,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url("admin/editrole/".$b['id']); ?>" method="POST">
+            <div class='error_msg'></div>
+            <form id="validation" action="<?= base_url("admin/editrole/".$b['id']); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="role" name="role" placeholder="nama role" value="<?php echo $b['role']; ?>">
@@ -113,3 +114,27 @@
         } 
     }
 ?>
+
+<script>
+
+    //https://stackoverflow.com/questions/18770369/how-to-set-html5-required-attribute-in-javascript
+    $(function() {
+        $("#validation").validate({
+        rules: {
+            pName: {
+            required: true,
+            minlength: 8
+            },
+            action: "required"
+        },
+        messages: {
+            pName: {
+            required: "Please enter some data",
+            minlength: "Your data must be at least 8 characters"
+            },
+            action: "Please provide some data"
+        }
+        });
+    }); 
+
+</script>

@@ -1,3 +1,19 @@
+<?php
+$disabled='';
+$class='';
+if($this->session->userdata('role_id')==3)
+{
+    $disabled='';
+    $class='';
+}
+else
+{
+    $disabled="disabled";
+    $class="pointer-events: none; cursor: default; text-decoration: none; background-color:#b4b5b7;";
+}
+
+?>
+
 
 <?php 
 
@@ -32,14 +48,14 @@ if(!empty($penyimpanan))
                         <div class="form-group row">
                             <label for="penyimpanan" class="col-sm-2 col-form-label">Nama Penyimpanan</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="penyimpanan" name="penyimpanan" value="<?= $penyimpanan['nama_gudang'] ?>">
+                                <input <?= $disabled ?> type="text" class="form-control" id="penyimpanan" name="penyimpanan" value="<?= $penyimpanan['nama_gudang'] ?>">
                             </div>
                             <?= form_error('penyimpanan', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         
                         <div class="form-group row justify-content-end">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Ubah</button>
+                                <button type="submit" class="btn btn-primary <?= $disabled ?>" <?= $disabled ?>>Ubah</button>
                             </div>
                         </div>
                         </form>
@@ -110,3 +126,11 @@ else
 <?php
 }
 ?>
+
+<script>
+
+    $(function(){
+        $("input").prop('required',true);
+    });
+
+</script>

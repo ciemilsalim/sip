@@ -9,7 +9,7 @@ function is_loged_in()
         $menu = $ci->uri->segment(1);
 
         $queryMenu = $ci->db->get_where('user_menu', [
-            'menu' => $menu
+            'menu_ci' => $menu
         ])->row_array();
         $menu_id = $queryMenu['id'];
 
@@ -18,9 +18,9 @@ function is_loged_in()
             'menu_id' => $menu_id
         ]);
 
-        if ($userAccess->num_rows() < 1) {
-            redirect('auth/blocked');
-        }
+        // if ($userAccess->num_rows() < 1) {
+        //     redirect('auth/blocked');
+        // }
     }
 }
 

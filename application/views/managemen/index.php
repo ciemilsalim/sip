@@ -54,12 +54,12 @@
             <form action="<?= base_url('managemen'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun Anggaran" value="<?php echo date("Y"); ?>">
+                        <input id="in" type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun Anggaran" value="<?php echo date("Y"); ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -86,7 +86,7 @@
             <form action="<?= base_url('managemen/edittahun'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun Anggaran" value="<?php echo $a['tahun']; ?>">
+                        <input id="in" type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun Anggaran" value="<?php echo $a['tahun']; ?>">
                     </div>
                     <div class="form-group">
                         <input type="number" class="form-control" id="id_tahun" name="id_tahun" style="display:none" value="<?php echo $a['id_tahun']; ?>">
@@ -104,3 +104,11 @@
         } 
     }
 ?>
+
+<script>
+
+    $(function(){
+        $("#in").prop('required',true);
+    });
+
+</script>
