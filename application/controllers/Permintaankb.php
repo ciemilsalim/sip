@@ -34,7 +34,7 @@ class Permintaankb extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('permintaankb/pengajuan', $data);
+            $this->load->view('permintaankb/index', $data);
             $this->load->view('templates/footer');
 
         }

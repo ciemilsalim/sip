@@ -90,22 +90,22 @@ class Laporan extends CI_Controller
 
     }
 
-    public function transaksi()
+    public function index()
     {
-        $data['title'] = 'Laporan Transaksi';
+        $data['title'] = 'Laporan Persediaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('laporan/transaksi', $data);
+        $this->load->view('laporan/index', $data);
         $this->load->view('templates/footer');	
 
     }
 
     public function downloadtransaksi()
     {
-        $data['title'] = 'Laporan Transaksi';
+        $data['title'] = 'Laporan Persediaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         
