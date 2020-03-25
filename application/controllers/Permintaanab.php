@@ -142,7 +142,7 @@ class Permintaanab extends CI_Controller
                             'kd_bidang' => $kd_bidang,
                             'kd_unit' => $kd_unit,
                             'kd_sub' => $kd_sub,
-                            'kd_bid_skpd' => $kd_bidang,
+                            'kd_bid_skpd' => $kd_bid_skpd,
                             'kd_permintaan' => $kd,
                             'kd_jenis' => $datajson[$key]['kd_jenis'],
                             'kd_komponen' => $datajson[$key]['kd_komponen'],

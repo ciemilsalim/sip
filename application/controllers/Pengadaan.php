@@ -606,7 +606,7 @@ class Pengadaan extends CI_Controller
         $kd_unit = $this->session->userdata('kd_unit');
         $kd_sub = $this->session->userdata('kd_sub');
        
-        $this->db->where("tb_sumber_dana.kd_sumber NOT IN (select kd_sumber from tb_da where kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub' and tahun='$tahun' )",NULL,FALSE);
+        // $this->db->where("tb_sumber_dana.kd_sumber NOT IN (select kd_sumber from tb_da where kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub' and tahun='$tahun' )",NULL,FALSE);
         $data['sumber'] = $this->db->get('tb_sumber_dana')->result_array();
 
         

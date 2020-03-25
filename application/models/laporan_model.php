@@ -40,7 +40,14 @@ class Laporan_model extends CI_Model
         $namafile='laporansupplier'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('laporan/supplier',$data,true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('P', '', '', '', '',
+        20, // margin_left
+        20, // margin right
+        15, // margin top
+        10, // margin bottom
+        0, // margin header
+        5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
@@ -78,7 +85,14 @@ class Laporan_model extends CI_Model
         $namafile='laporanbelanja'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('laporan/belanja',$data,true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('P', '', '', '', '',
+        20, // margin_left
+        20, // margin right
+        15, // margin top
+        10, // margin bottom
+        0, // margin header
+        5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
@@ -113,7 +127,14 @@ class Laporan_model extends CI_Model
         $namafile='laporanjenis'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('laporan/jenis',$data,true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('P', '', '', '', '',
+        20, // margin_left
+        20, // margin right
+        15, // margin top
+        10, // margin bottom
+        0, // margin header
+        5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
@@ -152,7 +173,14 @@ class Laporan_model extends CI_Model
         $namafile='laporanjenis'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('laporan/komponenn',$data,true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('P', '', '', '', '',
+        20, // margin_left
+        20, // margin right
+        15, // margin top
+        10, // margin bottom
+        0, // margin header
+        5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
@@ -195,7 +223,14 @@ class Laporan_model extends CI_Model
         $namafile='laporanuraian'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('laporan/uraian',$data,true);
-        $mpdf->AddPage('P');
+        $mpdf->AddPage('P', '', '', '', '',
+        20, // margin_left
+        20, // margin right
+        15, // margin top
+        10, // margin bottom
+        0, // margin header
+        5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
@@ -508,7 +543,79 @@ class Laporan_model extends CI_Model
         $final_res['tw']=$strtw;
          
         return $final_res;
-	}
+    }
+    
+
+    public function get_Download_Penyerahan($id)
+	{
+        $res1 = $this->db->get('tb_belanja')->result_array();
+
+        $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
+        $this->db->where($array);
+        $res2 = $this->db->get('tb_skpd')->row_array();
+
+        $this->db->where('id', $id);  
+        $permintaan=$this->db->get('tb_permintaan')->row_array();
+
+        $tahun=$permintaan['tahun'];
+        $bulan=$permintaan['bulan'];
+        $kd_permintaan=$permintaan['kd_permintaan'];
+        $kd_bid_skpd=$permintaan['kd_permintaan'];
+        
+        $this->db->where($array);
+        $this->db->where('tahun',$tahun);
+        $this->db->where('bulan',$bulan);
+        $this->db->where('kd_permintaan',$kd_permintaan);
+        $databappenyerahan= $this->db->get('tb_bap_penyerahan')->row_array();
+
+        $this->db->where($array);
+        $this->db->where('tahun',$tahun);
+        $this->db->where('bulan',$bulan);
+        $this->db->where('kd_permintaan',$kd_permintaan);
+        $this->db->where('kd_bid_skpd',$kd_bid_skpd);
+        $pengeluaran= $this->db->get('tb_pengeluaran')->row_array();
+
+        $this->db->where($array);
+        $this->db->where('tahun',$tahun);
+        $this->db->where('bulan',$bulan);
+        $this->db->where('kd_pengeluaran',$pengeluaran['kd_pengeluaran']);
+        $this->db->where('kd_bid_skpd',$kd_bid_skpd);
+        $detailpengeluaran= $this->db->get('tb_detail_pengeluaran')->result_array();
+        
+
+        $final_res = array();
+        $final_res['skpd']=$res2;
+        $final_res['penyerahan']= $databappenyerahan;
+        $final_res['detail']= $detailpengeluaran;
+
+        $data['list']=$final_res;
+        $rand=rand(1,1000);
+        $namafile='bappenyerahan'.$rand.'.pdf';
+        $mpdf = new \Mpdf\Mpdf();
+        $html1 = $this->load->view('beritaacara/bapenerimaan',$data,true);
+        $mpdf->AddPage('P', '', '', '', '',
+            20, // margin_left
+            20, // margin right
+            15, // margin top
+            10, // margin bottom
+            0, // margin header
+            5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
+        $mpdf->WriteHTML($html1);
+      
+        $html2 = $this->load->view('beritaacara/bapenerimaanlampiran',$data,true);
+        $mpdf->AddPage('P', '', '', '', '',
+            15, // margin_left
+            15, // margin right
+            15, // margin top
+            10, // margin bottom
+            0, // margin header
+            5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
+        $mpdf->WriteHTML($html2);
+        $mpdf->Output($namafile,"I");
+        exit();
+    }
 }
 
 ?>

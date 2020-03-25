@@ -107,7 +107,7 @@ class Komponen extends CI_Controller
         $this->db->order_by('jenis_komponen');
         $data['komponen'] = $this->db->get()->result_array();
 
-        // $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
+        $data['jenis_komponen'] = $this->db->get('tb_jenis_komponen')->result_array();
 
         $this->form_validation->set_rules('id_jenis', 'Jenis Komponen', 'required');
         $this->form_validation->set_rules('komponen', 'Komponen', 'required');
