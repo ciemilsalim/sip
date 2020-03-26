@@ -235,7 +235,7 @@ class Managemen extends CI_Controller
                 $kd = '1';
             }
     
-            $query="INSERT INTO tb_koreksi_saldo_awal (kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,'$kd',harga_satuan_da,jumlah,harga_total from tb_saldo where tahun='$tahun' and bulan='$bulan'";
+            $query="INSERT INTO tb_koreksi_saldo_awal (kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,tahun_pengadaan,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,kd_koreksi,harga_koreksi,jumlah_koreksi,harga_total_koreksi) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,kd_jenis,tahun_pengadaan,kd_pengadaan,kd_komponen,kd_uraian,uraian_komponen,satuan,harga_satuan_da,jumlah,harga_total,tahun,bulan,kd_sumber,'$kd',harga_satuan_da,jumlah,harga_total from tb_saldo where tahun='$tahun' and bulan='$bulan'";
             $this->db->query($query);
 
             $query="INSERT INTO tb_koreksi_status (kd_urusan,kd_bidang,kd_unit,kd_sub,tahun,bulan,nm_sub_unit) SELECT kd_urusan,kd_bidang,kd_unit,kd_sub,'$tahun','$bulan',nm_sub_unit from ref_sub_unit ";

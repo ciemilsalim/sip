@@ -24,7 +24,7 @@ class Permintaanag extends CI_Controller
         if(!empty($cektatw))
         {
             $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $cektatw['tahun'], 'bulan' => $cektatw['bulan']);
-            echo $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
+            $kd_bid_skpd = $this->session->userdata('kd_bid_skpd');
             // $data['permintaan'] = $this->pengadaan->getPengadaan($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
 
             $this->db->where($array);
@@ -184,7 +184,9 @@ class Permintaanag extends CI_Controller
                                     'harga_pengeluaran' =>  $datajson[$key]['total'],
                                     'tahun' => $tahun,
                                     'bulan' => $bulan,
-                                    'kd_sumber' => $datajson[$key]['kdsumber']
+                                    'kd_sumber' => $datajson[$key]['kdsumber'],
+                                    'tahun_pengadaan' => $datajson[$key]['tahunpengadaan'],
+                                    'kd_pengadaan' => $datajson[$key]['kdpengadaan']
                                 );
 
                                 $this->db->insert('tb_detail_pengeluaran', $datakeluar);
@@ -204,6 +206,8 @@ class Permintaanag extends CI_Controller
                                 'kd_jenis' => $datajson[$key]['kd_jenis'],
                                 'kd_komponen' => $datajson[$key]['kd_komponen'],
                                 'kd_uraian' => $datajson[$key]['kd_uraian'],
+                                'tahun_pengadaan' => $datajson[$key]['tahunpengadaan'],
+                                'kd_pengadaan' => $datajson[$key]['kdpengadaan']
                             );
 
                             $saldo=array();

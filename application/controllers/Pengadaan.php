@@ -660,6 +660,7 @@ class Pengadaan extends CI_Controller
                     'kd_uraian' => $datajson[$key]['kd_uraian'],
                     'uraian_komponen' => $datajson[$key]['uraian'],
                     'satuan' => $datajson[$key]['satuan'],
+                    'tahun_pengadaan' =>'0',
                     'kd_pengadaan' =>'0',
                     'harga_satuan_da' =>$datajson[$key]['hargainput'],
                     'jumlah' =>$datajson[$key]['jumlah'],

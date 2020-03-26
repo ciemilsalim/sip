@@ -29,21 +29,21 @@ else
 
 
     //simpan objek data
-    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber)
+    function simpanobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber,tahunpengadaan,kdpengadaan)
     {
-        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+''};  
+        data[i++]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+'',tahunpengadaan:''+tahunpengadaan+'',kdpengadaan:''+kdpengadaan+''};  
         totaltes+=total;                                
         // console.log(data);
     }
 
     //ganti nilai objek data
-    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber)
+    function ubahobjek(id,kd_jenis,kd_komponen,kd_uraian,uraian='',satuan='',harga,jumlah,total,kdsumber,tahunpengadaan,kdpengadaan)
     {
         jQuery.each( data, function( i, val ) 
         {
             if(val.id==id)
             {
-                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+''};  
+                data[i]={id:''+id+'',kd_jenis:''+kd_jenis+'',kd_komponen:''+kd_komponen+'',kd_uraian:''+kd_uraian+'',uraian:''+uraian+'',satuan:''+satuan+'',harga:''+harga+'', jumlah:''+jumlah+'',total:''+total+'',kdsumber:''+kdsumber+'',tahunpengadaan:''+tahunpengadaan+'',kdpengadaan:''+kdpengadaan+''};  
                 // console.log(data);
             }
             
@@ -187,11 +187,13 @@ else
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Tahun Pengadaan</th>
+                            <th scope="col">Kode Pengadaan</th>
                             <th scope="col">Uraian Komponen</th>
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Saldo</th>
-                            <th scope="col">Sumber Dana</th>
+                            <!-- <th scope="col">Sumber Dana</th> -->
                             <th scope="col">Jumlah Permintaan</th>
                         </tr>
                     </thead>
@@ -202,11 +204,13 @@ else
                             foreach ($komponen as $sm) : ?>
                             <tr>
                                 <td><?= $i++; ?></td>
+                                <td><?= $sm['tahun_pengadaan']; ?></td>
+                                <td><?= $sm['kd_pengadaan']; ?></td>
                                 <td><?= $sm['uraian_komponen']; ?></td>
                                 <td><?= $sm['satuan']; ?></td>
                                 <td><?= number_format($sm['harga_satuan_da']);; ?></td>
                                 <td><?= $sm['jumlah']; ?></td>
-                                <td><?= $sm['nama_sumber']; ?></td>
+                                <!-- <td> $sm['nama_sumber']; ?></td> -->
                                 <td>
                                     <input type="checkbox" id="id<?= $sm['id_saldo']; ?>"  value="<?= $sm['id_saldo']; ?>" >
                                     <input type="number" style="width:100px; padding:10px;" id="jumlah<?= $sm['id_saldo']; ?>"  value="0" disabled>
@@ -265,7 +269,7 @@ else
                                             }
                                        
 
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,0,0,<?= $sm['kd_sumber']; ?>)
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,0,0,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
                                             
                                             klik<?= $sm['id_saldo']; ?>='2'+<?= $sm['id_saldo']; ?>;
                                         }
@@ -282,7 +286,7 @@ else
                                             $('#total'+<?= $sm['id_saldo']; ?>).val(total);
                                             $('#total'+<?= $sm['id_saldo']; ?>).mask("#,###,###,###,###", {reverse: true});
 
-                                            simpanobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
+                                            simpanobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
 
                                             klik<?= $sm['id_saldo']; ?>='1'+<?= $sm['id_saldo']; ?>;
                                             
@@ -330,7 +334,7 @@ else
                                                     }
 
                                                     
-                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
+                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
                                                 }
 
                                                 totalsemua();
@@ -370,7 +374,7 @@ else
                                             }
 
                                                     
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
                                             
                                             totalsemua();
                                         }
@@ -401,7 +405,7 @@ else
                                             }
 
                                                     
-                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
+                                            ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
                                             
                                             totalsemua();
                                         }
@@ -436,7 +440,7 @@ else
                                                     }
 
                                                     
-                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>);
+                                                    ubahobjek(<?= $sm['id_saldo']; ?>,<?= $sm['kd_jenis']; ?>,<?= $sm['kd_komponen']; ?>,<?= $sm['kd_uraian']; ?>,<?php echo json_encode($sm['uraian_komponen']); ?>,<?php echo json_encode($sm['satuan']); ?>,<?= $sm['harga_satuan_da']; ?>,jumlah,total,<?= $sm['kd_sumber']; ?>,<?= $sm['tahun_pengadaan']; ?>,<?= $sm['kd_pengadaan']; ?>);
                                                 // }
 
                                                 totalsemua();
