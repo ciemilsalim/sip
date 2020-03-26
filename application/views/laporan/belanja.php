@@ -13,7 +13,6 @@ if ($action == "excel") {
 } elseif ($action == "pdf") {
 ?>
 <style type="text/css" media="print">
-	@page { size: landscape; }
     
     td
     {

@@ -1,3 +1,4 @@
+
 <?php
 // $data = $list['list'];
 $action = $list['action'];
@@ -10,8 +11,20 @@ if ($action == "excel") {
 	header("Content-Disposition: attachment; filename=SIPjenis.xls");
 } elseif ($action == "pdf") {
 ?>
-<style type="text/css" media="print">
-	@page { size: landscape; }
+
+<script>
+	(function(){
+		window.print();
+	})();
+</script>
+<?php
+}
+?>
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Jenis Komponen</title>
+    <style type="text/css" media="print">
     
     td
     {
@@ -39,24 +52,12 @@ if ($action == "excel") {
         border-left:1px solid #000;
     }
 </style>
-<script>
-	(function(){
-		window.print();
-	})();
-</script>
-<?php
-}
-?>
-<!DOCTYPE html>
-<html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Jenis Komponen</title>
 </head>
 <body>
     <div width="100%">
 
         <center>
-        <table width="100%" style="font-size:0.9em;">
+        <table width="100%" style="font-size:0.9em;" >
             <tr>
                 <td colspan="2" style="font-weight:bold; text-align:center;">
                     JENIS KOMPONEN 
@@ -68,7 +69,7 @@ if ($action == "excel") {
 
         <br>
         <center>
-        <table class="x" width="100%" style="font-size:0.8em">
+        <table class="x" width="100%" style="font-size:0.8em" border="1|0">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2020 at 05:59 PM
+-- Generation Time: Mar 26, 2020 at 09:03 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -6676,7 +6676,7 @@ CREATE TABLE `tb_bap_penyerahan` (
 --
 
 INSERT INTO `tb_bap_penyerahan` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `judul_berita`, `no_ba_penyerahan`, `nama_1`, `nip_1`, `jabatan_1`, `nama_2`, `nip_2`, `jabatan_2`, `tgl_bap`, `nama_bidang`, `kd_permintaan`, `tahun`, `bulan`) VALUES
-(4, 4, 4, 1, 1, 'BERITA ACARA PENYERAHAN ATK', '48356 34756374/3495634/43958 BPKAD', 'Mulyadi', '2374523632', 'Pengurus Barang', 'Syahdan', '12324354352312', 'Kepala Bidang', '2020-03-01', 'Aset', 1, 2020, 'Januari');
+(5, 4, 4, 1, 1, 'BERITA ACARA PENYERAHAN ATK', '872354 334875634 7345', 'Mulyadi', '2374523632', 'Pengurus Barang', 'Syahdan', '12324354352312', 'Kepala Bidang', '2020-03-10', 'Aset', 1, 2020, 'Januari');
 
 -- --------------------------------------------------------
 
@@ -7011,6 +7011,35 @@ CREATE TABLE `tb_koreksi_saldo_awal` (
   `harga_total_koreksi` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_koreksi_saldo_awal`
+--
+
+INSERT INTO `tb_koreksi_saldo_awal` (`id_koreksi`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun`, `bulan`, `kd_sumber`, `kd_koreksi`, `harga_koreksi`, `jumlah_koreksi`, `harga_total_koreksi`) VALUES
+(1, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 0, 0, 2020, 'Januari', 1, 1, 10000, 0, 0),
+(2, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 1, 5000, 2020, 'Januari', 1, 1, 5000, 1, 5000),
+(3, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 0, 0, 2020, 'Januari', 1, 1, 50000, 0, 0),
+(4, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 0, 0, 2020, 'Januari', 1, 1, 50000, 0, 0),
+(5, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 2020, 'Januari', 7, 1, 75000, 50, 3750000),
+(6, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 2020, 'Januari', 7, 1, 70000, 20, 1400000),
+(7, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 2020, 'Januari', 7, 1, 75000, 1, 75000),
+(8, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 2020, 'Januari', 7, 1, 20000, 10, 200000),
+(9, 4, 4, 1, 1, 1, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 4, 60000, 2020, 'Januari', 1, 1, 10000, 4, 60000),
+(10, 4, 4, 1, 1, 1, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 5, 25000, 2020, 'Januari', 1, 1, 5000, 5, 25000),
+(11, 4, 4, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 40000, 1, 40000, 2020, 'Januari', 1, 1, 40000, 1, 40000),
+(12, 4, 4, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 40000, 3, 120000, 2020, 'Januari', 1, 1, 40000, 3, 120000),
+(13, 4, 4, 1, 1, 1, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 5, 250000, 2020, 'Januari', 1, 1, 50000, 5, 250000),
+(14, 4, 4, 1, 1, 1, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 4, 200000, 2020, 'Januari', 1, 1, 50000, 4, 200000),
+(15, 4, 4, 1, 1, 2, 2, 2, 1, 'Ban Mobil', 'Buah', 500000, 3, 1500000, 2020, 'Januari', 3, 1, 500000, 3, 1500000),
+(16, 4, 4, 1, 1, 2, 2, 2, 2, 'Ban Motor', 'Buah', 350000, 3, 1050000, 2020, 'Januari', 3, 1, 350000, 3, 1050000),
+(17, 4, 4, 1, 1, 3, 3, 1, 3, 'Aqua 250 Ml', 'Dos', 50000, 5, 250000, 2020, 'Januari', 7, 1, 50000, 5, 250000),
+(18, 4, 4, 1, 1, 3, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 3, 210000, 2020, 'Januari', 7, 1, 70000, 3, 210000),
+(19, 4, 4, 1, 1, 3, 3, 2, 2, 'Astor', 'Buah', 20000, 5, 100000, 2020, 'Januari', 7, 1, 20000, 5, 100000),
+(20, 4, 4, 1, 1, 3, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 5, 375000, 2020, 'Januari', 7, 1, 75000, 5, 375000),
+(21, 4, 4, 1, 1, 3, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 4, 300000, 2020, 'Januari', 7, 1, 75000, 4, 300000),
+(22, 4, 4, 1, 1, 3, 3, 3, 1, 'Mintz', 'Pack', 10000, 10, 100000, 2020, 'Januari', 7, 1, 10000, 10, 100000),
+(23, 4, 4, 1, 1, 3, 3, 2, 3, 'Taro', 'Dos', 55000, 4, 220000, 2020, 'Januari', 7, 1, 55000, 4, 220000);
+
 -- --------------------------------------------------------
 
 --
@@ -7029,6 +7058,84 @@ CREATE TABLE `tb_koreksi_status` (
   `status_koreksi` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_koreksi_status`
+--
+
+INSERT INTO `tb_koreksi_status` (`id_k`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `tahun`, `bulan`, `nm_sub_unit`, `status_koreksi`) VALUES
+(1, 1, 1, 1, 1, 2020, 'Januari', 'Dinas Pendidikan dan Kebudayaan', 1),
+(2, 1, 1, 1, 2, 2020, 'Januari', 'UPTD - SKB', 1),
+(3, 1, 2, 1, 1, 2020, 'Januari', 'Dinas Kesehatan, Pengendalian Penduduk dan Keluarga Berencana', 1),
+(4, 1, 2, 1, 2, 2020, 'Januari', 'UPTD Puskesmas Kec. Lakea', 1),
+(5, 1, 2, 1, 3, 2020, 'Januari', 'UPTD Puskesmas Kec. Lakea (JKN)', 1),
+(6, 1, 2, 1, 4, 2020, 'Januari', 'UPTD Puskesmas Kec. Karamat', 1),
+(7, 1, 2, 1, 5, 2020, 'Januari', 'UPTD Puskesmas Kec. Karamat (JKN)', 1),
+(8, 1, 2, 1, 6, 2020, 'Januari', 'UPTD Puskesmas Kec. Biau', 1),
+(9, 1, 2, 1, 7, 2020, 'Januari', 'UPTD Puskesmas Kec. Biau (JKN)', 1),
+(10, 1, 2, 1, 8, 2020, 'Januari', 'UPTD Puskesmas Kec. Momunu', 1),
+(11, 1, 2, 1, 9, 2020, 'Januari', 'UPTD Puskesmas Kec. Momunu (JKN)', 1),
+(12, 1, 2, 1, 10, 2020, 'Januari', 'UPTD Puskesmas Kec. Tiloan', 1),
+(13, 1, 2, 1, 11, 2020, 'Januari', 'UPTD Puskesmas Kec. Tiloan (JKN)', 1),
+(14, 1, 2, 1, 12, 2020, 'Januari', 'UPTD Puskesmas Kec. Bokat', 1),
+(15, 1, 2, 1, 13, 2020, 'Januari', 'UPTD Puskesmas Kec. Bokat (JKN)', 1),
+(16, 1, 2, 1, 14, 2020, 'Januari', 'UPTD Puskesmas Kec. Bukal', 1),
+(17, 1, 2, 1, 15, 2020, 'Januari', 'UPTD Puskesmas Kec. Bukal (JKN)', 1),
+(18, 1, 2, 1, 16, 2020, 'Januari', 'UPTD Puskesmas Kec. Bunobogu', 1),
+(19, 1, 2, 1, 17, 2020, 'Januari', 'UPTD Puskesmas Kec. Bunobogu (JKN)', 1),
+(20, 1, 2, 1, 19, 2020, 'Januari', 'UPTD Puskesmas Kec. Gadung', 1),
+(21, 1, 2, 1, 20, 2020, 'Januari', 'UPTD Puskesmas Kec. Gadung (JKN)', 1),
+(22, 1, 2, 1, 21, 2020, 'Januari', 'UPTD Puskesmas Kec. Paleleh Barat', 1),
+(23, 1, 2, 1, 22, 2020, 'Januari', 'UPTD Puskesmas Kec. Paleleh Barat (JKN)', 1),
+(24, 1, 2, 1, 23, 2020, 'Januari', 'UPTD Puskesmas Kec. Paleleh', 1),
+(25, 1, 2, 1, 24, 2020, 'Januari', 'UPTD Puskesmas Kec. Paleleh (JKN)', 1),
+(26, 1, 2, 2, 1, 2020, 'Januari', 'Rumah Sakit Umum Daerah', 1),
+(27, 1, 2, 2, 2, 2020, 'Januari', 'Rumah Sakit Umum Daerah (BLUD)', 1),
+(28, 1, 3, 1, 1, 2020, 'Januari', 'Dinas Pekerjaan Umum dan Penataan Ruang', 1),
+(29, 1, 4, 1, 1, 2020, 'Januari', 'Dinas Perumahan Rakyat dan Kawasan Permukiman', 1),
+(30, 1, 5, 1, 1, 2020, 'Januari', 'Satuan Polisi Pamong Praja', 1),
+(31, 1, 5, 2, 1, 2020, 'Januari', 'Badan Kesatuan Bangsa dan Politik ', 1),
+(32, 1, 6, 1, 1, 2020, 'Januari', 'Dinas Sosial', 1),
+(33, 2, 1, 1, 1, 2020, 'Januari', 'Dinas Tenaga Kerja dan Transmigrasi', 1),
+(34, 2, 5, 1, 1, 2020, 'Januari', 'Dinas Lingkungan Hidup', 1),
+(35, 2, 6, 1, 1, 2020, 'Januari', 'Dinas Kependudukan dan Catatan Sipil', 1),
+(36, 2, 7, 1, 1, 2020, 'Januari', 'Dinas Pemberdayaan Masyarakat dan Desa, Pemberdayaan Perempuan dan Perlindungan Anak', 1),
+(37, 2, 9, 1, 1, 2020, 'Januari', 'Dinas Perhubungan', 1),
+(38, 2, 10, 1, 1, 2020, 'Januari', 'Dinas Komunikasi dan Informatika', 1),
+(39, 2, 11, 1, 1, 2020, 'Januari', 'Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan', 1),
+(40, 2, 12, 1, 1, 2020, 'Januari', 'Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu', 1),
+(41, 2, 13, 1, 1, 2020, 'Januari', 'Dinas Pemuda, Olahraga dan Pariwisata', 1),
+(42, 2, 17, 1, 1, 2020, 'Januari', 'Dinas Perpustakaan dan Kearsipan', 1),
+(43, 3, 1, 1, 1, 2020, 'Januari', 'Dinas Perikanan', 1),
+(44, 3, 3, 1, 1, 2020, 'Januari', 'Dinas Pertanian', 1),
+(45, 4, 1, 1, 1, 2020, 'Januari', 'Dewan Perwakilan Rakyat Daerah', 1),
+(46, 4, 1, 2, 1, 2020, 'Januari', 'Kepala Daerah dan Wakil Kepala Daerah', 1),
+(47, 4, 1, 3, 1, 2020, 'Januari', 'Bagian Pemerintahan dan Otonomi Daerah', 1),
+(48, 4, 1, 3, 2, 2020, 'Januari', 'Bagian Hukum', 1),
+(49, 4, 1, 3, 3, 2020, 'Januari', 'Bagian Umum', 1),
+(50, 4, 1, 3, 4, 2020, 'Januari', 'Bagian Kesejahteraan Rakyat dan Kemasyarakatan', 1),
+(51, 4, 1, 3, 5, 2020, 'Januari', 'Bagian Organisasi', 1),
+(52, 4, 1, 3, 6, 2020, 'Januari', 'Bagian Perekonomian dan Pembangunan ', 1),
+(53, 4, 1, 3, 7, 2020, 'Januari', 'Bagian Pengadaan Barang/Jasa ', 1),
+(54, 4, 1, 4, 1, 2020, 'Januari', 'Sekretariat DPRD', 1),
+(55, 4, 1, 7, 1, 2020, 'Januari', 'Badan Penanggulangan Bencana', 1),
+(56, 4, 1, 8, 1, 2020, 'Januari', 'Kecamatan Lakea', 1),
+(57, 4, 1, 9, 1, 2020, 'Januari', 'Kecamatan Karamat', 1),
+(58, 4, 1, 10, 1, 2020, 'Januari', 'Kecamatan Biau', 1),
+(59, 4, 1, 11, 1, 2020, 'Januari', 'Kecamatan Momunu', 1),
+(60, 4, 1, 12, 1, 2020, 'Januari', 'Kecamatan Tiloan', 1),
+(61, 4, 1, 13, 1, 2020, 'Januari', 'Kecamatan Bokat', 1),
+(62, 4, 1, 14, 1, 2020, 'Januari', 'Kecamatan Bukal', 1),
+(63, 4, 1, 15, 1, 2020, 'Januari', 'Kecamatan Bunobogu', 1),
+(64, 4, 1, 16, 1, 2020, 'Januari', 'Kecamatan Gadung', 1),
+(65, 4, 1, 17, 1, 2020, 'Januari', 'Kecamatan Paleleh Barat', 1),
+(66, 4, 1, 18, 1, 2020, 'Januari', 'Kecamatan Paleleh', 1),
+(67, 4, 2, 1, 1, 2020, 'Januari', 'Inspektorat Daerah', 1),
+(68, 4, 3, 1, 1, 2020, 'Januari', 'Badan Perencanaan Pembangunan Daerah dan Penelitian dan Pengembangan', 1),
+(69, 4, 4, 1, 1, 2020, 'Januari', 'Badan Pengelolaan Keuangan dan Aset Daerah', 1),
+(70, 4, 4, 1, 2, 2020, 'Januari', 'Badan Pengelolaan Keuangan dan Aset Daerah (PPKD)', 1),
+(71, 4, 4, 2, 1, 2020, 'Januari', 'Badan Pengelolaan Pendapatan Daerah', 1),
+(72, 4, 5, 1, 1, 2020, 'Januari', 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -7041,6 +7148,13 @@ CREATE TABLE `tb_koreksi_ta_nonaktif` (
   `bulan` varchar(50) NOT NULL,
   `status_koreksi` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_koreksi_ta_nonaktif`
+--
+
+INSERT INTO `tb_koreksi_ta_nonaktif` (`id_n`, `tahun`, `bulan`, `status_koreksi`) VALUES
+(1, 2020, 'Januari', 'Tidak Aktif');
 
 -- --------------------------------------------------------
 
@@ -7063,7 +7177,8 @@ CREATE TABLE `tb_managementa` (
 --
 
 INSERT INTO `tb_managementa` (`id`, `tahun`, `kd_bulan`, `bulan`, `status`, `tgl_aktif`, `tgl_nonaktif`) VALUES
-(1, 2020, 1, 'Januari', 'Aktif', '2020-03-24', NULL);
+(1, 2020, 1, 'Januari', 'Tidak Aktif', '2020-03-24', '2020-03-26'),
+(2, 2020, 2, 'Februari', 'Aktif', '2020-03-26', NULL);
 
 -- --------------------------------------------------------
 
@@ -7295,7 +7410,7 @@ CREATE TABLE `tb_pengeluaran` (
 --
 
 INSERT INTO `tb_pengeluaran` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengeluaran`, `tgl_pengeluaran`, `kd_permintaan`, `tujuan_penggunaan`, `nama_admin`, `kd_bid_skpd`, `nama_bidang`, `kd_kep_bid_skpd`, `nama_kep_bid_skpd`, `nip`, `tahun`, `bulan`, `ket`, `status_bap_penyerahan`) VALUES
-(2, 4, 4, 1, 1, 1, '2020-03-25', 1, 'ATK Bulan Januari', 'Admin Bidang', 1, 'Aset', 1, 'Syahdan', '12324354352312', 2020, 'Januari', NULL, 0);
+(2, 4, 4, 1, 1, 1, '2020-03-25', 1, 'ATK Bulan Januari', 'Admin Bidang', 1, 'Aset', 1, 'Syahdan', '12324354352312', 2020, 'Januari', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -7393,29 +7508,29 @@ CREATE TABLE `tb_saldo` (
 --
 
 INSERT INTO `tb_saldo` (`id_saldo`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun`, `bulan`, `kd_sumber`) VALUES
-(1, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 0, 0, 2020, 'Januari', 1),
-(2, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 1, 5000, 2020, 'Januari', 1),
-(3, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 0, 0, 2020, 'Januari', 1),
-(4, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 0, 0, 2020, 'Januari', 1),
-(5, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 2020, 'Januari', 7),
-(6, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 2020, 'Januari', 7),
-(7, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 2020, 'Januari', 7),
-(8, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 2020, 'Januari', 7),
-(9, 4, 4, 1, 1, 1, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 4, 60000, 2020, 'Januari', 1),
-(10, 4, 4, 1, 1, 1, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 5, 25000, 2020, 'Januari', 1),
-(11, 4, 4, 1, 1, 1, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 40000, 1, 40000, 2020, 'Januari', 1),
-(12, 4, 4, 1, 1, 1, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 40000, 3, 120000, 2020, 'Januari', 1),
-(13, 4, 4, 1, 1, 1, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 5, 250000, 2020, 'Januari', 1),
-(14, 4, 4, 1, 1, 1, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 4, 200000, 2020, 'Januari', 1),
-(15, 4, 4, 1, 1, 2, 2, 2, 1, 'Ban Mobil', 'Buah', 500000, 3, 1500000, 2020, 'Januari', 3),
-(16, 4, 4, 1, 1, 2, 2, 2, 2, 'Ban Motor', 'Buah', 350000, 3, 1050000, 2020, 'Januari', 3),
-(17, 4, 4, 1, 1, 3, 3, 1, 3, 'Aqua 250 Ml', 'Dos', 50000, 5, 250000, 2020, 'Januari', 7),
-(18, 4, 4, 1, 1, 3, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 3, 210000, 2020, 'Januari', 7),
-(19, 4, 4, 1, 1, 3, 3, 2, 2, 'Astor', 'Buah', 20000, 5, 100000, 2020, 'Januari', 7),
-(20, 4, 4, 1, 1, 3, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 5, 375000, 2020, 'Januari', 7),
-(21, 4, 4, 1, 1, 3, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 4, 300000, 2020, 'Januari', 7),
-(22, 4, 4, 1, 1, 3, 3, 3, 1, 'Mintz', 'Pack', 10000, 10, 100000, 2020, 'Januari', 7),
-(23, 4, 4, 1, 1, 3, 3, 2, 3, 'Taro', 'Dos', 55000, 4, 220000, 2020, 'Januari', 7);
+(24, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 0, 0, 2020, 'Februari', 1),
+(25, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 1, 5000, 2020, 'Februari', 1),
+(26, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 0, 0, 2020, 'Februari', 1),
+(27, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 0, 0, 2020, 'Februari', 1),
+(28, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 2020, 'Februari', 7),
+(29, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 2020, 'Februari', 7),
+(30, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 2020, 'Februari', 7),
+(31, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 2020, 'Februari', 7),
+(32, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 4, 60000, 2020, 'Februari', 1),
+(33, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 5, 25000, 2020, 'Februari', 1),
+(34, 4, 4, 1, 1, 0, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 40000, 1, 40000, 2020, 'Februari', 1),
+(35, 4, 4, 1, 1, 0, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 40000, 3, 120000, 2020, 'Februari', 1),
+(36, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 5, 250000, 2020, 'Februari', 1),
+(37, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 4, 200000, 2020, 'Februari', 1),
+(38, 4, 4, 1, 1, 0, 2, 2, 1, 'Ban Mobil', 'Buah', 500000, 3, 1500000, 2020, 'Februari', 3),
+(39, 4, 4, 1, 1, 0, 2, 2, 2, 'Ban Motor', 'Buah', 350000, 3, 1050000, 2020, 'Februari', 3),
+(40, 4, 4, 1, 1, 0, 3, 1, 3, 'Aqua 250 Ml', 'Dos', 50000, 5, 250000, 2020, 'Februari', 7),
+(41, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 3, 210000, 2020, 'Februari', 7),
+(42, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 5, 100000, 2020, 'Februari', 7),
+(43, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 5, 375000, 2020, 'Februari', 7),
+(44, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 4, 300000, 2020, 'Februari', 7),
+(45, 4, 4, 1, 1, 0, 3, 3, 1, 'Mintz', 'Pack', 10000, 10, 100000, 2020, 'Februari', 7),
+(46, 4, 4, 1, 1, 0, 3, 2, 3, 'Taro', 'Dos', 55000, 4, 220000, 2020, 'Februari', 7);
 
 -- --------------------------------------------------------
 
@@ -7445,22 +7560,46 @@ CREATE TABLE `tb_saldo_awal` (
   `kd_sumber` int(11) NOT NULL,
   `harga_koreksi` double NOT NULL,
   `jumlah_koreksi` int(11) NOT NULL,
-  `harga_total_koreksi` double NOT NULL
+  `harga_total_koreksi` double NOT NULL,
+  `kd_koreksi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_saldo_awal`
 --
 
-INSERT INTO `tb_saldo_awal` (`id_saldo_awal`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun_sebelumnya`, `tahun_saldo_awal`, `bulan_saldo_awal`, `bulan_sebelumnya`, `kd_sumber`, `harga_koreksi`, `jumlah_koreksi`, `harga_total_koreksi`) VALUES
-(1, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 3, 30000, 0, 2020, 'Januari', '0', 1, 10000, 3, 30000),
-(2, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 3, 15000, 0, 2020, 'Januari', '0', 1, 5000, 3, 15000),
-(3, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 3, 150000, 0, 2020, 'Januari', '0', 1, 50000, 3, 150000),
-(4, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 3, 150000, 0, 2020, 'Januari', '0', 1, 50000, 3, 150000),
-(5, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 0, 2020, 'Januari', '0', 7, 75000, 50, 3750000),
-(6, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 0, 2020, 'Januari', '0', 7, 70000, 20, 1400000),
-(7, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 0, 2020, 'Januari', '0', 7, 75000, 1, 75000),
-(8, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 0, 2020, 'Januari', '0', 7, 20000, 10, 200000);
+INSERT INTO `tb_saldo_awal` (`id_saldo_awal`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `kd_pengadaan`, `kd_jenis`, `kd_komponen`, `kd_uraian`, `uraian_komponen`, `satuan`, `harga_satuan_da`, `jumlah`, `harga_total`, `tahun_sebelumnya`, `tahun_saldo_awal`, `bulan_saldo_awal`, `bulan_sebelumnya`, `kd_sumber`, `harga_koreksi`, `jumlah_koreksi`, `harga_total_koreksi`, `kd_koreksi`) VALUES
+(1, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 3, 30000, 0, 2020, 'Januari', '0', 1, 10000, 3, 30000, NULL),
+(2, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 3, 15000, 0, 2020, 'Januari', '0', 1, 5000, 3, 15000, NULL),
+(3, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 3, 150000, 0, 2020, 'Januari', '0', 1, 50000, 3, 150000, NULL),
+(4, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 3, 150000, 0, 2020, 'Januari', '0', 1, 50000, 3, 150000, NULL),
+(5, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 0, 2020, 'Januari', '0', 7, 75000, 50, 3750000, NULL),
+(6, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 0, 2020, 'Januari', '0', 7, 70000, 20, 1400000, NULL),
+(7, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 0, 2020, 'Januari', '0', 7, 75000, 1, 75000, NULL),
+(8, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 0, 2020, 'Januari', '0', 7, 20000, 10, 200000, NULL),
+(9, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 0, 0, 2020, 2020, 'Februari', 'Januari', 1, 10000, 0, 0, 1),
+(10, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 1, 5000, 2020, 2020, 'Februari', 'Januari', 1, 5000, 1, 5000, 1),
+(11, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 0, 0, 2020, 2020, 'Februari', 'Januari', 1, 50000, 0, 0, 1),
+(12, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 0, 0, 2020, 2020, 'Februari', 'Januari', 1, 50000, 0, 0, 1),
+(13, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 50, 3750000, 2020, 2020, 'Februari', 'Januari', 7, 75000, 50, 3750000, 1),
+(14, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 20, 1400000, 2020, 2020, 'Februari', 'Januari', 7, 70000, 20, 1400000, 1),
+(15, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 1, 75000, 2020, 2020, 'Februari', 'Januari', 7, 75000, 1, 75000, 1),
+(16, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 10, 200000, 2020, 2020, 'Februari', 'Januari', 7, 20000, 10, 200000, 1),
+(17, 4, 4, 1, 1, 0, 1, 1, 1, 'Buku Album Besar', 'Buah', 10000, 4, 60000, 2020, 2020, 'Februari', 'Januari', 1, 10000, 4, 60000, 1),
+(18, 4, 4, 1, 1, 0, 1, 1, 2, 'Buku Album Kecil', 'Buah', 5000, 5, 25000, 2020, 2020, 'Februari', 'Januari', 1, 5000, 5, 25000, 1),
+(19, 4, 4, 1, 1, 0, 1, 2, 1, 'Kertas A4 Sidu', 'Rim', 40000, 1, 40000, 2020, 2020, 'Februari', 'Januari', 1, 40000, 1, 40000, 1),
+(20, 4, 4, 1, 1, 0, 1, 2, 2, 'Kertas F4 Sidu', 'Rim', 40000, 3, 120000, 2020, 2020, 'Februari', 'Januari', 1, 40000, 3, 120000, 1),
+(21, 4, 4, 1, 1, 0, 1, 3, 2, 'Pulpen Snowman Biru', 'Dos', 50000, 5, 250000, 2020, 2020, 'Februari', 'Januari', 1, 50000, 5, 250000, 1),
+(22, 4, 4, 1, 1, 0, 1, 3, 1, 'Pulpen Snowman Hitam', 'Dos', 50000, 4, 200000, 2020, 2020, 'Februari', 'Januari', 1, 50000, 4, 200000, 1),
+(23, 4, 4, 1, 1, 0, 2, 2, 1, 'Ban Mobil', 'Buah', 500000, 3, 1500000, 2020, 2020, 'Februari', 'Januari', 3, 500000, 3, 1500000, 1),
+(24, 4, 4, 1, 1, 0, 2, 2, 2, 'Ban Motor', 'Buah', 350000, 3, 1050000, 2020, 2020, 'Februari', 'Januari', 3, 350000, 3, 1050000, 1),
+(25, 4, 4, 1, 1, 0, 3, 1, 3, 'Aqua 250 Ml', 'Dos', 50000, 5, 250000, 2020, 2020, 'Februari', 'Januari', 7, 50000, 5, 250000, 1),
+(26, 4, 4, 1, 1, 0, 3, 1, 1, 'Aqua 500 Ml', 'Dos', 70000, 3, 210000, 2020, 2020, 'Februari', 'Januari', 7, 70000, 3, 210000, 1),
+(27, 4, 4, 1, 1, 0, 3, 2, 2, 'Astor', 'Buah', 20000, 5, 100000, 2020, 2020, 'Februari', 'Januari', 7, 20000, 5, 100000, 1),
+(28, 4, 4, 1, 1, 0, 3, 2, 1, 'Biskuit Kong Guan', 'Buah', 75000, 5, 375000, 2020, 2020, 'Februari', 'Januari', 7, 75000, 5, 375000, 1),
+(29, 4, 4, 1, 1, 0, 3, 1, 2, 'Le Mineral 500 Ml', 'Dos', 75000, 4, 300000, 2020, 2020, 'Februari', 'Januari', 7, 75000, 4, 300000, 1),
+(30, 4, 4, 1, 1, 0, 3, 3, 1, 'Mintz', 'Pack', 10000, 10, 100000, 2020, 2020, 'Februari', 'Januari', 7, 10000, 10, 100000, 1),
+(31, 4, 4, 1, 1, 0, 3, 2, 3, 'Taro', 'Dos', 55000, 4, 220000, 2020, 2020, 'Februari', 'Januari', 7, 55000, 4, 220000, 1);
 
 --
 -- Triggers `tb_saldo_awal`
@@ -7482,8 +7621,87 @@ CREATE TABLE `tb_saldo_awal_skpd_status` (
   `kd_bidang` int(11) NOT NULL,
   `kd_unit` int(11) NOT NULL,
   `kd_sub` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `nm_sub_unit` varchar(255) NOT NULL,
+  `status_saldo_awal` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_saldo_awal_skpd_status`
+--
+
+INSERT INTO `tb_saldo_awal_skpd_status` (`id`, `kd_urusan`, `kd_bidang`, `kd_unit`, `kd_sub`, `nm_sub_unit`, `status_saldo_awal`) VALUES
+(1, 1, 1, 1, 1, 'Dinas Pendidikan dan Kebudayaan', 0),
+(2, 1, 1, 1, 2, 'UPTD - SKB', 0),
+(3, 1, 2, 1, 1, 'Dinas Kesehatan, Pengendalian Penduduk dan Keluarga Berencana', 0),
+(4, 1, 2, 1, 2, 'UPTD Puskesmas Kec. Lakea', 0),
+(5, 1, 2, 1, 3, 'UPTD Puskesmas Kec. Lakea (JKN)', 0),
+(6, 1, 2, 1, 4, 'UPTD Puskesmas Kec. Karamat', 0),
+(7, 1, 2, 1, 5, 'UPTD Puskesmas Kec. Karamat (JKN)', 0),
+(8, 1, 2, 1, 6, 'UPTD Puskesmas Kec. Biau', 0),
+(9, 1, 2, 1, 7, 'UPTD Puskesmas Kec. Biau (JKN)', 0),
+(10, 1, 2, 1, 8, 'UPTD Puskesmas Kec. Momunu', 0),
+(11, 1, 2, 1, 9, 'UPTD Puskesmas Kec. Momunu (JKN)', 0),
+(12, 1, 2, 1, 10, 'UPTD Puskesmas Kec. Tiloan', 0),
+(13, 1, 2, 1, 11, 'UPTD Puskesmas Kec. Tiloan (JKN)', 0),
+(14, 1, 2, 1, 12, 'UPTD Puskesmas Kec. Bokat', 0),
+(15, 1, 2, 1, 13, 'UPTD Puskesmas Kec. Bokat (JKN)', 0),
+(16, 1, 2, 1, 14, 'UPTD Puskesmas Kec. Bukal', 0),
+(17, 1, 2, 1, 15, 'UPTD Puskesmas Kec. Bukal (JKN)', 0),
+(18, 1, 2, 1, 16, 'UPTD Puskesmas Kec. Bunobogu', 0),
+(19, 1, 2, 1, 17, 'UPTD Puskesmas Kec. Bunobogu (JKN)', 0),
+(20, 1, 2, 1, 19, 'UPTD Puskesmas Kec. Gadung', 0),
+(21, 1, 2, 1, 20, 'UPTD Puskesmas Kec. Gadung (JKN)', 0),
+(22, 1, 2, 1, 21, 'UPTD Puskesmas Kec. Paleleh Barat', 0),
+(23, 1, 2, 1, 22, 'UPTD Puskesmas Kec. Paleleh Barat (JKN)', 0),
+(24, 1, 2, 1, 23, 'UPTD Puskesmas Kec. Paleleh', 0),
+(25, 1, 2, 1, 24, 'UPTD Puskesmas Kec. Paleleh (JKN)', 0),
+(26, 1, 2, 2, 1, 'Rumah Sakit Umum Daerah', 0),
+(27, 1, 2, 2, 2, 'Rumah Sakit Umum Daerah (BLUD)', 0),
+(28, 1, 3, 1, 1, 'Dinas Pekerjaan Umum dan Penataan Ruang', 0),
+(29, 1, 4, 1, 1, 'Dinas Perumahan Rakyat dan Kawasan Permukiman', 0),
+(30, 1, 5, 1, 1, 'Satuan Polisi Pamong Praja', 0),
+(31, 1, 5, 2, 1, 'Badan Kesatuan Bangsa dan Politik ', 1),
+(32, 1, 6, 1, 1, 'Dinas Sosial', 0),
+(33, 2, 1, 1, 1, 'Dinas Tenaga Kerja dan Transmigrasi', 0),
+(34, 2, 5, 1, 1, 'Dinas Lingkungan Hidup', 0),
+(35, 2, 6, 1, 1, 'Dinas Kependudukan dan Catatan Sipil', 0),
+(36, 2, 7, 1, 1, 'Dinas Pemberdayaan Masyarakat dan Desa, Pemberdayaan Perempuan dan Perlindungan Anak', 0),
+(37, 2, 9, 1, 1, 'Dinas Perhubungan', 0),
+(38, 2, 10, 1, 1, 'Dinas Komunikasi dan Informatika', 0),
+(39, 2, 11, 1, 1, 'Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan', 0),
+(40, 2, 12, 1, 1, 'Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu', 0),
+(41, 2, 13, 1, 1, 'Dinas Pemuda, Olahraga dan Pariwisata', 0),
+(42, 2, 17, 1, 1, 'Dinas Perpustakaan dan Kearsipan', 0),
+(43, 3, 1, 1, 1, 'Dinas Perikanan', 0),
+(44, 3, 3, 1, 1, 'Dinas Pertanian', 0),
+(45, 4, 1, 1, 1, 'Dewan Perwakilan Rakyat Daerah', 0),
+(46, 4, 1, 2, 1, 'Kepala Daerah dan Wakil Kepala Daerah', 0),
+(47, 4, 1, 3, 1, 'Bagian Pemerintahan dan Otonomi Daerah', 0),
+(48, 4, 1, 3, 2, 'Bagian Hukum', 0),
+(49, 4, 1, 3, 3, 'Bagian Umum', 0),
+(50, 4, 1, 3, 4, 'Bagian Kesejahteraan Rakyat dan Kemasyarakatan', 0),
+(51, 4, 1, 3, 5, 'Bagian Organisasi', 0),
+(52, 4, 1, 3, 6, 'Bagian Perekonomian dan Pembangunan ', 0),
+(53, 4, 1, 3, 7, 'Bagian Pengadaan Barang/Jasa ', 0),
+(54, 4, 1, 4, 1, 'Sekretariat DPRD', 0),
+(55, 4, 1, 7, 1, 'Badan Penanggulangan Bencana', 0),
+(56, 4, 1, 8, 1, 'Kecamatan Lakea', 0),
+(57, 4, 1, 9, 1, 'Kecamatan Karamat', 0),
+(58, 4, 1, 10, 1, 'Kecamatan Biau', 0),
+(59, 4, 1, 11, 1, 'Kecamatan Momunu', 0),
+(60, 4, 1, 12, 1, 'Kecamatan Tiloan', 0),
+(61, 4, 1, 13, 1, 'Kecamatan Bokat', 0),
+(62, 4, 1, 14, 1, 'Kecamatan Bukal', 0),
+(63, 4, 1, 15, 1, 'Kecamatan Bunobogu', 0),
+(64, 4, 1, 16, 1, 'Kecamatan Gadung', 0),
+(65, 4, 1, 17, 1, 'Kecamatan Paleleh Barat', 0),
+(66, 4, 1, 18, 1, 'Kecamatan Paleleh', 0),
+(67, 4, 2, 1, 1, 'Inspektorat Daerah', 0),
+(68, 4, 3, 1, 1, 'Badan Perencanaan Pembangunan Daerah dan Penelitian dan Pengembangan', 0),
+(69, 4, 4, 1, 1, 'Badan Pengelolaan Keuangan dan Aset Daerah', 0),
+(70, 4, 4, 1, 2, 'Badan Pengelolaan Keuangan dan Aset Daerah (PPKD)', 0),
+(71, 4, 4, 2, 1, 'Badan Pengelolaan Pendapatan Daerah', 0),
+(72, 4, 5, 1, 1, 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia', 1);
 
 -- --------------------------------------------------------
 
@@ -7755,7 +7973,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (45, 7, 5),
 (46, 7, 12),
 (47, 7, 13),
-(48, 7, 1);
+(48, 7, 1),
+(49, 7, 14);
 
 -- --------------------------------------------------------
 
@@ -7786,7 +8005,8 @@ INSERT INTO `user_menu` (`id`, `menu`, `menu_ci`) VALUES
 (10, 'Permintaan Barang ', 'Permintaankb'),
 (11, 'Laporan', 'Laporan'),
 (12, 'Koreksi Data Awal', 'Koreksi'),
-(13, 'Laporan', 'Laporanadmin');
+(13, 'Laporan', 'Laporanadmin'),
+(14, 'Saldo Awal SKPD', 'Saldoawalskpd');
 
 -- --------------------------------------------------------
 
@@ -7867,7 +8087,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (51, 5, 'Supplier', 'parameter/supplier', 'fas fa-users', 1),
 (52, 11, 'Parameter', 'laporan/parameter', 'fas fa-file', 1),
 (53, 11, 'Komponen', 'laporan/komponen', 'fas fa-file', 1),
-(54, 11, 'Transaksi', 'laporan/transaksi', 'fas fa-file', 1),
+(54, 11, 'Persediaan', 'laporan/index', 'fas fa-file', 1),
 (56, 5, 'Sumber Dana', 'Parameter/sumberdana', 'fas fa-file-export', 1),
 (57, 6, 'Satuan Komponen', 'Komponen/satuan', 'fas fa-sw fa-clone', 1),
 (58, 5, 'Data Awal', 'Parameter/da', 'fas fa-shopping-cart', 1),
@@ -7877,7 +8097,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (62, 13, 'Rekapitulasi ', 'Laporanadmin/rekapitulasi', 'fas fa-file', 1),
 (63, 13, 'B.A. Rekonsiliasi', 'Laporanadmin/BAR', 'fas fa-file', 1),
 (64, 8, 'Proses Permintaan', 'Permintaanag/proses', 'fas fa-hourglass-half 	', 1),
-(65, 8, 'History', 'permintaanag/history', 'fas fa-fw fa-history', 1);
+(65, 8, 'History', 'permintaanag/history', 'fas fa-fw fa-history', 1),
+(66, 14, 'Status Saldo Awal', 'Saldoskpd/index', 'fas fa-sw fa-book', 1);
 
 -- --------------------------------------------------------
 
@@ -8212,22 +8433,22 @@ ALTER TABLE `tb_komponen`
 -- AUTO_INCREMENT for table `tb_koreksi_saldo_awal`
 --
 ALTER TABLE `tb_koreksi_saldo_awal`
-  MODIFY `id_koreksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_koreksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `tb_koreksi_status`
 --
 ALTER TABLE `tb_koreksi_status`
-  MODIFY `id_k` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_k` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 --
 -- AUTO_INCREMENT for table `tb_koreksi_ta_nonaktif`
 --
 ALTER TABLE `tb_koreksi_ta_nonaktif`
-  MODIFY `id_n` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_n` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_managementa`
 --
 ALTER TABLE `tb_managementa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_pemda`
 --
@@ -8272,17 +8493,17 @@ ALTER TABLE `tb_permintaan`
 -- AUTO_INCREMENT for table `tb_saldo`
 --
 ALTER TABLE `tb_saldo`
-  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `tb_saldo_awal`
 --
 ALTER TABLE `tb_saldo_awal`
-  MODIFY `id_saldo_awal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_saldo_awal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `tb_saldo_awal_skpd_status`
 --
 ALTER TABLE `tb_saldo_awal_skpd_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 --
 -- AUTO_INCREMENT for table `tb_satuan`
 --
@@ -8322,12 +8543,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
@@ -8337,7 +8558,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `user_token`
 --

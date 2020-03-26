@@ -9,7 +9,7 @@
         <div class="col-lg-12" >
             <form action="<?= base_url("laporan/downloadparameter/"); ?>" method="POST" enctype="multipart/form-data">
                 <input type="radio" class="btn btn-primary" name="pilih" value="pdf" checked> Pdf</input>
-                <input type="radio" class="btn btn-primary" name="pilih" value="excel" > Excel</input>
+                <!-- <input type="radio" class="btn btn-primary" name="pilih" value="excel" > Excel</input> -->
                 <br>
                 <br>
                 <input type="submit" class="btn btn-success" name="supplier" value="Download Laporan Supplier"/>

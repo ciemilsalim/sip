@@ -562,7 +562,7 @@ class Pengadaan extends CI_Controller
             $status=$this->db->get('tb_saldo_awal_skpd_status')->row_array();
             if(count($status)>0)
             {
-                if($data['status']==0)
+                if( $status['status_saldo_awal']==0)
                 {
                     $data['status']='0';
                 }

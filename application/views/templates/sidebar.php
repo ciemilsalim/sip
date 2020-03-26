@@ -185,6 +185,17 @@
                                             <?php
                                             }
 
+                                            if($menuId==14)
+                                            {
+                                            ?>
+
+                                            <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                                            <i class="<?= $sm['icon']; ?>"></i>
+                                            <span><?= $sm['title']; ?></span></a>
+
+                                            <?php
+                                            }
+
                                          }
                                         else
                                         {

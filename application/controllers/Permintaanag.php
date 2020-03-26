@@ -581,6 +581,16 @@ class Permintaanag extends CI_Controller
             $this->db->where('id', $id);  
             $this->db->update('tb_permintaan',$datacc);
 
+            $dataxxx = array(
+                'status_bap_penyerahan' => 1,
+            );
+            $this->db->where($array); 
+            $this->db->where('kd_bid_skpd', $permintaan['kd_bid_skpd']);    
+            $this->db->where('kd_bid_skpd', $permintaan['kd_permintaan']);  
+            $this->db->where('bulan', $permintaan['bulan']);  
+            $this->db->where('tahun', $permintaan['tahun']);  
+            $this->db->update('tb_pengeluaran',$dataxxx);
+
             redirect('Permintaanag/proses');
         }
      
