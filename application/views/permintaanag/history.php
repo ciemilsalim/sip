@@ -129,7 +129,15 @@
                             <td><?= $sm['tgl_permintaan']; ?></td>
                             <td><?= $sm['tujuan_penggunaan']; ?></td>
                             <td><?= $sm['tgl_kepala_bidang']; ?></td>
-                            <td><a href="<?=base_url('Permintaanag/detailhistory/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> </td>
+                            <td><a href="<?=base_url('Permintaanag/detailhistory/'.$sm['kd_permintaan']); ?>" class="badge badge-success">Detail</a> | 
+                            <?php
+                                if($sm['status_penyerahan']==1)
+                                {
+                            ?>
+                              <a href=" <?=base_url('permintaanag/bap/'.$sm['id']); ?>" class="badge badge-primary">Cetak Berita Acara Penyerahan</a> 
+                            <?php
+                                }
+                                ?> </td>
                         </tr>
                         <?php endforeach; } ?>
                 </tbody>

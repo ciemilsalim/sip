@@ -160,12 +160,14 @@ class Parameter extends CI_Controller
             $this->load->view('parameter/skpd', $data);
             $this->load->view('templates/footer');
         } else {
-            $query = "SELECT *FROM tb_skpd where tahun=" . $this->session->userdata('tahun');
-            $result = $this->db->query($query)->result_array();
+
+            $array = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'), 'tahun' => $this->session->userdata('tahun'));
+            $this->db->where($array);
+            $result = $this->db->get('tb_skpd')->result_array();
             $count = count($result);
+          
 
-
-            if (!empty($count)) {
+            if ($count>0) {
                 $this->editskpd();
             } else {
 
@@ -281,7 +283,6 @@ class Parameter extends CI_Controller
             'jabatan' => $jabatan,
             'alamat_pimpinan' => $alamat_pimpinan
         );
-
 
 
         $this->db->where('id', $id);
@@ -1032,20 +1033,20 @@ class Parameter extends CI_Controller
             $kd_unit = $this->session->userdata('kd_unit');
             $kd_sub = $this->session->userdata('kd_sub');
 
+            $arrayx = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
 
-            $cek = $this->db->get('tb_bidang')->result_array();
+            $cek = $this->db->get('tb_supplier')->result_array();
 
             if ($cek > 0) {
-                $this->db->select_max('kd_bid_skpd');
-                $result = $this->db->get('tb_bidang')->row_array();
-                $maxkdjenis = $result['kd_bid_skpd'];
-                $maxkdjenis++;
-                $no = $maxkdjenis++;
+                $this->db->select_max('kd_supplier');
+                $this->db->where($arrayx);
+                $result = $this->db->get('tb_supplier')->row_array();
+                $maxkd = $result['kd_supplier'];
+                $maxkd++;
+                $no = $maxkd++;
             } else {
                 $no = '1';
             }
-
-
 
             $data = array(
                 'tahun' => $tahun,

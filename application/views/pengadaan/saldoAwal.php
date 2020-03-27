@@ -7,7 +7,7 @@
     <?php
     if(isset($status))
     {
-        if($status==0)
+        if($status==1)
         {
     ?>
 
@@ -19,7 +19,7 @@
         {
     ?>
 
-    <a disabled class="btn btn-primary mb-3 disabled" >Tambah Saldo Awal</a>
+    <a class="btn btn-primary mb-3 disabled" style="color:white">Tambah Saldo Awal</a>
 
     <?php
         }

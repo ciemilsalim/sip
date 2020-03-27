@@ -11,7 +11,7 @@ class Permintaankb extends CI_Controller
     }
 
 
-    public function pengajuan()
+    public function index()
     {
         $data['title'] = 'Permintaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -34,7 +34,7 @@ class Permintaankb extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('permintaankb/pengajuan', $data);
+            $this->load->view('permintaankb/index', $data);
             $this->load->view('templates/footer');
 
         }
@@ -83,6 +83,7 @@ class Permintaankb extends CI_Controller
             if ($this->form_validation->run() == false) 
             {  
                 $data['detailpermintaan'] = $this->m_permintaankb->getPermintaansaldo($kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$bulan,$kdp,$kd_bid_skpd);
+                // echo $kd_bid_skpd;
                 // echo "<pre>"; print_r($data['detailpermintaan']);
                 // die;
                 $datax = array(

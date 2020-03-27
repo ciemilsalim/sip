@@ -59,7 +59,7 @@ $skpd = $list['skpd'];
     <table class="x" width="100%" style="font-size:0.8em;" border="1|0" cell-spacing="0">
                 <thead>
                     <tr>
-                        <th scope="col" rowspan="2">#</th>
+                        <th scope="col" rowspan="2">NO</th>
                         <th scope="col" rowspan="2">Tanggal <br>
                         Terima</th>
                         <th scope="col" rowspan="2">Dari</th>
@@ -136,19 +136,19 @@ $skpd = $list['skpd'];
                                      {
                                 ?>
                                  <tr>
-                                            <td style="text-align:center;"><?= $i++; ?></td>
+                                            <td style="text-align:center; " ><?= $i++; ?></td>
                                             <td ><?php echo date('d/m/Y',strtotime($value['tgl_penerimaan'])); ?></td>
                                             <td ></td>
                                             <td></td>
                                             <td ></td>
                                             <td ><?=$value['uraian_komponen'];?></td>
-                                            <td ><?=$value['satuan'];?></td>
-                                            <td ><?=$value['jumlah'];?></td>
+                                            <td style="text-align:center; "><?=$value['satuan'];?></td>
+                                            <td style="text-align:center; "><?=$value['jumlah'];?></td>
                                             <!-- <td style="border-right:none"></td>
                                             <td style="border-left:none"></td>
                                             <td style="border-right:none; font-weight:bold; color:red;">Rp </td> -->
                                             <!-- <td style="border-left:none; font-weight:bold; color:red; mso-number-format:\@;">Rp php echo number_format($totalsemua) ?></td> -->
-                                            <td>Rp <?php echo number_format($value['harga_satuan_da']);?></td>
+                                            <td >Rp <?php echo number_format($value['harga_satuan_da']);?></td>
                                             <td>Rp <?php echo number_format($value['harga_total']);?></td>
                                             <td></td>
                                             <td></td>
@@ -206,7 +206,7 @@ $skpd = $list['skpd'];
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >Pimpinan</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>Pimpinan</u></b></label>";
                         echo "<br>";
                         // echo ($pj2['nip']);
                     }
@@ -216,16 +216,16 @@ $skpd = $list['skpd'];
                 <?php
                     if(!empty($pj1))
                     {
-                        echo $pj1['jabatan']. '<br>'.$skpd['nama_skpd'];
+                        echo $pj1['jabatan']. '<br>'.ucwords(strtolower($skpd['nama_skpd']));
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >". $pj1['nama']."</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". $pj1['nama']."</u></b></label>";
                         echo "<br>";
-                        echo ($pj1['nip']);
+                        echo "NIP. ".($pj1['nip']);
                     }
                     ?>
                 </td>
@@ -240,9 +240,9 @@ $skpd = $list['skpd'];
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >". $pj3['nama']."</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". $pj3['nama']."</u></b></label>";
                         echo "<br>";
-                        echo ($pj3['nip']);
+                        echo "NIP. ".($pj3['nip']);
                     }
                     ?>
                 </td>

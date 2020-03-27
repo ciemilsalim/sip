@@ -13,7 +13,7 @@
     
     <div class="row">
         <div class="col-lg-12" >
-            <form action="<?= base_url("laporan/downloadtransaksi/"); ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url("laporan/downloadpersediaan/"); ?>" method="POST" enctype="multipart/form-data">
                 <input type="radio" class="btn btn-primary" name="pilih" value="pdf" checked> Pdf</input>
                 <input type="radio" class="btn btn-primary" name="pilih" value="excel" > Excel</input>
                 <br>
@@ -22,9 +22,9 @@
                 <table>
                 <tr>
                     <td width="20%">
-                        <label>Laporan Pembelian</label>
+                        <label>Laporan Saldo Awal</label>
                         <div class="form-group">
-                            <select name="bulan" id="bulan" class="form-control">
+                            <select name="saldoawalbulan" id="saldoawalbulan" class="form-control">
                             <option value="">-- Pilih Bulan --</option> 
                             <option value="Januari">Januari</option> 
                             <option value="Februari">Februari</option> 
@@ -38,14 +38,16 @@
                             <option value="Oktober">Oktober</option> 
                             <option value="November">November</option> 
                             <option value="Desember">Desember</option> 
+                            <!-- <option value="1">Semester 1</option> 
+                            <option value="2">Semester 2</option>  -->
                             </select>
                         </div>
-                        <input type="submit" class="btn btn-success" name="pembelian" value="Download"/>
+                        <input type="submit" class="btn btn-success" name="saldoawal" value="Download"/>
                     </td>
                     <td width="20%">
                         <label>Buku Penerimaan</label>
                         <div class="form-group">
-                            <select name="bulan" id="bulan" class="form-control">
+                            <select name="bulanpenerimaan" id="bulanpenerimaan" class="form-control">
                             <option value="">-- Pilih Bulan --</option> 
                             <option value="Januari">Januari</option> 
                             <option value="Februari">Februari</option> 
@@ -59,6 +61,8 @@
                             <option value="Oktober">Oktober</option> 
                             <option value="November">November</option> 
                             <option value="Desember">Desember</option> 
+                            <option value="1">Semester 1</option> 
+                            <option value="2">Semester 2</option> 
                             </select>
                         </div>
                         <input type="submit" class="btn btn-success" name="penerimaan" value="Download"/>
@@ -66,7 +70,7 @@
                     <td width="20%">
                         <label>Buku Pengeluaran</label>
                         <div class="form-group">
-                            <select name="bulan" id="bulan" class="form-control">
+                            <select name="bulanpengeluaran" id="bulanpengeluaran" class="form-control">
                             <option value="">-- Pilih Bulan --</option> 
                             <option value="Januari">Januari</option> 
                             <option value="Februari">Februari</option> 

@@ -34,7 +34,7 @@ class Permintaanab extends CI_Controller
                 $tahun = $cektatw['tahun'];
                 $bulan= $cektatw['bulan'];
                 
-                $query = "SELECT a.*,sum(a.jumlah) as jumlah,SUM(a.harga_total) as harga_total, b.nama_sumber FROM tb_saldo a join tb_sumber_dana b on b.kd_sumber=a.kd_sumber where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.bulan='$bulan' GROUP BY a.kd_urusan,a.kd_bidang,a.kd_unit,a.kd_sub,a.kd_jenis,a.kd_komponen,a.kd_uraian,a.satuan, a.kd_sumber";
+                $query = "SELECT a.*,sum(a.jumlah) as jumlah,SUM(a.harga_total) as harga_total, b.nama_sumber FROM tb_saldo a join tb_sumber_dana b on b.kd_sumber=a.kd_sumber where a.kd_urusan='$kd_urusan' and a.kd_bidang='$kd_bidang' and a.kd_unit='$kd_unit' and a.kd_sub='$kd_sub' and a.tahun='$tahun' and a.bulan='$bulan' GROUP BY a.kd_urusan,a.kd_bidang,a.kd_unit,a.kd_sub,a.kd_jenis,a.kd_komponen,a.kd_uraian,a.satuan, a.kd_sumber, a.tahun_pengadaan, a.kd_pengadaan";
                 $data['komponen'] = $this->db->query($query)->result_array();;
 
                 $array2 = array('kd_urusan' => $this->session->userdata('kd_urusan'), 'kd_bidang' => $this->session->userdata('kd_bidang'), 'kd_unit' => $this->session->userdata('kd_unit'), 'kd_sub' => $this->session->userdata('kd_sub'));
@@ -142,8 +142,10 @@ class Permintaanab extends CI_Controller
                             'kd_bidang' => $kd_bidang,
                             'kd_unit' => $kd_unit,
                             'kd_sub' => $kd_sub,
-                            'kd_bid_skpd' => $kd_bidang,
-                            'kd_permintaan' => $kd,
+                            'kd_bid_skpd' => $kd_bid_skpd,
+                            'kd_permintaan ' => $kd,
+                            'tahun_pengadaan' => $datajson[$key]['tahunpengadaan'],
+                            'kd_pengadaan' => $datajson[$key]['kdpengadaan'],
                             'kd_jenis' => $datajson[$key]['kd_jenis'],
                             'kd_komponen' => $datajson[$key]['kd_komponen'],
                             'kd_uraian' => $datajson[$key]['kd_uraian'],

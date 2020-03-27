@@ -98,14 +98,14 @@ else
                         <input readonly type="text" class="form-control" id="no_faktur" name="no_faktur" value="<?php echo $pengadaan['nomor_faktur']; ?>">
                     </div>
                     <div class="form-group" style="width:35%">
-                        <input readonly type="date" class="form-control" id="tgl_faktur" name="tgl_faktur" value="<?php echo date('d/m/Y',strtotime($pengadaan['tgl_faktur'])); ?>">
+                        <input readonly type="text" class="form-control" id="tgl_faktur" name="tgl_faktur" value="<?php echo date('d/m/Y',strtotime($pengadaan['tgl_faktur'])); ?>">
                     </div>
                     <label>Bukti Penerimaan </label><br>
                     <div class="form-group" style="width:35%">
                         <input readonly type="text" class="form-control" id="no_bap" name="no_bap" value="<?php echo $pengadaan['nomor_bap']; ?>">
                     </div>
                     <div class="form-group" style="width:35%">
-                        <input readonly type="date" class="form-control" id="tgl_bap" name="tgl_bap" value="<?php echo date('d/m/Y',strtotime( $pengadaan['tgl_bap'])); ?>">
+                        <input readonly type="text" class="form-control" id="tgl_bap" name="tgl_bap" value="<?php echo date('d/m/Y',strtotime( $pengadaan['tgl_bap'])); ?>">
                     </div>
                     <label>No. SP2D </label><br>
                     <div class="form-group" style="width:35%">

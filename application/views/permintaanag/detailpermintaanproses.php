@@ -14,7 +14,7 @@ else
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-    <a href="<?=base_url('Permintaankb/proses') ?>" class="badge badge-success" width="100%">Kembali</a>
+    <a href="<?=base_url('Permintaanag/proses') ?>" class="badge badge-success" width="100%">Kembali</a>
     <br>
 
     

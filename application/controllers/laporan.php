@@ -86,26 +86,24 @@ class Laporan extends CI_Controller
             // $this->load->view('laporan/uraian', $data);
         }
 
-        redirect('laporan/parameter');
-
     }
 
-    public function transaksi()
+    public function index()
     {
-        $data['title'] = 'Laporan Transaksi';
+        $data['title'] = 'Laporan Persediaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('laporan/transaksi', $data);
+        $this->load->view('laporan/index', $data);
         $this->load->view('templates/footer');	
 
     }
 
-    public function downloadtransaksi()
+    public function downloadpersediaan()
     {
-        $data['title'] = 'Laporan Transaksi';
+        $data['title'] = 'Laporan Persediaan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         
@@ -115,20 +113,20 @@ class Laporan extends CI_Controller
         $kd_unit = $this->session->userdata('kd_unit');
         $kd_sub = $this->session->userdata('kd_sub');
 
-        if($this->input->post('pembelian'))
+        if($this->input->post('saldoawalbulan'))
         {
-            $tw = $this->input->post('tw');
+            $bulan = $this->input->post('saldoawalbulan');
             $pilih=$this->input->post('pilih');
-            $data['list'] = $this->Laporan_model->get_Download_pembelian($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
-            $this->load->view('laporan/pembelian', $data);
+            $data['list'] = $this->Laporan_model->get_Download_saldoawal($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$bulan);
+            // $this->load->view('laporan/pembelian', $data);
         }
 
         if($this->input->post('penerimaan'))
         {
-            $tw = $this->input->post('twpenerimaan');
+            $bulan = $this->input->post('bulanpenerimaan');
             $pilih=$this->input->post('pilih');
-            $data['list'] = $this->Laporan_model->get_Download_penerimaan($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
-            $this->load->view('laporan/penerimaan', $data);
+            $data['list'] = $this->Laporan_model->get_Download_penerimaan($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$bulan);
+            // $this->load->view('laporan/penerimaan', $data);
         }
 
         if($this->input->post('pengeluaran'))
@@ -136,7 +134,7 @@ class Laporan extends CI_Controller
             $tw = $this->input->post('twpengeluaran');
             $pilih=$this->input->post('pilih');
             $data['list'] = $this->Laporan_model->get_Download_pengeluaran($pilih,$kd_urusan,$kd_bidang,$kd_unit,$kd_sub,$tahun,$tw);
-            $this->load->view('laporan/pengeluaran', $data);
+            // $this->load->view('laporan/pengeluaran', $data);
         }
 
     }

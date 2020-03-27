@@ -532,12 +532,12 @@ class Pengadaan extends CI_Controller
             $this->db->where($array);
             $status = $this->db->get('tb_saldo_awal_skpd_status')->row_array();
             if (count($status) > 0) {
-                if ($data['status'] == 0) {
-                    $data['status'] = '0';
+                    if ($status['status_saldo_awal'] == 0) {
+                            $data['status'] = '0';
+                        } else {
+                            $data['status'] = '1';
+                        }
                 } else {
-                    $data['status'] = '1';
-                }
-            } else {
                 $data['status'] = '0';
             }
 
@@ -567,7 +567,7 @@ class Pengadaan extends CI_Controller
         $kd_unit = $this->session->userdata('kd_unit');
         $kd_sub = $this->session->userdata('kd_sub');
 
-        $this->db->where("tb_sumber_dana.kd_sumber NOT IN (select kd_sumber from tb_da where kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub' and tahun='$tahun' )", NULL, FALSE);
+        // $this->db->where("tb_sumber_dana.kd_sumber NOT IN (select kd_sumber from tb_da where kd_urusan='$kd_urusan' and kd_bidang='$kd_bidang' and kd_unit='$kd_unit' and kd_sub='$kd_sub' and tahun='$tahun' )",NULL,FALSE);
         $data['sumber'] = $this->db->get('tb_sumber_dana')->result_array();
 
 
@@ -615,6 +615,7 @@ class Pengadaan extends CI_Controller
                     'kd_uraian' => $datajson[$key]['kd_uraian'],
                     'uraian_komponen' => $datajson[$key]['uraian'],
                     'satuan' => $datajson[$key]['satuan'],
+                    'tahun_pengadaan' => '0',
                     'kd_pengadaan' => '0',
                     'harga_satuan_da' => $datajson[$key]['hargainput'],
                     'jumlah' => $datajson[$key]['jumlah'],

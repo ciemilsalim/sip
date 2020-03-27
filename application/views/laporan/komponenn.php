@@ -10,8 +10,19 @@ if ($action == "excel") {
 	header("Content-Disposition: attachment; filename=SIPkomponen.xls");
 } elseif ($action == "pdf") {
 ?>
-<style type="text/css" media="print">
-	@page { size: landscape; }
+<script>
+	(function(){
+		window.print();
+	})();
+</script>
+<?php
+}
+?>
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Komponen</title>
+    <style type="text/css" media="print">
     
     td
     {
@@ -39,18 +50,6 @@ if ($action == "excel") {
         border-left:1px solid #000;
     }
 </style>
-<script>
-	(function(){
-		window.print();
-	})();
-</script>
-<?php
-}
-?>
-<!DOCTYPE html>
-<html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Komponen</title>
 </head>
 <body>
     <div width="100%">
@@ -68,7 +67,7 @@ if ($action == "excel") {
 
         <br>
         <center>
-        <table class="x" width="100%" style="font-size:0.8em">
+        <table class="x" width="100%" style="font-size:0.8em" border="1|0">
         <thead>
                         <tr>
                             <th scope="col">#</th>

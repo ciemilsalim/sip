@@ -3,14 +3,14 @@
 $action = $list['action'];
 $pengadaan = $list['pengadaan'];  
 $skpd = $list['skpd'];  
-$tw = $list['tw'];  
+$bulan = $list['bulan'];  
 $pj1 = $list['pj1']; 
 $pj2 = $list['pj2']; 
 $pj3 = $list['pj3'];  
 
 if ($action == "excel") {
 	header("Content-type: application/vnd.ms-excel; charset=utf-8");
-	header("Content-Disposition: attachment; filename=SIPsupplier.xls");
+	header("Content-Disposition: attachment; filename=SIPpenerimaan.xls");
 } elseif ($action == "pdf") {
 ?>
 <style type="text/css" media="print">
@@ -38,6 +38,35 @@ if ($action == "excel") {
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Penerimaan</title>
+    <style type="text/css" media="print">
+	@page { size: landscape; }
+    
+    td
+    {
+        padding:6px;
+    }
+
+    th
+    {
+        padding:6px;
+    }
+
+    .x
+    {
+        border-spacing: 0px;
+        border-collapse: separate;
+        border-right:1px solid #000;
+        border-top:1px solid #000;
+    }
+    .x td {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+    .x th {
+        border-bottom:1px solid #000;
+        border-left:1px solid #000;
+    }
+</style>
 </head>
 <body>
 <div style="width:33 cm; height:21 cm; font-size:10px;">
@@ -49,7 +78,7 @@ if ($action == "excel") {
         <tr>
             <td colspan="12" style="font-weight:bold; text-align:center; font-size:1em;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                BUKU PENERIMAAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?>
+                BUKU PENERIMAAN BARANG <?php if ($bulan!='') { echo "BULAN ".strtoupper($bulan); } else echo ""; ?>
                 <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
@@ -62,7 +91,7 @@ if ($action == "excel") {
     {
         ?>
     <center>
-    <table style="font-size:0.9em;">
+    <table width="100%" style="font-size:0.9em;">
         <tr>
             <td width="10%" style="text-align:right">
                 <?php if (isset($skpd['foto'])){ ?>
@@ -71,7 +100,7 @@ if ($action == "excel") {
             </td>
             <td style="font-weight:bold; text-align:center; font-size:1em;">
                 <?php if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo "" ?> <br>
-                BUKU PENERIMAAN BARANG <?php if ($tw!='') { echo "TW. ".$tw; } else echo ""; ?> <br>
+                BUKU PENERIMAAN BARANG <?php if ($bulan!='') { echo "BULAN ".strtoupper($bulan); } else echo ""; ?> <br>
                 <?php if (isset($skpd['tahun'])) { echo "TAHUN ".$skpd['tahun'];} else echo "" ?>
             </td>
         </tr>
@@ -83,7 +112,7 @@ if ($action == "excel") {
 
     <br>
 
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" border="1|0" style="font-size:0.9em;">
+    <table class="x" id="dataTable" width="100%" cellspacing="0" border="1|0" style="font-size:0.8em;">
                 <thead>
                     <tr>
                         <th scope="col" rowspan="2">#</th>
@@ -178,7 +207,7 @@ if ($action == "excel") {
                                                 <br>
                                                 <?php echo substr($arr3['nomor_bap'],12);  ?></td>
                                             <td><?php if($arr3['tgl_bap']=='0000-00-00') echo ''; else echo  $arr3['tgl_bap'];?></td>
-                                            <td><?= $arr3['ket']; ?></td>
+                                            <td><?= $arr3['no_sp2d']; ?></td>
                                         </tr>
 
 
@@ -195,7 +224,7 @@ if ($action == "excel") {
                                                     <td style="mso-number-format:\@;"><?= $arr4['uraian_komponen']; ?></td>
                                                     <td style="mso-number-format:\@;"><?= $arr4['jumlah']; ?> <?= $arr4['satuan']; ?></td>
                                                     <!-- <td style="border-right:none">Rp </td> -->
-                                                    <td style="mso-number-format:\@;">Rp <?php echo number_format($arr4['harga_satuan']); ?></td>
+                                                    <td style="mso-number-format:\@;">Rp <?php echo number_format($arr4['harga_satuan_da']); ?></td>
                                                     <!-- <td style="border-right:none">Rp </td> -->
                                                     <td style="mso-number-format:\@;">Rp <?php echo number_format($arr4['harga_total']); ?></td>
                                                     <td></td>
@@ -226,7 +255,7 @@ if ($action == "excel") {
                                             <!-- <td style="border-right:none"></td>
                                             <td style="border-left:none"></td> -->
                                             <!-- <td style="border-right:none; font-weight:bold; color:blue;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold;  mso-number-format:\@;">Rp <?php echo number_format($total) ?></td>
+                                            <td style=" font-weight:bold;  mso-number-format:\@;">Rp <?php echo number_format($total) ?></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -242,18 +271,8 @@ if ($action == "excel") {
 
                                  <!-- sum everything -->
                                  <tr style="background-color:#dfe1ed">
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <!-- <td style="border-right:none"></td>
-                                            <td style="border-left:none"></td>
-                                            <td style="border-right:none; font-weight:bold; color:red;">Rp </td> -->
-                                            <td style="border-left:none; font-weight:bold; color:red; mso-number-format:\@;">Rp <?php echo number_format($totalsemua) ?></td>
+                                            <td colspan="8" style="text-align:center">Total Bulan <?php if ($bulan!='') { echo $bulan; } else echo ""; ?> </td>
+                                            <td style=" font-weight:bold; color:red; mso-number-format:\@;">Rp <?php echo number_format($totalsemua) ?></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -267,45 +286,48 @@ if ($action == "excel") {
         <!-- pj -->
         <br>
         <br>
-        <table width="100%" style=" font-size:0.9em">
+
+    <?php
+    if ($action == "excel") 
+    {
+    ?>
+        <table width="100%" style=" font-size:0.8em">
             <tr>
-                <td>
-                </td>
                 <td style="text-align:center;" colspan="12">
                     Buol, <?php echo tgl_indo(date('Y-m-d')); ?>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center;" width="50%" colspan="6">
+                <td style="text-align:center; mso-number-format:\@;" width="50%" colspan="5">
                     <?php
                     if(!empty($pj2))
                     {
-                        echo strtoupper($pj2['jabatan']);
+                        echo "<b>".strtoupper($pj2['jabatan']);
                         echo "<br>";
-                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo ""; 
+                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd'])."</b>";} else echo ""; 
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >". strtoupper($pj2['nama'])."</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;'><b><u>". strtoupper($pj2['nama'])."</u></b></label>";
                         echo "<br>";
                         echo ($pj2['nip']);
                     }
                     ?>
                 </td>
-                <td style="text-align:center;" width="50%" colspan="6">
+                <td style="text-align:center;mso-number-format:\@;" width="50%" colspan="5">
                 <?php
                     if(!empty($pj3))
                     {
-                        echo strtoupper($pj3['jabatan']);
+                        echo "<b>".strtoupper($pj3['jabatan'])."</b>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >". strtoupper($pj3['nama'])."</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". strtoupper($pj3['nama'])."</u></b></label>";
                         echo "<br>";
                         echo ($pj3['nip']);
                     }
@@ -313,19 +335,19 @@ if ($action == "excel") {
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="12">
+                <td style="text-align:center; mso-number-format:\@;" colspan="12">
                 <?php
                     if(!empty($pj1))
                     {
-                        echo strtoupper($pj1['jabatan']);
+                        echo "<b>".strtoupper($pj1['jabatan']);
                         echo "<br>";
-                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd']);} else echo ""; 
+                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd'])."</b>";} else echo ""; 
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         echo "<br>";
                         
-                        echo "<label style='text-decoration:underline; font-weight:bold;' >". strtoupper($pj1['nama'])."</label>";
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". strtoupper($pj1['nama'])."</u></b></label>";
                         echo "<br>";
                         echo ($pj1['nip']);
                     }
@@ -334,6 +356,81 @@ if ($action == "excel") {
             </tr>
         </table>
         </center>
+    <?php
+    }
+    else
+    {
+    ?>
+
+            <table width="100%" style=" font-size:0.8em">
+            <tr>
+                <td style="text-align:center;" colspan="2">
+                    Buol, <?php echo tgl_indo(date('Y-m-d')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center; mso-number-format:\@;" width="50%">
+                    <?php
+                    if(!empty($pj2))
+                    {
+                        echo "<b>".strtoupper($pj2['jabatan']);
+                        echo "<br>";
+                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd'])."</b>";} else echo ""; 
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        
+                        echo "<label style='text-decoration:underline; font-weight:bold;'><b><u>". strtoupper($pj2['nama'])."</u></b></label>";
+                        echo "<br>";
+                        echo ($pj2['nip']);
+                    }
+                    ?>
+                </td>
+                <td style="text-align:center;mso-number-format:\@;" width="50%">
+                <?php
+                    if(!empty($pj3))
+                    {
+                        echo "<b>".strtoupper($pj3['jabatan'])."</b>";
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". strtoupper($pj3['nama'])."</u></b></label>";
+                        echo "<br>";
+                        echo ($pj3['nip']);
+                    }
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center; mso-number-format:\@;" colspan="2">
+                <?php
+                    if(!empty($pj1))
+                    {
+                        echo "<b>".strtoupper($pj1['jabatan']);
+                        echo "<br>";
+                        if (isset($skpd['nama_skpd'])) { echo strtoupper($skpd['nama_skpd'])."</b>";} else echo ""; 
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        echo "<br>";
+                        
+                        echo "<label style='text-decoration:underline; font-weight:bold;' ><b><u>". strtoupper($pj1['nama'])."</u></b></label>";
+                        echo "<br>";
+                        echo ($pj1['nip']);
+                    }
+                    ?>
+                </td>
+            </tr>
+        </table>
+        </center>
+
+    <?php
+    }
+    ?>
 </div>
 </body>
 </html>

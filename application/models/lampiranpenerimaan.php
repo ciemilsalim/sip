@@ -49,7 +49,14 @@ class Lampiranpenerimaan extends CI_Model
         $namafile='lampiran'.$rand;
         $mpdf = new \Mpdf\Mpdf();
         $html = $this->load->view('pengadaan/lampiran',$data,true);
-        $mpdf->AddPage('L');
+        $mpdf->AddPage('L', '', '', '', '',
+            5, // margin_left
+            5, // margin right
+            5, // margin top
+            5, // margin bottom
+            0, // margin header
+            5); // margin footer
+        $mpdf->SetHTMLFooter("<p style='font-size:0.6em; text-align:right;'><i>printedbySIPBuol</i></p>");
         $mpdf->WriteHTML($html);
         $mpdf->Output($namafile,"I");
         exit();
